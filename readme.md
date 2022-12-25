@@ -30,7 +30,7 @@ The functionality realized by these script sets is as follows:
     * Update linux pkgs, install apache, php,  and mariadb - Terraform uses ssh to access 
       web server using the aforementioned keypair. 
     * Start httpd and configure to auto start via systemctl
-    * After launching, you will be able to access Apache test page on the webserver via the instance's public IP address. 
+    * After launching, you will be able to access Apache test page on the webserver via the instance's public IP address: http://z.y.x.w
     
 
 ----------------------------------
