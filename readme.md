@@ -44,10 +44,9 @@ There are a a few steps to set up the environment:
 Environment is ready to run Terraform scripts. 
 
 ## Running .tf Scripts to Build AWS Infrastructure
-1. CD to the directory with .tf scripts and run the following commands. Follow the prompts. 
+1. CD to the directory with .tf scripts and run the following commands. Follow the prompts. Run from the region specified in your provider.tf file. 
 2. `$terraform init`
-3. `$terraform plan`
-4. `$terraform apply`
+3. `$terraform apply`
 
 
 ## Cleaning up AWS Infrastructure
