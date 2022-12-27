@@ -29,8 +29,9 @@ function install_terraform() {
 }
 
 # Set up git account, will prompt for pwd
-git config --global user.email "dan@dsblue.net"
-git config --global user.name "dedeen"
+#git config --global user.email "****"
+#git config --global user.name "****"
+
 
 
 install_prerequisites
