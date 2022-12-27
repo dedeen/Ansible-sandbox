@@ -1,5 +1,5 @@
 # AWS VPC, Keys, EC2s, WebServer Launch
-This repo contains two sets of scripts to create resources in AWS, one set using CloudFormation, and one set using Terraform with AWS modules. 
+This repo contains a set of scripts to create resources in AWS with Terraform. 
 Dan Edeen, dan@dsblue.net, 2022 
 
 ## Overview
