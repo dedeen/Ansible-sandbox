@@ -1,4 +1,4 @@
-# IaC Scripts for AWS
+# AWS VPC, Keys, EC2s, WebServer Launch
 This repo contains two sets of scripts to create resources in AWS, one set using CloudFormation, and one set using Terraform with AWS modules. 
 Dan Edeen, dan@dsblue.net, 2022 
 
