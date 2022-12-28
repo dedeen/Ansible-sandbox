@@ -1,5 +1,5 @@
 # AWS VPC, Keys, EC2s, WebServer Launch
-This repo contains a set of scripts to build a VPC with multiple subnets, routes, IGW, and NATGW. In addition, it launches a functioning webserver (LAMP stack), configured and running, and accessible from the Internet via its public IP. This suite is fully functional and can be run in your account. I've included a nice AWS keypair generator that is used for the EC2s and saved as a local .pem file for download and use. 
+This repo contains a set of scripts to build a VPC with multiple subnets, routes, IGW, and NATGW. In addition, it launches a functioning webserver (LAMP stack), configured and running, and accessible from the Internet via its public IP. This suite is fully functional and can be run in your account. I've included a nice AWS keypair generator that is used for the EC2s and saves as a local .pem file for download and use. 
 
 Dan Edeen, dan@dsblue.net, 2022 
 
