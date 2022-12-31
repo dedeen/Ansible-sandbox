@@ -15,9 +15,9 @@ module "vpc" {
     name              = each.value.region_dc
     cidr              = each.value.cidr
     azs               = each.value.az_list
-    private_subnets   = [each.value.priv_subnet]
-    public_subnets    = [each.value.publ_subnet]
-    intra_subnets     = [each.value.intra_subnet]
+    private_subnets   = [each.value.server_subnet]
+    public_subnets    = [each.value.edge_subnet]
+    intra_subnets     = [each.value.public_subnet]
     enable_ipv6             = false
     enable_nat_gateway      = true
     one_nat_gateway_per_az  = false
