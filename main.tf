@@ -49,6 +49,7 @@ resource "aws_security_group" "allow_inbound_icmp" {
 resource "aws_security_group" "allow_http_https" {
   name          = "allow_http_https"
   description   = "allow_http_https"
+  depends_on 	= [module.vpc]
   vpc_id        = module.vpc["datacenter1"].vpc_id
   ingress {
     description         = "http"
@@ -76,6 +77,7 @@ ingress {
 resource "aws_security_group" "allow_ipv4" {
   name                  = "allow_ipv4"
   description           = "allow_ipv4"
+  depends_on 		= [module.vpc]
   vpc_id                = module.vpc["datacenter1"].vpc_id
   ingress {
     description         = "inbound v4"
@@ -101,6 +103,7 @@ resource "aws_security_group" "allow_ipv4" {
 resource "aws_security_group" "allow_ssh" {
   name                  = "allow_ssh"
   description           = "All inbound ssh"
+  depends_on 		= [module.vpc]
   vpc_id                = module.vpc["datacenter1"].vpc_id
   ingress {
     description         = "All inbound ssh"
@@ -126,6 +129,7 @@ resource "aws_security_group" "allow_ssh" {
 resource "aws_security_group" "allow_intra_vpc" {
   name                  = "allow_intra_vpc"
   description           = "All intra_vpc"
+  depends_on 	= [module.vpc]
   vpc_id                = module.vpc["datacenter1"].vpc_id
   ingress {
     description         = "All intra vpc v4"
