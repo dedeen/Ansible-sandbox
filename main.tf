@@ -31,6 +31,7 @@ module "vpc" {
 resource "aws_security_group" "allow_inbound_icmp" {
   name          = "allow_inbound_icmp"
   description   = "allow_inbound icmp"
+  depends_on 	= [module.vpc]
   vpc_id        = module.vpc["datacenter1"].vpc_id
   ingress {
     description         = "ICMP inbound"
