@@ -16,11 +16,11 @@ module "vpc" {
     cidr              = each.value.cidr
     azs               = each.value.az_list
     private_subnets   = [each.value.server_subnet]
-    private_subnet_names = "server_subnet"
+    private_subnet_names = ["server_subnet"]
     public_subnets    = [each.value.edge_subnet]
-    public_subnet_names = "edge_subnet"
+    public_subnet_names = ["edge_subnet"]
     intra_subnets     = [each.value.public_subnet]
-    intra_subnet_names = "public_subnet"
+    intra_subnet_names = ["public_subnet"]
     enable_ipv6             = false
     enable_nat_gateway      = true
     one_nat_gateway_per_az  = false
