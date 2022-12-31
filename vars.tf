@@ -12,9 +12,9 @@ variable "new_vpcs" {
 			region_dc		= 	"oregon-dc1"
 			cidr			= 	"192.168.0.0/16"
 			az_list			= 	["us-west-2a","us-west-2b"]
-			publ_subnet		= 	"192.168.1.0/24"
-			priv_subnet		= 	"192.168.2.0/24" 
-			intra_subnets 	= "192.168.3.0/24"     
+			edge_subnet		= 	"192.168.1.0/24"
+			server_subnet		= 	"192.168.2.0/24" 
+			public_subnet		= 	"192.168.3.0/24"     
 		}  
 /*a		},   
 		datacenter2 = {
@@ -22,8 +22,8 @@ variable "new_vpcs" {
 			cidr			= 	"192.168.0.0/16"
 			az_list			= 	["us-west-2a","us-west-2b"]
 			publ_subnet		= 	"192.168.7.0/24"
-			priv_subnet		= "192.168.8.0/24"       
-			intra_subnets 	= "192.168.9.0/24"       
+			priv_subnet		= 	"192.168.8.0/24"       
+			intra_subnet 		= 	"192.168.9.0/24"       
 		}   a*/	
 	}   
 }
