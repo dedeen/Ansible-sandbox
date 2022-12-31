@@ -145,7 +145,7 @@ resource "aws_security_group" "allow_intra_vpc" {
     Owner = "dan-via-terraform"
   }
 }
-
+/*
 # Create EC2 Instance(s) in the public subnet - allow inbound icmp and other ipv4
 resource "aws_instance" "ec2-public-subnet" {
     ami                                 = "ami-094125af156557ca2"
@@ -192,7 +192,7 @@ resource "aws_instance" "ec2-intra-subnet" {
           Name  = "ec2-inst1-intra"
     }
 }
-
+*/
 # Create web server in the public subnet, install Apache, PHP, MariaDB 
 #    Start up web server, open ports 80 and 443 
 #    Also need to open ssh inbound for remote-exec (below), and 
