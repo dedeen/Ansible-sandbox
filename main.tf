@@ -244,6 +244,7 @@ resource "aws_instance" "ec2-intra-subnet" {
 #    Also need to open ssh inbound for remote-exec (below), and 
 #    outbound connection for linux to get software updates.  
 
+/*
   resource "aws_instance" "ec2-webserver1" {
     ami                                 = "ami-094125af156557ca2"
     instance_type                       = "t2.micro"
@@ -273,3 +274,5 @@ resource "aws_instance" "ec2-intra-subnet" {
                    "sudo systemctl enable httpd"]
    }   
 }
+
+*/
