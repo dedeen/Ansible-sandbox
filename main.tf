@@ -1,7 +1,8 @@
-/*  Terraform to create a multi-subnet VPC with PAN firewall between outside and the internal subnets. 
-      -- Dan Edeen, dan@dsblue.net, 2022  --   
-*/
-	
+#  Terraform to create a multi-subnet VPC with PAN firewall between outside and the internal subnets. 
+#      -- https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest
+#      -- Dan Edeen, dan@dsblue.net, 2022  --   
+#
+
 # Creating standalone EIPs for the NATGW - may use later or not, passed in via external_nat_id_ids in module "vpc"
 resource "aws_eip" "nat" {
     count 	= 1 
@@ -21,6 +22,8 @@ module "vpc" {
     name              = each.value.region_dc
     cidr              = each.value.cidr
     azs              		= each.value.az_list
+	
+      # Create subnets: private get route through NATGW, intra do not
     private_subnets   		= [each.value.server_subnet]	# private subnets are created with route to I through NATGW
     private_subnet_names 	= ["server_subnet"]
     public_subnets    		= [each.value.edge_subnet]
@@ -29,15 +32,17 @@ module "vpc" {
     intra_subnet_names 		= ["public_subnet"]
     enable_ipv6            	= false
 	
-      # Create single NATGW for VPC, all private subnets must route through it to reach Internet 
+      # Create single NATGW for each VPC, all private subnets must route through it to reach Internet 
     enable_nat_gateway     	= true
-    one_nat_gateway_per_az  	= false # single_nat_gateway overrides this value
+    one_nat_gateway_per_az  	= false # single_nat_gateway overrides this parameter
     single_nat_gateway      	= true	# only need to create 1 EIP above with this setting
-    reuse_nat_ips	    	= true	# skip creating EIPs for NATGWs, instead use prev created 
-    external_nat_ip_ids	    	= "${aws_eip.nat.*.id}"
+    reuse_nat_ips	    	= true	# dont create EIPs here for NATGW, instead use from above 
+    external_nat_ip_ids	    	= "${aws_eip.nat.*.id}"			# as per above 
 }
 
-# Create SecGrp to allow ICMP into attached subnet
+    # Create NACLs, can specify per subnet here, for now ust going to use teh default NACL for the VPC
+	
+    # Create SecGrp to allow ICMP into attached subnet
 resource "aws_security_group" "allow_inbound_icmp" {
   name          = "allow_inbound_icmp"
   description   = "allow_inbound icmp"
