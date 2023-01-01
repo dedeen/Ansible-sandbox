@@ -83,7 +83,7 @@ ingress {
   }
 	  
   tags = {
-    Name = "allow_http_https"
+    Name = "allow_http_https" 
     Owner = "dan-via-terraform"
   }
 }
