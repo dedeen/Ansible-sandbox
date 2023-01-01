@@ -30,7 +30,7 @@ module "vpc" {
     public_subnets    		= [each.value.edge_subnet]
     public_subnet_names 	= ["edge_subnet"]
     intra_subnets     		= [each.value.public_subnet]	# intra subnets are created without route to Internet
-    intra_subnet_names 		= ["public_subnet"]
+    intra_subnet_names 		= ["vault_subnet"]
     enable_ipv6            	= false
 	
     # Create single NATGW for each VPC, all private subnets must route through it to reach Internet 
@@ -41,7 +41,7 @@ module "vpc" {
     external_nat_ip_ids	    	= "${aws_eip.nat.*.id}"			# as per above 
 }
 
-# Create NACLs, can specify per subnet here 
+# NACL for public (edge) subnet 
 resource "aws_network_acl" "NACL-edge" {
   vpc_id      		= module.vpc["datacenter1"].vpc_id
   depends_on 	= [module.vpc]
@@ -67,8 +67,63 @@ resource "aws_network_acl" "NACL-edge" {
   }
 }
 
-# Assoc NACL to subnet
+ >>
+# NACLs for private (server) subnet
+resource "aws_network_acl" "NACL-server" {
+  vpc_id      		= module.vpc["datacenter1"].vpc_id
+  depends_on 	= [module.vpc]
+  
+  ingress {
+    protocol		= "-1"
+    rule_no		= 100
+    action		= "allow"
+    cidr_block		= "0.0.0.0/0"
+    from_port		= 0	# ignored with protocol -1
+    to_port		= 0	# ignored with protocol -1
+  }
+  egress {
+    protocol		= "-1"
+    rule_no		= 101
+    action		= "allow"
+    cidr_block		= "0.0.0.0/0"
+    from_port		= 0	# ignored with protocol -1
+    to_port		= 0	# ignored with protocol -1
+  }
+  tags = {
+    Name = "NACL-server"
+  }
+}
+
+# NACLs for intra (vault) subnet
+resource "aws_network_acl" "NACL-vault" {
+  vpc_id      		= module.vpc["datacenter1"].vpc_id
+  depends_on 	= [module.vpc]
+  
+  ingress {
+    protocol		= "-1"
+    rule_no		= 100
+    action		= "allow"
+    cidr_block		= "0.0.0.0/0"
+    from_port		= 0	# ignored with protocol -1
+    to_port		= 0	# ignored with protocol -1
+  }
+  egress {
+    protocol		= "-1"
+    rule_no		= 101
+    action		= "allow"
+    cidr_block		= "0.0.0.0/0"
+    from_port		= 0	# ignored with protocol -1
+    to_port		= 0	# ignored with protocol -1
+  }
+  tags = {
+    Name = "NACL-vault"
+  }
+}	  
+	  
+>>
+# Assoc NACLs to subnets
 resource "aws_network_acl_association" "edgeNACL_snet" {
+  depends_on	 = [module.vpc, aws_network_acl.public.id, module.vpc["datacenter1"].public_subnets[0]] 
   network_acl_id = aws_network_acl.public.id
   subnet_id      = module.vpc["datacenter1"].public_subnets[0]	#public == edge here
 }
