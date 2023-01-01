@@ -44,8 +44,8 @@ module "vpc" {
 # Create NACLs, can specify per subnet here 
 resource "aws_network_acl" "NACL-edge" {
   vpc_id      		= module.vpc["datacenter1"].vpc_id
-  #subnet_ids		= module.vpc["datacenter1"].public_subnets[0]
-
+  depends_on 	= [module.vpc]
+  
   ingress {
     protocol		= "-1"
     rule_no		= 100
