@@ -1,8 +1,14 @@
-/*  Terraform to create a single VPC in specified region, using vpc module: 
-      - Two subnets, one public and one private 
-      - NAT GW, IGW with EIP, routes needed 
-          -- Dan Edeen, dan@dsblue.net, 2022  --   
+/*  Terraform to create a multi-subnet VPC with PAN firewall between outside and the internal subnets. 
+      -- Dan Edeen, dan@dsblue.net, 2022  --   
 */
+	
+# Creating standalone EIPs for the NATGW - may use later or not, passed in via external_nat_id_ids in module "vpc"
+resource "aws_eip" "nat" {
+    count 	= 1 
+    vpc 	= true
+}
+# 
+
 #
 # Build VPCs for DataCenters
 module "vpc" {
@@ -14,17 +20,21 @@ module "vpc" {
     }
     name              = each.value.region_dc
     cidr              = each.value.cidr
-    azs               = each.value.az_list
-    private_subnets   = [each.value.server_subnet]
-    private_subnet_names = ["server_subnet"]
-    public_subnets    = [each.value.edge_subnet]
-    public_subnet_names = ["edge_subnet"]
-    intra_subnets     = [each.value.public_subnet]
-    intra_subnet_names = ["public_subnet"]
-    enable_ipv6             = false
-    enable_nat_gateway      = true
-    one_nat_gateway_per_az  = false
-    single_nat_gateway      = true
+    azs              		= each.value.az_list
+    private_subnets   		= [each.value.server_subnet]	# private subnets are created with route to I through NATGW
+    private_subnet_names 	= ["server_subnet"]
+    public_subnets    		= [each.value.edge_subnet]
+    public_subnet_names 	= ["edge_subnet"]
+    intra_subnets     		= [each.value.public_subnet]	# intra subnets are created without route to Internet
+    intra_subnet_names 		= ["public_subnet"]
+    enable_ipv6            	= false
+	
+      # Create single NATGW for VPC, all private subnets must route through it to reach Internet 
+    enable_nat_gateway     	= true
+    one_nat_gateway_per_az  	= false # single_nat_gateway overrides this value
+    single_nat_gateway      	= true	# only need to create 1 EIP above with this setting
+    reuse_nat_ips	    	= true	# skip creating EIPs for NATGWs, instead use prev created 
+    external_nat_ip_ids	    	= "${aws_eip.nat.*.id}"
 }
 
 # Create SecGrp to allow ICMP into attached subnet
