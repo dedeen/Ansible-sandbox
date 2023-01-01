@@ -24,7 +24,7 @@ module "vpc" {
     cidr              = each.value.cidr
     azs              		= each.value.az_list
 	
-      # Create subnets: private get route through NATGW, intra do not
+    # Create subnets: private get route through NATGW, intra do not
     private_subnets   		= [each.value.server_subnet]	# private subnets are created with route to I through NATGW
     private_subnet_names 	= ["server_subnet"]
     public_subnets    		= [each.value.edge_subnet]
@@ -33,7 +33,7 @@ module "vpc" {
     intra_subnet_names 		= ["public_subnet"]
     enable_ipv6            	= false
 	
-      # Create single NATGW for each VPC, all private subnets must route through it to reach Internet 
+    # Create single NATGW for each VPC, all private subnets must route through it to reach Internet 
     enable_nat_gateway     	= true
     one_nat_gateway_per_az  	= false # single_nat_gateway overrides this parameter
     single_nat_gateway      	= true	# only need to create 1 EIP above with this setting
@@ -41,10 +41,10 @@ module "vpc" {
     external_nat_ip_ids	    	= "${aws_eip.nat.*.id}"			# as per above 
 }
 
-    # Create NACLs, can specify per subnet here, for now ust going to use teh default NACL for the VPC
+# Create NACLs, can specify per subnet here 
 resource "aws_network_acl" "public" {
   vpc_id      		= module.vpc["datacenter1"].vpc_id
-  subnet_ids		= module.vpc["datacenter1"].public_subnets[0]
+  #subnet_ids		= module.vpc["datacenter1"].public_subnets[0]
 
   ingress {
     protocol		= "-1"
@@ -66,7 +66,13 @@ resource "aws_network_acl" "public" {
     Name = "NACL-public-subnet"
   }
 }
-	  
+
+# Assoc NACL to subnet
+resource "aws_network_acl_association" "publicNACL_snet" {
+  network_acl_id = aws_network_acl.public.id
+  subnet_id      = module.vpc["datacenter1"].public_subnets[0]
+}
+	
     
     # Create SecGrp to allow ICMP into attached subnet
 resource "aws_security_group" "allow_inbound_icmp" {
