@@ -137,7 +137,7 @@ resource "aws_network_acl_association" "vaultNACL_snet" {
 }
 	
     
-    # Create SecGrp to allow ICMP into attached subnet
+ # Create SecGrp to allow ICMP into attached subnet
 resource "aws_security_group" "allow_inbound_icmp" {
   name          = "allow_inbound_icmp"
   description   = "allow_inbound icmp"
@@ -151,7 +151,7 @@ resource "aws_security_group" "allow_inbound_icmp" {
     protocol            = "icmp"
   }
   tags = {
-    Name = "allow_inbound_icmp"
+    Name = "SG-inbnd_icmp"
     Owner = "dan-via-terraform"
   }
 }
@@ -178,7 +178,7 @@ ingress {
   }
 	  
   tags = {
-    Name = "allow_http_https" 
+    Name = "SG-inbnd_http_https" 
     Owner = "dan-via-terraform"
   }
 }
@@ -204,7 +204,7 @@ resource "aws_security_group" "allow_ipv4" {
     protocol            = "-1"
   }
   tags = {
-    Name = "allow_ipv4"
+    Name = "SG-allow_ipv4"
     Owner = "dan-via-terraform"
   }
 }
@@ -230,7 +230,7 @@ resource "aws_security_group" "allow_ssh" {
     protocol            = "-1"
   }
   tags = {
-    Name = "allow_ssh"
+    Name = "SG-inbnd_ssh"
     Owner = "dan-via-terraform"
   }
 }
@@ -256,7 +256,7 @@ resource "aws_security_group" "allow_intra_vpc" {
     protocol            = "-1"
   }
   tags = {
-    Name = "allow_intra_vpc"
+    Name = "SG-intra_vpc_v4"
     Owner = "dan-via-terraform"
   }
 }
