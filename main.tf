@@ -138,9 +138,9 @@ resource "aws_network_acl_association" "vaultNACL_snet" {
 	
     
  # Create SecGrp to allow ICMP into attached subnet
-resource "aws_security_group" "allow_inbound_icmp" {
-  name          = "allow_inbound_icmp"
-  description   = "allow_inbound icmp"
+resource "aws_security_group" "SG-inbnd_icmp" {
+  name          = "SG-inbnd_icmp"
+  description   = "SG-inbnd_icmp"
   depends_on 	= [module.vpc]
   vpc_id        = module.vpc["datacenter1"].vpc_id
   ingress {
@@ -156,9 +156,9 @@ resource "aws_security_group" "allow_inbound_icmp" {
   }
 }
 
-resource "aws_security_group" "allow_http_https" {
-  name          = "allow_http_https"
-  description   = "allow_http_https"
+resource "aws_security_group" "SG-inbnd_http" {
+  name          = "SG-inbnd_http"
+  description   = "SG-inbnd_http"
   depends_on 	= [module.vpc]
   vpc_id        = module.vpc["datacenter1"].vpc_id
   ingress {
@@ -178,15 +178,15 @@ ingress {
   }
 	  
   tags = {
-    Name = "SG-inbnd_http_https" 
+    Name = "SG-inbnd_http" 
     Owner = "dan-via-terraform"
   }
 }
 
 # Create SecGrp to allow all IPv4 traffic into attached subnet
-resource "aws_security_group" "allow_ipv4" {
-  name                  = "allow_ipv4"
-  description           = "allow_ipv4"
+resource "aws_security_group" "SG-allow_ipv4" {
+  name                  = "SG-allow_ipv4"
+  description           = "SG-allow_ipv4"
   depends_on 		= [module.vpc]
   vpc_id                = module.vpc["datacenter1"].vpc_id
   ingress {
@@ -210,9 +210,9 @@ resource "aws_security_group" "allow_ipv4" {
 }
 
 # Create SecGrp to allow inbound ssh, outbound all 
-resource "aws_security_group" "allow_ssh" {
-  name                  = "allow_ssh"
-  description           = "All inbound ssh"
+resource "aws_security_group" "SG-inbnd_ssh" {
+  name                  = "SG-inbnd_ssh"
+  description           = "SG-inbnd_ssh"
   depends_on 		= [module.vpc]
   vpc_id                = module.vpc["datacenter1"].vpc_id
   ingress {
@@ -236,9 +236,9 @@ resource "aws_security_group" "allow_ssh" {
 }
 
 # Create SecGrp to allow traffic from within the public and private subnets, blocked outside of these 
-resource "aws_security_group" "allow_intra_vpc" {
-  name                  = "allow_intra_vpc"
-  description           = "All intra_vpc"
+resource "aws_security_group" "SG-intra_vpc_v4" {
+  name                  = "SG-intra_vpc_v4"
+  description           = "SG-intra_vpc_v4"
   depends_on 	= [module.vpc]
   vpc_id                = module.vpc["datacenter1"].vpc_id
   ingress {
