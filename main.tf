@@ -67,7 +67,6 @@ resource "aws_network_acl" "NACL-edge" {
   }
 }
 
- >>
 # NACLs for private (server) subnet
 resource "aws_network_acl" "NACL-server" {
   vpc_id      		= module.vpc["datacenter1"].vpc_id
@@ -120,7 +119,6 @@ resource "aws_network_acl" "NACL-vault" {
   }
 }	  
 	  
->>
 # Assoc NACLs to subnets
 resource "aws_network_acl_association" "edgeNACL_snet" {
   depends_on	 = [module.vpc, aws_network_acl.public.id, module.vpc["datacenter1"].public_subnets[0]] 
