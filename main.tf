@@ -42,7 +42,31 @@ module "vpc" {
 }
 
     # Create NACLs, can specify per subnet here, for now ust going to use teh default NACL for the VPC
-	
+resource "aws_network_acl" "public" {
+  vpc_id      		= module.vpc["datacenter1"].vpc_id
+
+  ingress {
+    protocol		= "-1"
+    rule_no		= 100
+    action		= "allow"
+    cidr_block		= "0.0.0.0/0"
+    from_port		= 0	# ignored with protocol -1
+    to_port		= 0	# ignored with protocol -1
+  }
+  egress {
+    protocol		= "-1"
+    rule_no		= 101
+    action		= "allow"
+    cidr_block		= "0.0.0.0/0"
+    from_port		= 0	# ignored with protocol -1
+    to_port		= 0	# ignored with protocol -1
+  }
+  tags = {
+    Name = "NACL-public-subnet"
+  }
+}
+	  
+    
     # Create SecGrp to allow ICMP into attached subnet
 resource "aws_security_group" "allow_inbound_icmp" {
   name          = "allow_inbound_icmp"
