@@ -42,7 +42,7 @@ module "vpc" {
 }
 
 # Create NACLs, can specify per subnet here 
-resource "aws_network_acl" "public" {
+resource "aws_network_acl" "NACL-edge" {
   vpc_id      		= module.vpc["datacenter1"].vpc_id
   #subnet_ids		= module.vpc["datacenter1"].public_subnets[0]
 
@@ -63,14 +63,14 @@ resource "aws_network_acl" "public" {
     to_port		= 0	# ignored with protocol -1
   }
   tags = {
-    Name = "NACL-public-subnet"
+    Name = "NACL-edge"
   }
 }
 
 # Assoc NACL to subnet
-resource "aws_network_acl_association" "publicNACL_snet" {
+resource "aws_network_acl_association" "edgeNACL_snet" {
   network_acl_id = aws_network_acl.public.id
-  subnet_id      = module.vpc["datacenter1"].public_subnets[0]
+  subnet_id      = module.vpc["datacenter1"].public_subnets[0]	#public == edge here
 }
 	
     
