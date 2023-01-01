@@ -44,6 +44,7 @@ module "vpc" {
     # Create NACLs, can specify per subnet here, for now ust going to use teh default NACL for the VPC
 resource "aws_network_acl" "public" {
   vpc_id      		= module.vpc["datacenter1"].vpc_id
+  subnet_ids		= module.vpc["datacenter1"].public_subnets[0]
 
   ingress {
     protocol		= "-1"
