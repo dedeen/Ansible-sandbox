@@ -263,8 +263,7 @@ resource "aws_security_group" "SG-intra_vpc_v4" {
   }
 }
 
-	  
-/*
+##############	  
 # Create web servers in the my subnets, install Apache, PHP, MariaDB 
 #    Start up web server, open ports 80 and 443 
 #    Also need to open ssh inbound for remote-exec (below), and 
@@ -300,7 +299,8 @@ resource "aws_security_group" "SG-intra_vpc_v4" {
                    "sudo systemctl enable httpd"]
    }   
 }
-	  
+
+/*	    
 resource "aws_instance" "WebSrv-1-server-subnet" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
