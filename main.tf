@@ -288,7 +288,7 @@ resource "aws_security_group" "SG-intra_vpc_v4" {
             timeout     	= "5m"
             #private_key        = file(local.keypair_name)
             private_key     	= "${tls_private_key.dev_key.private_key_pem}"
-            host = aws_instance.WebSrv-1-edge-subnet.public_ip
+            host = aws_instance.WebSrv1-edge-subnet.public_ip
     }
             
    provisioner "remote-exec" {
