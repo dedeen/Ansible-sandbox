@@ -314,6 +314,7 @@ resource "aws_instance" "WebSrv-1-server-subnet" {
           Owner = "dan-via-terraform"
           Name  = "WebSrv-1-server-subnet"
     }
+/*
   connection {
             type        	= "ssh"
             user        	= "ec2-user"
@@ -331,4 +332,5 @@ resource "aws_instance" "WebSrv-1-server-subnet" {
                    "sudo systemctl enable httpd"]
    }   
 }
+	  */
 
