@@ -307,7 +307,7 @@ resource "aws_instance" "BastionHost-edge-subnet" {
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = true
   subnet_id                           = module.vpc["datacenter1"].public_subnets[0]	# public == edge
-  vpc_security_group_ids              = [aws_security_group.SG-ssh.id, aws_security_group.SG-inbnd_icmp.id]  #Turn off icmp in production
+  vpc_security_group_ids              = [aws_security_group.SG-inbnd_ssh.id, aws_security_group.SG-inbnd_icmp.id]  #Turn off icmp in production
   source_dest_check                   = false
   tags = {
           Owner = "dan-via-terraform"
