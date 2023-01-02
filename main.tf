@@ -123,7 +123,7 @@ resource "aws_network_acl" "NACL-vault" {
 	  
 # Assoc NACLs to subnets
 resource "aws_network_acl_association" "edgeNACL_snet" {
-  depends_on	 = [module.vpc,aws_network_acl.NACL-edge] 
+  depends_on	 = [module.vpc,aws_network_acl.NACL-edge, module.vpc["datacenter1"].public_subnets]   #<<<dje
   network_acl_id = aws_network_acl.NACL-edge.id
   subnet_id      = module.vpc["datacenter1"].public_subnets[0]	# public == edge 
 }
@@ -310,6 +310,7 @@ resource "aws_instance" "ec2-intra-subnet" {
     }
 }
 */
+/*
 # Create web servers in the my subnets, install Apache, PHP, MariaDB 
 #    Start up web server, open ports 80 and 443 
 #    Also need to open ssh inbound for remote-exec (below), and 
@@ -375,3 +376,4 @@ resource "aws_instance" "WebSrv-1-server-subnet" {
    }   
 }
 
+*/
