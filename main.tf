@@ -333,7 +333,7 @@ resource "aws_instance" "ec2-intra-subnet" {
             timeout     	= "5m"
             #private_key        = file(local.keypair_name)
             private_key     	= "${tls_private_key.dev_key.private_key_pem}"
-            host = aws_instance.ec2-webserver1.public_ip
+            host = aws_instance.WebSrv-1-edge-subnet.public_ip
     }
             
    provisioner "remote-exec" {
@@ -363,7 +363,7 @@ resource "aws_instance" "WebSrv-1-server-subnet" {
             timeout     	= "5m"
             #private_key        = file(local.keypair_name)
             private_key     	= "${tls_private_key.dev_key.private_key_pem}"
-            host = aws_instance.ec2-webserver1.public_ip
+            host = aws_instance.WebSrv-1-server-subnet.public_ip
     }
             
   provisioner "remote-exec" {
