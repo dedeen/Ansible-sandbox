@@ -8,7 +8,7 @@
 
 # Creating standalone EIPs for the NATGW - may use later or not, passed in via external_nat_id_ids in module "vpc"
 resource "aws_eip" "nat" {
-    count 	= 1 
+    count 	= 2 
     vpc 	= true
 }
 # 
@@ -269,7 +269,7 @@ resource "aws_security_group" "SG-intra_vpc_v4" {
 #    Also need to open ssh inbound for remote-exec (below), and 
 #    outbound connection for linux to get software updates.  
 
-  resource "aws_instance" "WebSrv-1-edge-subnet" {
+  resource "aws_instance" "WebSrv1-edge-subnet" {
     ami                                 = "ami-094125af156557ca2"
     instance_type                       = "t2.micro"
     depends_on 				= [module.vpc,aws_key_pair.generated_key]
@@ -280,7 +280,7 @@ resource "aws_security_group" "SG-intra_vpc_v4" {
     source_dest_check                   = false
     tags = {
           Owner = "dan-via-terraform"
-          Name  = "WebSrv-1-edge-subnet"
+          Name  = "WebSrv1-edge-subnet"
     }
     connection {
             type        	= "ssh"
@@ -300,8 +300,22 @@ resource "aws_security_group" "SG-intra_vpc_v4" {
    }   
 }
 
-	    
-resource "aws_instance" "WebSrv-1-server-subnet" {
+resource "aws_instance" "BastionHost-edge-subnet" {
+  ami                                 = "ami-094125af156557ca2"
+  instance_type                       = "t2.micro"
+  depends_on 			      = [module.vpc,aws_key_pair.generated_key]
+  key_name                            = "${aws_key_pair.generated_key.key_name}"
+  associate_public_ip_address         = true
+  subnet_id                           = module.vpc["datacenter1"].public_subnets[0]	# public == edge
+  vpc_security_group_ids              = [aws_security_group.SG-ssh.id, aws_security_group.SG-inbnd_icmp.id]  #Turn off icmp in production
+  source_dest_check                   = false
+  tags = {
+          Owner = "dan-via-terraform"
+          Name  = "BastionHost-edge-subnet"
+    }
+}
+ 	    
+resource "aws_instance" "Linux1-server-subnet" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
   depends_on 				= [module.vpc,aws_key_pair.generated_key]
@@ -312,25 +326,8 @@ resource "aws_instance" "WebSrv-1-server-subnet" {
   source_dest_check                   = false
   tags = {
           Owner = "dan-via-terraform"
-          Name  = "WebSrv-1-server-subnet"
+          Name  = "Linux1-server-subnet"
     }
-/*
-  connection {
-            type        	= "ssh"
-            user        	= "ec2-user"
-            timeout     	= "5m"
-            #private_key        = file(local.keypair_name)
-            private_key     	= "${tls_private_key.dev_key.private_key_pem}"
-            host = aws_instance.WebSrv-1-server-subnet.public_ip
-    }
-            
-  provisioner "remote-exec" {
-           inline = ["sudo yum update -y", 
-                   "sudo amazon-linux-extras install php8.0 mariadb10.5 -y", 
-                   "sudo yum install -y httpd",
-                   "sudo systemctl start httpd",
-                   "sudo systemctl enable httpd"]
-   }   */
 }
 	  
 
