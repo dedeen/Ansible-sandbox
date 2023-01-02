@@ -123,7 +123,7 @@ resource "aws_network_acl" "NACL-vault" {
 	  
 # Assoc NACLs to subnets
 resource "aws_network_acl_association" "edgeNACL_snet" {
-  depends_on	 = [module.vpc,aws_network_acl.NACL-edge.id] 
+  depends_on	 = [module.vpc,aws_network_acl.NACL-edge] 
   network_acl_id = aws_network_acl.NACL-edge.id
   subnet_id      = module.vpc["datacenter1"].public_subnets[0]	# public == edge 
 }
