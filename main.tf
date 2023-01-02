@@ -262,54 +262,8 @@ resource "aws_security_group" "SG-intra_vpc_v4" {
     Owner = "dan-via-terraform"
   }
 }
-/*
-# Create EC2 Instance(s) in the public subnet - allow inbound icmp and other ipv4
-resource "aws_instance" "ec2-public-subnet" {
-    ami                                 = "ami-094125af156557ca2"
-    instance_type                       = "t2.micro"
-    key_name                            = "${aws_key_pair.generated_key.key_name}"
-    associate_public_ip_address         = true
-    subnet_id                           = module.vpc["datacenter1"].public_subnets[0]
-    vpc_security_group_ids              = [aws_security_group.allow_inbound_icmp.id, aws_security_group.allow_ipv4.id]
-    source_dest_check                   = false
-    tags = {
-          Owner = "dan-via-terraform"
-          Name  = "ec2-inst1-public"
-    }
-}
- 
-# Create EC2 Instance(s) in the private subnet 
-#    No public IP, so must connect through an instance in the public subnet, ssh only, outbound v4 allowed 
-resource "aws_instance" "ec2-private-subnet" {
-    ami                                 = "ami-094125af156557ca2"
-    instance_type                       = "t2.micro"
-    key_name                            = "${aws_key_pair.generated_key.key_name}"
-    associate_public_ip_address         = false
-    subnet_id                           = module.vpc["datacenter1"].private_subnets[0]
-    vpc_security_group_ids              = [aws_security_group.allow_ssh.id]
-    source_dest_check                   = false
-    tags = {
-          Owner = "dan-via-terraform"
-          Name  = "ec2-inst1-private"
-    }
-}
 
-# Create EC2 Instance(s) in the intra subnet 
-#    Only allowing traffic from the private subnet in this VPC
-resource "aws_instance" "ec2-intra-subnet" {
-    ami                                 = "ami-094125af156557ca2"
-    instance_type                       = "t2.micro"
-    key_name                            = "${aws_key_pair.generated_key.key_name}"
-    associate_public_ip_address         = false
-    subnet_id                           = module.vpc["datacenter1"].intra_subnets[0]
-    vpc_security_group_ids              = [aws_security_group.allow_intra_vpc.id]
-    source_dest_check                   = false
-    tags = {
-          Owner = "dan-via-terraform"
-          Name  = "ec2-inst1-intra"
-    }
-}
-*/
+	  
 /*
 # Create web servers in the my subnets, install Apache, PHP, MariaDB 
 #    Start up web server, open ports 80 and 443 
@@ -350,7 +304,7 @@ resource "aws_instance" "WebSrv-1-server-subnet" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
   key_name                            = "${aws_key_pair.generated_key.key_name}"
-  associate_public_ip_address         = true
+  associate_public_ip_address         = false
   subnet_id                           = module.vpc["datacenter1"].private_subnets[0]	# private == server
   vpc_security_group_ids              = [aws_security_group.SG-inbnd_http.id, aws_security_group.SG-inbnd_icmp.id, aws_security_group.SG-allow_ipv4.id]
   source_dest_check                   = false
