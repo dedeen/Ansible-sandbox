@@ -128,12 +128,12 @@ resource "aws_network_acl_association" "edgeNACL_snet" {
   subnet_id      = module.vpc["datacenter1"].public_subnets[0]	# public == edge 
 }
 resource "aws_network_acl_association" "serverNACL_snet" {
-  depends_on	 = [module.vpc] 
+  depends_on	 = [module.vpc,aws_network_acl.NACL-server] 
   network_acl_id = aws_network_acl.NACL-server.id
   subnet_id      = module.vpc["datacenter1"].private_subnets[0]	# private == server
 }
 resource "aws_network_acl_association" "vaultNACL_snet" {
-  depends_on	 = [module.vpc] 
+  depends_on	 = [module.vpc,aws_network_acl.NACL-vault] 
   network_acl_id = aws_network_acl.NACL-vault.id
   subnet_id      = module.vpc["datacenter1"].intra_subnets[0]	# intra == vault
 }
