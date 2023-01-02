@@ -123,17 +123,17 @@ resource "aws_network_acl" "NACL-vault" {
 	  
 # Assoc NACLs to subnets
 resource "aws_network_acl_association" "edgeNACL_snet" {
-  depends_on	 = [module.vpc,aws_network_acl.NACL-edge, module.vpc["datacenter1"].public_subnets]   #<<<dje
+  depends_on	 = [module.vpc,aws_network_acl.NACL-edge, module.vpc["datacenter1"].public_subnets]   #Helps with timing on big create/destroys
   network_acl_id = aws_network_acl.NACL-edge.id
   subnet_id      = module.vpc["datacenter1"].public_subnets[0]	# public == edge 
 }
 resource "aws_network_acl_association" "serverNACL_snet" {
-  depends_on	 = [module.vpc,aws_network_acl.NACL-server] 
+  depends_on	 = [module.vpc,aws_network_acl.NACL-server,module.vpc["datacenter1"].private_subnets] 
   network_acl_id = aws_network_acl.NACL-server.id
   subnet_id      = module.vpc["datacenter1"].private_subnets[0]	# private == server
 }
 resource "aws_network_acl_association" "vaultNACL_snet" {
-  depends_on	 = [module.vpc,aws_network_acl.NACL-vault] 
+  depends_on	 = [module.vpc,aws_network_acl.NACL-vault,module.vpc["datacenter1"].intra_subnets] 
   network_acl_id = aws_network_acl.NACL-vault.id
   subnet_id      = module.vpc["datacenter1"].intra_subnets[0]	# intra == vault
 }
