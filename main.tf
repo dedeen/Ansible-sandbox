@@ -300,7 +300,7 @@ resource "aws_security_group" "SG-intra_vpc_v4" {
    }   
 }
 
-/*	    
+	    
 resource "aws_instance" "WebSrv-1-server-subnet" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
@@ -332,4 +332,3 @@ resource "aws_instance" "WebSrv-1-server-subnet" {
    }   
 }
 
-*/
