@@ -5,10 +5,20 @@
 #    	https://gmusumeci.medium.com/how-to-upload-files-to-private-or-public-aws-ec2-instances-using-terraform-e62d3c4dd3a6  
 #
 
-#  Creating an S3 bucket for files that can be retrieved by instances
-resource "aws_s3_bucket" "file-store-for-tf" {
-  bucket = aws_s3_bucket.tf-copy-file-s3.id
+#  Creating an S3 bucket for files to be retrieved by instances
+resource "aws_s3_bucket" "terraform-filestore" {
+  bucket = aws_s3_bucket.terraform-filestore.id
+  
+    tags = {
+    Name = "S3-filestore"
+    Owner = "dan-via-terraform"
+  }
+}
+
+resource "aws_s3_bucket_acl" "terraform-filestore_acl" {
+  bucket = aws_s3_bucket.terraform-filestore.id
   acl    = "private"
+  
   tags = {
     Name = "S3-filestore"
     Owner = "dan-via-terraform"
