@@ -30,8 +30,8 @@ resource "aws_s3_object" "file1" {
   bucket                  = aws_s3_bucket.terraform-filestore.id
   key                     = "index.html"
   source                  = local.index_file
-  source_hash             = filemd5(index_file)
-  etag                    = filemd5(index_file)
+  source_hash             = filemd5(local.index_file)
+  etag                    = filemd5(local.index_file)
   force_destroy           = true 
   server_side_encryption  = AES256
 }
@@ -41,8 +41,8 @@ resource "aws_s3_object" "file2" {
   bucket                  = aws_s3_bucket.terraform-filestore.id
   key                     = "launch_script.sh"
   source                  = local.launch_script
-  source_hash             = filemd5(launch_script)
-  etag                    = filemd5(launch_script)
+  source_hash             = filemd5(local.launch_script)
+  etag                    = filemd5(local.launch_script)
   force_destroy           = true 
   server_side_encryption  = AES256
 }
