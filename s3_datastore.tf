@@ -33,7 +33,6 @@ resource "aws_s3_object" "file1" {
   source_hash             = filemd5(local.index_file)
   etag                    = filemd5(local.index_file)
   force_destroy           = true 
-  server_side_encryption  = AES256
 }
  
 #  Copy the files to the bucket created above
@@ -44,7 +43,6 @@ resource "aws_s3_object" "file2" {
   source_hash             = filemd5(local.launch_script)
   etag                    = filemd5(local.launch_script)
   force_destroy           = true 
-  server_side_encryption  = AES256
 }
 
 output "s3_bucket_filestore" {
