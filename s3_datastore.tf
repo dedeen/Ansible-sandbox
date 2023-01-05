@@ -18,12 +18,7 @@ resource "aws_s3_bucket" "terraform-filestore" {
 resource "aws_s3_bucket_acl" "terraform-filestore_acl" {
   bucket = aws_s3_bucket.terraform-filestore.id
   acl    = "private"
-  
-  tags = {
-    Name = "S3-filestore"
-    Owner = "dan-via-terraform"
-  }
-}
+ }
 
 locals {
   index_file      = "source_files/index.html"
