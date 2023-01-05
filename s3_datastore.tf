@@ -15,7 +15,7 @@ resource "aws_s3_bucket" "terraform-filestore" {
   }
 }
 
-resource "aws_s3_bucket_acl" "terraform-filestore_acl" {
+resource "aws_s3_bucket_acl" "terraform-filestore" {
   bucket = aws_s3_bucket.terraform-filestore.id
   acl    = "private"
  }
