@@ -7,7 +7,7 @@
 
 #  Creating an S3 bucket for files to be retrieved by instances
 resource "aws_s3_bucket" "terraform-filestore" {
-  bucket = aws_s3_bucket.terraform-filestore.id
+  bucket = terraform-filestore
   
     tags = {
     Name = "S3-filestore"
