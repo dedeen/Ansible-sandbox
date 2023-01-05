@@ -26,9 +26,34 @@ resource "aws_s3_bucket_acl" "terraform-filestore_acl" {
 }
 
 locals {
-  index_file = "source_files/index.html"
-  launch_script   = "source_files/launch.sh"
+  index_file      = "source_files/index.html"
+  launch_script   = "source_files/launch_script.sh"
 }
 
+#  Copy the files to the bucket created above
+resource "aws_s3_object" "file1" {
+  bucket                  = aws_s3_bucket.terraform-filestore.id
+  key                     = "index.html"
+  source                  = local.index_file
+  source_hash             = filemd5(index_file)
+  etag                    = filemd5(index_file)
+  force_destroy           = true 
+  server_side_encryption  = AES256
+}
+ 
+#  Copy the files to the bucket created above
+resource "aws_s3_object" "file2" {
+  bucket                  = aws_s3_bucket.terraform-filestore.id
+  key                     = "launch_script.sh"
+  source                  = local.launch_script
+  source_hash             = filemd5(launch_script)
+  etag                    = filemd5(launch_script)
+  force_destroy           = true 
+  server_side_encryption  = AES256
+}
+
+output "s3_bucket_filestore" {
+  value = aws_s3_bucket.terraform-filestore.name 
+}
 
 ##
