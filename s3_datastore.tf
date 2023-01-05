@@ -25,5 +25,10 @@ resource "aws_s3_bucket_acl" "terraform-filestore_acl" {
   }
 }
 
+locals {
+  index_file = "source_files/index.html"
+  launch_script   = "source_files/launch.sh"
+}
+
 
 ##
