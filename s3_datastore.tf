@@ -45,8 +45,4 @@ resource "aws_s3_object" "file2" {
   force_destroy           = true 
 }
 
-output "s3_bucket_filestore" {
-  value = aws_s3_bucket.terraform-filestore.id 
-}
-
 ##
