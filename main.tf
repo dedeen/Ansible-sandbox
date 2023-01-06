@@ -143,7 +143,7 @@ resource "aws_network_acl_association" "vaultNACL_snet" {
 resource "aws_security_group" "SG-inbnd_icmp" {
   name          = "SG-inbnd_icmp"
   description   = "SG-inbnd_icmp"
-  depends_on 	= module.vpc["datacenter1"]
+  depends_on 	= [module.vpc["datacenter1"]]
   vpc_id        = module.vpc["datacenter1"].vpc_id
   ingress {
     description         = "ICMP inbound"
@@ -161,7 +161,7 @@ resource "aws_security_group" "SG-inbnd_icmp" {
 resource "aws_security_group" "SG-inbnd_http" {
   name          = "SG-inbnd_http"
   description   = "SG-inbnd_http"
-  depends_on 	= module.vpc["datacenter1"]
+  depends_on 	= [module.vpc["datacenter1"]]
   vpc_id        = module.vpc["datacenter1"].vpc_id
   ingress {
     description         = "http"
@@ -189,7 +189,7 @@ ingress {
 resource "aws_security_group" "SG-allow_ipv4" {
   name                  = "SG-allow_ipv4"
   description           = "SG-allow_ipv4"
-  depends_on 		= module.vpc["datacenter1"]
+  depends_on 		= [module.vpc["datacenter1"]]
   vpc_id                = module.vpc["datacenter1"].vpc_id
   ingress {
     description         = "inbound v4"
@@ -215,7 +215,7 @@ resource "aws_security_group" "SG-allow_ipv4" {
 resource "aws_security_group" "SG-inbnd_ssh" {
   name                  = "SG-inbnd_ssh"
   description           = "SG-inbnd_ssh"
-  depends_on 		= module.vpc["datacenter1"]
+  depends_on 		= [module.vpc["datacenter1"]]
   vpc_id                = module.vpc["datacenter1"].vpc_id
   ingress {
     description         = "All inbound ssh"
