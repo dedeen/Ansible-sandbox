@@ -45,8 +45,8 @@ module "vpc" {
 
 # NACL for public (edge) subnet 
 resource "aws_network_acl" "NACL-edge" {
-  vpc_id      		= module.vpc["datacenter1"].vpc_id
-  depends_on 	= [module.vpc]
+  vpc_id      	= module.vpc["datacenter1"].vpc_id
+  depends_on 	= [module.vpc.public_subnets]
   
   ingress {
     protocol		= "-1"
@@ -71,8 +71,8 @@ resource "aws_network_acl" "NACL-edge" {
 
 # NACLs for private (server) subnet
 resource "aws_network_acl" "NACL-server" {
-  vpc_id      		= module.vpc["datacenter1"].vpc_id
-  depends_on 	= [module.vpc]
+  vpc_id      	= module.vpc["datacenter1"].vpc_id
+  depends_on 	= [module.vpc.private_subnets]
   
   ingress {
     protocol		= "-1"
@@ -97,8 +97,8 @@ resource "aws_network_acl" "NACL-server" {
 
 # NACLs for intra (vault) subnet
 resource "aws_network_acl" "NACL-vault" {
-  vpc_id      		= module.vpc["datacenter1"].vpc_id
-  depends_on 	= [module.vpc]
+  vpc_id      	= module.vpc["datacenter1"].vpc_id
+  depends_on 	= [module.vpc.intra_subnets]
   
   ingress {
     protocol		= "-1"
