@@ -268,8 +268,14 @@ resource "aws_security_group" "SG-intra_vpc_v4" {
 #    Start up web server, open ports 80 and 443 
 #    Also need to open ssh inbound for remote-exec (below), and 
 #    outbound connection for linux to get software updates.  
+	  
+# temp conditional logic to not build under some test runs 
+locals {
+  should_build_ec2 = 0
+}
 
   resource "aws_instance" "WebSrv1-edge-subnet" {
+    count = local.should_build_ec2 ?1 : 0
     ami                                 = "ami-094125af156557ca2"
     instance_type                       = "t2.micro"
     depends_on 				= [module.vpc,aws_key_pair.generated_key]
@@ -316,6 +322,7 @@ resource "aws_instance" "BastionHost-edge-subnet" {
 }
  	    
 resource "aws_instance" "Linux1-server-subnet" {
+  count = local.should_build_ec2 ?1 : 0
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
   depends_on 				= [module.vpc,aws_key_pair.generated_key]
