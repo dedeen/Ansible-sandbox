@@ -13,7 +13,7 @@
 resource "aws_instance" "WebSrv1-edge-subnet" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
-  depends_on 				= [module.vpc,aws_key_pair.generated_key]
+  depends_on 			      = [module.vpc["datacenter1"],aws_key_pair.generated_key]
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = true
   subnet_id                           = module.vpc["datacenter1"].public_subnets[0]	# public == edge
@@ -44,7 +44,7 @@ resource "aws_instance" "WebSrv1-edge-subnet" {
 resource "aws_instance" "BastionHost-edge-subnet" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
-  depends_on 			      = [module.vpc,aws_key_pair.generated_key]
+  depends_on 			      = [module.vpc["datacenter1"],aws_key_pair.generated_key]
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = true
   subnet_id                           = module.vpc["datacenter1"].public_subnets[0]	# public == edge
@@ -59,7 +59,7 @@ resource "aws_instance" "BastionHost-edge-subnet" {
 resource "aws_instance" "Linux1-server-subnet" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
-  depends_on 				= [module.vpc,aws_key_pair.generated_key]
+  depends_on 				= [module.vpc["datacenter1"],aws_key_pair.generated_key]
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = false
   subnet_id                           = module.vpc["datacenter1"].private_subnets[0]	# private == server
