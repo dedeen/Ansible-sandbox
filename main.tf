@@ -241,7 +241,7 @@ resource "aws_security_group" "SG-inbnd_ssh" {
 resource "aws_security_group" "SG-intra_vpc_v4" {
   name                  = "SG-intra_vpc_v4"
   description           = "SG-intra_vpc_v4"
-  depends_on 		= module.vpc["datacenter1"]
+  depends_on 		= [module.vpc["datacenter1"]]
   vpc_id                = module.vpc["datacenter1"].vpc_id
   ingress {
     description         = "All intra vpc v4"
