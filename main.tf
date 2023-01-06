@@ -270,7 +270,6 @@ resource "aws_security_group" "SG-intra_vpc_v4" {
 #    outbound connection for linux to get software updates.  
 	  
 resource "aws_instance" "WebSrv1-edge-subnet" {
-  count = local.should_build_ec2 ?1 : 0
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
   depends_on 				= [module.vpc,aws_key_pair.generated_key]
@@ -317,7 +316,6 @@ resource "aws_instance" "BastionHost-edge-subnet" {
 }
  	    
 resource "aws_instance" "Linux1-server-subnet" {
-  count = local.should_build_ec2 ?1 : 0
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
   depends_on 				= [module.vpc,aws_key_pair.generated_key]
