@@ -21,20 +21,6 @@ module "vpc" {
     enable_ipv6            	= false
     enable_nat_gateway   	= false
   
-  for_each = var.security_vpcs  # Security VPC
-    providers = {
-      aws = aws.usw2  # Set region via provider alias
-    }
-    name              = each.value.region_dc
-    cidr              = each.value.cidr
-    azs               = each.value.az_list
-	
-    # Create subnets: private get route through NATGW, intra do not
-    intra_subnets   		= each.value.vpc_subnets	# intro = no NATGW route (private do get a route)
-    intra_subnet_names 		= each.value.subnet_names
-    enable_ipv6            	= false
-    enable_nat_gateway     	= false
-
 }
   
   
