@@ -29,6 +29,13 @@ variable "app_vpcs" {
 			vpc_subnets		= 	["10.255.0.0/18","10.255.64.0/18"]
 			subnet_names		= 	["mgmt-az1-snet","mgmt-az2-snet"]
 		}  
+		datacenteronprem = {
+			region_dc		= 	"On-Prem-DC"
+			cidr			= 	"10.5.0.0/16"
+			az_list			= 	["us-west-2a"]
+			vpc_subnets		= 	["10.5.0.0/18"]
+			subnet_names		= 	["On-Prem-snet"]
+		}  
 		datacentersec = {
 			region_dc		= 	"Sec01-VPC"
 			cidr			= 	"10.100.0.0/16"
