@@ -7,10 +7,10 @@
 #
 
 # Creating standalone EIPs for the NATGW - may use later or not, passed in via external_nat_id_ids in module "vpc"
-resource "aws_eip" "nat" {
+/*resource "aws_eip" "nat" {
     count 	= 2 
     vpc 	= true
-}
+}*/
 # 
 
 #
@@ -34,11 +34,11 @@ module "vpc" {
     enable_ipv6            	= false
 	
     # Create single NATGW for each VPC, all private subnets must route through it to reach Internet 
-    enable_nat_gateway     	= true
+    enable_nat_gateway     	= false
     one_nat_gateway_per_az  	= false # single_nat_gateway overrides this parameter
     single_nat_gateway      	= true	# only need to create 1 EIP above with this setting
     reuse_nat_ips	    	= true	# dont create EIPs here for NATGW, instead use from above 
-    external_nat_ip_ids	    	= "${aws_eip.nat.*.id}"			# as per above 
+    #external_nat_ip_ids	    	= "${aws_eip.nat.*.id}"			# as per above 
 }
 
 /*xx
