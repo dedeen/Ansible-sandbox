@@ -1,16 +1,9 @@
-# Creating standalone EIPs for the NATGW - may use later or not, passed in via external_nat_id_ids in module "vpc"
-/*resource "aws_eip" "nat" {
-    count 	= 2 
-    vpc 	= true
-}*/
-# 
-
 #
-# Build VPCs for DataCenters
+# Build VPC for the Security Appliances 
 module "vpc" {
   source          = "terraform-aws-modules/vpc/aws"
 
-  for_each = var.app_vpcs
+  for_each = var.security_vpcs
     providers = {
       aws = aws.usw2  # Set region via provider alias
     }
