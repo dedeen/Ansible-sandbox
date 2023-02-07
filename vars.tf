@@ -27,7 +27,7 @@ variable "app_vpcs" {
 			cidr			= 	"10.255.0.0/16"
 			az_list			= 	["us-west-2a"]
 			vpc_subnets		= 	["10.255.0.0/18"]
-			subnet_names		= 	["subnet_255_0_0]
+			subnet_names		= 	["subnet_255_0_0"]
 		}  
 	}   
 }
