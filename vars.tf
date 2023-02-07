@@ -42,7 +42,7 @@ variable "security_vpcs" {
 			cidr			= 	"10.100.0.0/16"
 			az_list			= 	["us-west-2a","us-west-2a","us-west-2a","us-west-2b","us-west-2b","us-west-2b"]
 			vpc_subnets		= 	["10.100.0.0/24","10.100.1.0/24","10.100.2.0/24","10.100.64.0/24","10.100.65.0/24","10.100.66.0/24"]
-			subnet_name	= 	["az1-Mgt-subnet","az1-Int-subnet","az1-Public-subnet","az2-Mgt-subnet","az2-Int-subnet","az2-Public-subnet"]
+			subnet_names	= 	["az1-Mgt-subnet","az1-Int-subnet","az1-Public-subnet","az2-Mgt-subnet","az2-Int-subnet","az2-Public-subnet"]
 		}
 	}   
 }
