@@ -17,9 +17,9 @@ module "vpc" {
 	
     # Create subnets: private get route through NATGW, intra do not
     intra_subnets   		= each.value.vpc_subnets	
-    intra_subnet_names 	= each.value.subnet_names
+    intra_subnet_names 		= each.value.subnet_names
     enable_ipv6            	= false
-	  enable_nat_gateway     	= false
+    enable_nat_gateway   	= false
   
   for_each = var.security_vpcs  # Security VPC
     providers = {
