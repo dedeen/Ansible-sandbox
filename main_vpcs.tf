@@ -22,5 +22,16 @@ module "vpc" {
     enable_nat_gateway   	= false
   
 }
+	
+# Build IGW on the Security VPC to allow outside access to/from PA-VMs 
+
+resource "aws_internet_gateway" "sec_vpc_igw" {
+	vpc_id = module.vpc["datacentersec"].vpc_id
+		
+	tags = {
+	  Name = "sec_vpc_igw"
+	}
+}
+		
   
   
