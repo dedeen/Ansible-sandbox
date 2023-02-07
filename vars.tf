@@ -15,7 +15,7 @@ variable "app_vpcs" {
 			az1_subnet		= 	"10.104.0.0/18"
 			az2_subnet		= 	"10.104.64.0/18"
 			 
-		} ; 
+		}  
 	 	/* }
 		datacenter2 = {
 			region_dc		= 	"App02-VPC"
