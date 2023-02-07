@@ -24,13 +24,13 @@ module "vpc" {
     }
     name              = each.value.region_dc
     cidr              = each.value.cidr
-    azs              		= each.value.az_list
+    azs               = each.value.az_list
 	
     # Create subnets: private get route through NATGW, intra do not
-    private_subnets   		= [each.value.az1_subnet]	# private subnets are created with route to I through NATGW
+    private_subnets   		= [each.value.vpc_subnets]	
     private_subnet_names 	= ["az1_subnet"]
-    public_subnets    		= [each.value.az2_subnet]
-    public_subnet_names 	= ["az2_subnet"]
+  #  public_subnets    		= [each.value.az2_subnet]
+  #  public_subnet_names 	= ["az2_subnet"]
     enable_ipv6            	= false
 	
     # Create single NATGW for each VPC, all private subnets must route through it to reach Internet 
