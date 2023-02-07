@@ -18,7 +18,7 @@ resource "aws_eip" "nat" {
 module "vpc" {
   source          = "terraform-aws-modules/vpc/aws"
 
-  for_each = var.new_vpcs
+  for_each = var.app_vpcs
     providers = {
       aws = aws.usw2  # Set region via provider alias
     }
@@ -43,6 +43,7 @@ module "vpc" {
     external_nat_ip_ids	    	= "${aws_eip.nat.*.id}"			# as per above 
 }
 
+/*xx
 # NACL for public (edge) subnet 
 resource "aws_network_acl" "NACL-edge" {
   vpc_id      	= module.vpc["datacenter1"].vpc_id
@@ -120,6 +121,8 @@ resource "aws_network_acl" "NACL-vault" {
     Name = "NACL-vault"
   }
 }	  
+	  
+xx*/
 	  
 # Assoc NACLs to subnets
 resource "aws_network_acl_association" "edgeNACL_snet" {
