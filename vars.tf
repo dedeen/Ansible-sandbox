@@ -21,6 +21,13 @@ variable "app_vpcs" {
 			az_list			= 	["us-west-2a","us-west-2b"]
 			vpc_subnets		= 	["10.105.0.0/18","10.105.64.0/18"]
 			subnet_names		= 	["subnet_105_0_0","subnet_105_64_0"]
+		},  
+		datacenter3 = {
+			region_dc		= 	"Mgmt-VPC"
+			cidr			= 	"10.255.0.0/16"
+			az_list			= 	["us-west-2a"]
+			vpc_subnets		= 	["10.255.0.0/18"]
+			subnet_names		= 	["subnet_255_0_0]
 		}  
 	}   
 }
