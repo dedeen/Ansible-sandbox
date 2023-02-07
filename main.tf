@@ -122,7 +122,7 @@ resource "aws_network_acl" "NACL-vault" {
   }
 }	  
 	  
-xx*/
+
 	  
 # Assoc NACLs to subnets
 resource "aws_network_acl_association" "edgeNACL_snet" {
@@ -267,3 +267,4 @@ resource "aws_security_group" "SG-intra_vpc_v4" {
 }
 
 ##############	  
+xx*/
