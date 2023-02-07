@@ -1,10 +1,7 @@
-#  Terraform to create a multi-subnet VPC with PAN firewall between outside and the internal subnets. 
+#  Terraform to create a vpcs, as part of a larger Palo Alto Firewall PoC. 
 #         https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest
 #         https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl_rule
 #         -- Dan Edeen, dan@dsblue.net, 2022  --   
-
-#	To do next 1/1/23 - redefine the main and per subnet route tables  
-#
 
 # Creating standalone EIPs for the NATGW - may use later or not, passed in via external_nat_id_ids in module "vpc"
 /*resource "aws_eip" "nat" {
