@@ -12,8 +12,7 @@ variable "app_vpcs" {
 			region_dc		= 	"App01-VPC"
 			cidr			= 	"10.104.0.0/16"
 			az_list			= 	["us-west-2a","us-west-2b"]
-			az1_subnet		= 	"10.104.0.0/18"
-			az2_subnet		= 	"10.104.64.0/18"
+			vpc_subnets		= 	["10.104.0.0/18","10.104.64.0/18"]
 			 
 		}  
 	 	/* }
