@@ -4,7 +4,7 @@
 
 # VPC parms, can build mutiple by passing in via this map 
 variable "app_vpcs" {
-	description = "DC parms for Oregon VPCs"
+	description = "VPC Variables"
 	type		= map(any)
 
 	default = {
@@ -29,14 +29,6 @@ variable "app_vpcs" {
 			vpc_subnets		= 	["10.255.0.0/18"]
 			subnet_names		= 	["subnet_255_0_0"]
 		}  
-	}   
-}
-##
-variable "security_vpcs" {
-	description = "DC parms for Oregon VPCs"
-	type		= map(any)
-
-	default = {
 		datacentersec = {
 			region_dc		= 	"Sec01-VPC"
 			cidr			= 	"10.100.0.0/16"
@@ -46,5 +38,4 @@ variable "security_vpcs" {
 		}
 	}   
 }
-
-
+##
