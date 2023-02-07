@@ -27,9 +27,9 @@ module "vpc" {
     azs              		= each.value.az_list
 	
     # Create subnets: private get route through NATGW, intra do not
-    private_subnets   		= [each.value.server_subnet]	# private subnets are created with route to I through NATGW
+    private_subnets   		= [each.value.az1_subnet]	# private subnets are created with route to I through NATGW
     private_subnet_names 	= ["az1_subnet"]
-    public_subnets    		= [each.value.edge_subnet]
+    public_subnets    		= [each.value.az2_subnet]
     public_subnet_names 	= ["az2_subnet"]
     enable_ipv6            	= false
 	
