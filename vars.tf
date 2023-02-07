@@ -32,6 +32,19 @@ variable "app_vpcs" {
 	}   
 }
 ##
+variable "security_vpcs" {
+	description = "DC parms for Oregon VPCs"
+	type		= map(any)
 
+	default = {
+		datacentersec = {
+			region_dc		= 	"Sec01-VPC"
+			cidr			= 	"10.100.0.0/16"
+			az_list			= 	["us-west-2a","us-west-2b"]
+			vpc_subnets		= 	["xxx"]
+			subnet_names		= 	["xxx"]
+		}
+	}   
+}
 
 
