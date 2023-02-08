@@ -11,7 +11,7 @@ resource "aws_security_group" "SG-allow_ipv4" {
     #vpc_id                = module.vpc[2].vpc_id
     #vpc_id                = module.vpc["{var.app_vpcs}"].vpc_id
     #vpc_id                = module.vpc["${each.value}"].vpc_id
-    vpc_id                = module.vpc["${var.app_vpcs.map_key}"].vpc_id
+    vpc_id                = module.vpc[each.value.map_key].vpc_id
     ingress {
       description         = "inbound v4"
       cidr_blocks         = ["0.0.0.0/0"]
