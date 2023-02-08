@@ -26,7 +26,7 @@ module "vpc" {
 # Build IGW on the Security VPC to allow outside access to/from PA-VMs 
 
 resource "aws_internet_gateway" "sec_vpc_igw" {
-	vpc_id = module.vpc["datacentersec"].vpc_id
+	vpc_id = module.vpc["secvpc"].vpc_id
 		
 	tags = {
 	  Name = "sec_vpc_igw"
