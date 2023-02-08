@@ -5,9 +5,6 @@
 #  This secgrp will llow all IPv4 traffic in and out
 resource "aws_security_group" "SG-allow_ipv4" {
   for_each = var.app_vpcs 
-    providers = {
-      aws = aws.usw2
-    }
     name                  = "SG-allow_ipv4"
     description           = "SG-allow_ipv4"
     #  depends_on 	        	= each.value. [module.vpc["app1vpc"]]
