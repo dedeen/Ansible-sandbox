@@ -5,8 +5,6 @@
 #  This secgrp will llow all IPv4 traffic in and out
 resource "aws_network_acl" "NACL-allow_ipv4" {
   for_each = var.app_vpcs 
-    name                  = "NACL-allow_ipv4"
-    description           = "NACL-allow_ipv4"
     vpc_id                = module.vpc[each.value.map_key].vpc_id
       
     ingress {
