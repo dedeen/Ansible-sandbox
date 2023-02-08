@@ -4,8 +4,8 @@
 resource "aws_security_group" "SG-allow_ipv4" {
   name                  = "SG-allow_ipv4"
   description           = "SG-allow_ipv4"
-  depends_on 	        	= [module.vpc["datacenter1"]]
-  vpc_id                = module.vpc["datacenter1"].vpc_id
+  depends_on 	        	= [module.vpc["app1vpc"]]
+  vpc_id                = module.vpc["app1vpc"].vpc_id
   ingress {
     description         = "inbound v4"
     cidr_blocks         = ["0.0.0.0/0"]
