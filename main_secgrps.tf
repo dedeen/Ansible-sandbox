@@ -1,5 +1,5 @@
 # Create security groups for each VPC 
-#
+#    SecGrps are per VPC, so iterate through my list of VPC vars and build one SG per VPC
 
 
 #  This secgrp will llow all IPv4 traffic in and out
