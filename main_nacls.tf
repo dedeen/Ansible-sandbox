@@ -50,10 +50,10 @@ resource "aws_network_acl" "NACL-allow_ipv4" {
   #  Assoc to the 2 Mgmt VPC AZ instance subnets 
   resource "aws_network_acl_association" "vpc-subnet-NACL-mgmt-az1" {
      network_acl_id   = aws_network_acl.NACL-allow_ipv4["mgmtvpc"].id
-     subnet_id        = module.vpc["app1vpc"].intra_subnets[0]
+     subnet_id        = module.vpc["mgmtvpc"].intra_subnets[0]
   }
   resource "aws_network_acl_association" "vpc-subnet-NACL-mgmt-az2" {
     network_acl_id   = aws_network_acl.NACL-allow_ipv4["mgmtvpc"].id
-    subnet_id        = module.vpc["app1vpc"].intra_subnets[2]
+    subnet_id        = module.vpc["mgmtvpc"].intra_subnets[2]
   }
     
