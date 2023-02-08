@@ -29,14 +29,21 @@ resource "aws_network_acl" "NACL-allow_ipv4" {
 }
 
   
-  #  Now that each VPC has one of these ACLs, associate them with the app-VPC instance subnets
-  resource "aws_network_acl_association" "vpc-subnet-NACL-app1" {
+  #  Now that each VPC has one of these ACLs, associate them with the app-VPC instance subnets (2 per AZ)
+  resource "aws_network_acl_association" "vpc-subnet-NACL-app1-az1" {
      network_acl_id   = aws_network_acl.NACL-allow_ipv4["app1vpc"].id
      subnet_id        = module.vpc["app1vpc"].intra_subnets[0]
   }
-    
-  resource "aws_network_acl_association" "vpc-subnet-NACL-app2" {
+  resource "aws_network_acl_association" "vpc-subnet-NACL-app1-az2" {
+    network_acl_id   = aws_network_acl.NACL-allow_ipv4["app1vpc"].id
+    subnet_id        = module.vpc["app1vpc"].intra_subnets[2]
+  }
+  resource "aws_network_acl_association" "vpc-subnet-NACL-app2-az1" {
     network_acl_id   = aws_network_acl.NACL-allow_ipv4["app2vpc"].id
     subnet_id        = module.vpc["app2vpc"].intra_subnets[0]
+  }
+  resource "aws_network_acl_association" "vpc-subnet-NACL-app2-az2" {
+    network_acl_id   = aws_network_acl.NACL-allow_ipv4["app2vpc"].id
+    subnet_id        = module.vpc["app2vpc"].intra_subnets[2]
   }
     
