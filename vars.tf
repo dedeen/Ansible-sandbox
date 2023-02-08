@@ -9,6 +9,7 @@ variable "app_vpcs" {
 
 	default = {
 		app1vpc = {
+			map_key			= 	"app1vpc"
 			region_dc		= 	"App01-VPC"
 			cidr			= 	"10.104.0.0/16"
 			az_list			= 	["us-west-2a","us-west-2a","us-west-2b","us-west-2b"]
@@ -16,6 +17,7 @@ variable "app_vpcs" {
 			subnet_names		= 	["app1-az1-inst","app1-az1-TGW", "app1-az2-inst","app1-az2-TGW"]
 		},
 		app2vpc = {
+			map_key			= 	"app2vpc"
 			region_dc		= 	"App02-VPC"
 			cidr			= 	"10.105.0.0/16"
 			az_list			= 	["us-west-2a","us-west-2a","us-west-2b","us-west-2b"]
@@ -23,6 +25,7 @@ variable "app_vpcs" {
 			subnet_names		= 	["app2-az1-inst","app2-az1-TGW", "app2-az2-inst","2pp1-az2-TGW"]
 		},  
 		mgmtvpc = {
+			map_key			= 	"mgmtvpc"
 			region_dc		= 	"Mgmt-VPC"
 			cidr			= 	"10.255.0.0/16"
 			az_list			= 	["us-west-2a","us-west-2b"]
@@ -31,13 +34,15 @@ variable "app_vpcs" {
 		}  
 		/*
 		onpremvpc = {
+			map_key			= 	"onpremvpc"
 			region_dc		= 	"On-Prem-DC"
 			cidr			= 	"10.5.0.0/16"
 			az_list			= 	["us-west-2a"]
 			vpc_subnets		= 	["10.5.0.0/18"]
 			subnet_names		= 	["On-Prem-subnet"]
 		} */ 
-		secvpc = {				
+		secvpc = {		
+			map_key			= 	"secvpc"
 			region_dc		= 	"Sec01-VPC"
 			cidr			= 	"10.100.0.0/16"
 			az_list			= 	["us-west-2a","us-west-2a","us-west-2a","us-west-2a","us-west-2a","us-west-2a","us-west-2b","us-west-2b","us-west-2b","us-west-2b","us-west-2b","us-west-2b"]
