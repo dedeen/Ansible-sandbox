@@ -8,7 +8,7 @@ resource "aws_security_group" "SG-allow_ipv4" {
     name                  = "SG-allow_ipv4"
     description           = "SG-allow_ipv4"
     #  depends_on 	        	= each.value. [module.vpc["app1vpc"]]
-    vpc_id                = module.vpc[var].vpc_id
+    vpc_id                = module.vpc[2].vpc_id
     ingress {
       description         = "inbound v4"
       cidr_blocks         = ["0.0.0.0/0"]
