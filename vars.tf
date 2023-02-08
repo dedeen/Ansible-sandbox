@@ -11,16 +11,16 @@ variable "app_vpcs" {
 		datacenter1 = {
 			region_dc		= 	"App01-VPC"
 			cidr			= 	"10.104.0.0/16"
-			az_list			= 	["us-west-2a","us-west-2b"]
-			vpc_subnets		= 	["10.104.0.0/18","10.104.64.0/18"]
-			subnet_names		= 	["app1-az1","app1-az2"]
+			az_list			= 	["us-west-2a","us-west-2a","us-west-2b","us-west-2b"]
+			vpc_subnets		= 	["10.104.0.0/24","10.104.1.0/24","10.104.128.0/24","10.104.129.0/24"]
+			subnet_names		= 	["app1-az1-inst","app1-az1-TGW", "app1-az2-inst","app1-az2-TGW"]
 		},
 		datacenter2 = {
 			region_dc		= 	"App02-VPC"
 			cidr			= 	"10.105.0.0/16"
-			az_list			= 	["us-west-2a","us-west-2b"]
-			vpc_subnets		= 	["10.105.0.0/18","10.105.64.0/18"]
-			subnet_names		= 	["app2-az1","app2-az2"]
+			az_list			= 	["us-west-2a","us-west-2a","us-west-2b","us-west-2b"]
+			vpc_subnets		= 	["10.105.0.0/24","10.105.1.0/24","10.105.128.0/24","10.105.129.0/24"]
+			subnet_names		= 	["app2-az1-inst","app2-az1-TGW", "app2-az2-inst","2pp1-az2-TGW"]
 		},  
 		datacenter3 = {
 			region_dc		= 	"Mgmt-VPC"
