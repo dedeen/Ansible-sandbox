@@ -1,14 +1,10 @@
-#  Terraform to create a multi-subnet VPC with PAN firewall between outside and the internal subnets. 
-#         https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest
-#         https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl_rule
-#         -- Dan Edeen, dan@dsblue.net, 2022  --   
+#  Terraform to create small EC2 instances in the app VPCs for PAN Monde project. 
+#         -- Dan Edeen, dan@dsblue.net, 2023  --   
 
 
-##############	  
-# Create web servers in the my subnets, install Apache, PHP, MariaDB 
-#    Start up web server, open ports 80 and 443 
-#    Also need to open ssh inbound for remote-exec (below), and 
-#    outbound connection for linux to get software updates.  
+##############	 
+# Instantiate one EC2 in each (of 2) AZs in both App VPCs. 
+#    Will use wide-open sec-group for now (dev), probably not appropriate for production. 
 	  
 resource "aws_instance" "WebSrv1-edge-subnet" {
   ami                                 = "ami-094125af156557ca2"
