@@ -22,15 +22,15 @@ variable "app_vpcs" {
 			cidr			= 	"10.105.0.0/16"
 			az_list			= 	["us-west-2a","us-west-2a","us-west-2b","us-west-2b"]
 			vpc_subnets		= 	["10.105.0.0/24","10.105.1.0/24","10.105.128.0/24","10.105.129.0/24"]
-			subnet_names		= 	["app2-az1-inst","app2-az1-TGW", "app2-az2-inst","2pp1-az2-TGW"]
+			subnet_names		= 	["app2-az1-inst","app2-az1-TGW", "app2-az2-inst","app1-az2-TGW"]
 		},  
 		mgmtvpc = {
 			map_key			= 	"mgmtvpc"
 			region_dc		= 	"Mgmt-VPC"
 			cidr			= 	"10.255.0.0/16"
-			az_list			= 	["us-west-2a","us-west-2b"]
-			vpc_subnets		= 	["10.255.0.0/18","10.255.64.0/18"]
-			subnet_names		= 	["mgmt-az1","mgmt-az2"]
+			az_list			= 	["us-west-2a","us-west-2a","us-west-2b","us-west-2b"]
+			vpc_subnets		= 	["10.255.0.0/24","10.255.1.0/24","10.255.128.0/24","10.255.129.0/24"]
+			subnet_names		= 	["mgmt-az1-inst","mgmt-az1-TGW","mgmt-az2-inst","mgmt-az2-TGW"]
 		}  
 		onpremvpc = {
 			map_key			= 	"onpremvpc"
