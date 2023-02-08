@@ -1,7 +1,6 @@
 # Create security groups for each VPC 
 #
 
-for_each = var.app_vpcs 
 
 #  This secgrp will llow all IPv4 traffic in and out
 resource "aws_security_group" "SG-allow_ipv4" {
