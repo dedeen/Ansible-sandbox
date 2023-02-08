@@ -27,5 +27,4 @@ resource "aws_security_group" "SG-allow_ipv4" {
       Name = "SG-allow_ipv4"
       Owner = "dan-via-terraform"
     }
-  }
 }
