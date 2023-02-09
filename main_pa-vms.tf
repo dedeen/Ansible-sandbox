@@ -19,7 +19,7 @@ resource "aws_instance" "PA-VM-1" {
 resource "aws_network_interface" "eth1" {
   subnet_id             = module.vpc["secvpc"].intra_subnets[1]                   #internal (app-vpc side) subnet
   security_groups       = [aws_security_group.SG-allow_ipv4["secvpc"].id]
-  #private_ips          = ["10.100.1.10"]      
+  private_ips           = ["10.100.1.10"]     
     
   attachment  {
     instance            = aws_instance.PA-VM-1.id
