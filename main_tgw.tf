@@ -1,6 +1,6 @@
 #  Terraform to create Transit GW (TGW), attachments in the VPCs, and Route Tables
 
-resource "aws_ec2_transit_gateway" TGW-PAN
+resource "aws_ec2_transit_gateway" "TGW-PAN"  {
   description                         = "TGW-PAN"
   amazon_side_asn                     = 64512
   default_route_table_association     = disable
@@ -10,6 +10,6 @@ resource "aws_ec2_transit_gateway" TGW-PAN
   
   tags = {
           Owner = "dan-via-terraform"
-          Name  = "PA-VM-1"
+          Name  = "TGW-PAN"
     }
 }
