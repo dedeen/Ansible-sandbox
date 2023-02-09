@@ -32,6 +32,7 @@ resource "aws_ec2_transit_gateway_route_table" "TGW-RT-Security-VPC" {
 }
 
 #  Create TGW Attachments in each of the VPCs
+#  App01-VPC
 resource "aws_ec2_transit_gateway_vpc_attachment" "app1vpc-att" {
   subnet_ids              = [module.vpc["app1vpc"].intra_subnets[1],module.vpc["app1vpc"].intra_subnets[3]]
   transit_gateway_id      = aws_ec2_transit_gateway.TGW-PAN.id
@@ -45,6 +46,48 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "app1vpc-att" {
     Name  = "TGW-app1vpc-att"
   }  
 }
+
+#  App02-VPC
+resource "aws_ec2_transit_gateway_vpc_attachment" "app2vpc-att" {
+  subnet_ids              = [module.vpc["app2vpc"].intra_subnets[1],module.vpc["app2vpc"].intra_subnets[3]]
+  transit_gateway_id      = aws_ec2_transit_gateway.TGW-PAN.id
+  vpc_id                  = module.vpc["app2vpc"].vpc_id
+  appliance_mode_support  = "enable"                            # prevents asymm flows between consumer VPC and security VPC
+  dns_support             = "enable"
+  transit_gateway_default_route_table_association = false
+  transit_gateway_default_route_table_propagation = false
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "TGW-app2vpc-att"
+  }  
+}
     
-    
-    
+#  Mgmt-VPC
+resource "aws_ec2_transit_gateway_vpc_attachment" "mgmtvpc-att" {
+  subnet_ids              = [module.vpc["mgmtvpc"].intra_subnets[1],module.vpc["mgmtvpc"].intra_subnets[3]]
+  transit_gateway_id      = aws_ec2_transit_gateway.TGW-PAN.id
+  vpc_id                  = module.vpc["mgmtvpc"].vpc_id
+  appliance_mode_support  = "enable"                            # prevents asymm flows between consumer VPC and security VPC
+  dns_support             = "enable"
+  transit_gateway_default_route_table_association = false
+  transit_gateway_default_route_table_propagation = false
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "TGW-mgmtvpc-att"
+  }  
+}
+
+#  Sec01-VPC
+resource "aws_ec2_transit_gateway_vpc_attachment" "secvpc-att" {
+  subnet_ids              = [module.vpc["secvpc"].intra_subnets[3],module.vpc["secvpc"].intra_subnets[9]]
+  transit_gateway_id      = aws_ec2_transit_gateway.TGW-PAN.id
+  vpc_id                  = module.vpc["secvpc"].vpc_id
+  appliance_mode_support  = "enable"                            # prevents asymm flows between consumer VPC and security VPC
+  dns_support             = "enable"
+  transit_gateway_default_route_table_association = false
+  transit_gateway_default_route_table_propagation = false
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "TGW-secvpc-att"
+  }  
+}
