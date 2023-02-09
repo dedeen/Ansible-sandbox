@@ -91,3 +91,21 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "secvpc-att" {
     Name  = "TGW-secvpc-att"
   }  
 }
+
+#  Associate spokes route table with app1vpc
+ resource "aws_ec2_transit_gateway_route_table_association" "spoke-to-app1vpc" {
+  transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.app1vpc-att.id
+  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.TGW-RT-Spoke-VPCs.id
+}
+    
+#  Associate spokes route table with app2vpc
+ resource "aws_ec2_transit_gateway_route_table_association" "spoke-to-app2vpc" {
+  transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.app2vpc-att.id
+  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.TGW-RT-Spoke-VPCs.id
+}
+    
+ #  Associate spokes route table with mgmtvpc
+ resource "aws_ec2_transit_gateway_route_table_association" "spoke-to-mgmtvpc" {
+  transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.mgmtvpc-att.id
+  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.TGW-RT-Spoke-VPCs.id
+}
