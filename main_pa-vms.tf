@@ -44,6 +44,7 @@ resource "aws_instance" "PA-VM-2" {
   instance_type                       = "t2.small"                # max 4 NICs
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = false
+  private_ip                          = "10.100.64.10"
   subnet_id                           = module.vpc["secvpc"].intra_subnets[6]           #PA-VM mgmt submet
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["secvpc"].id]  
   source_dest_check                   = false
