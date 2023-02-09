@@ -16,8 +16,6 @@ resource "aws_ec2_transit_gateway" "TGW-PAN"  {
 #  Route Table for Spoke VPCs
 resource "aws_ec2_transit_gateway_route_table" "TGW-RT-Spoke-VPCs" {
   transit_gateway_id = aws_ec2_transit_gateway.TGW-PAN.id
-  default_association_route_table     = false
-  default_propagation_route_table     = false
   tags = {
     Owner = "dan-via-terraform"
     Name  = "TGW-RT-Spokes"
@@ -27,8 +25,6 @@ resource "aws_ec2_transit_gateway_route_table" "TGW-RT-Spoke-VPCs" {
 #  Route Table for Security VPC
 resource "aws_ec2_transit_gateway_route_table" "TGW-RT-Security-VPC" {
   transit_gateway_id = aws_ec2_transit_gateway.TGW-PAN.id
-  default_association_route_table     = false
-  default_propagation_route_table     = false
   tags = {
     Owner = "dan-via-terraform"
     Name  = "TGW-RT-Security-VPC"
