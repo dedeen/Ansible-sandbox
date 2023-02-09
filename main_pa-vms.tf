@@ -22,7 +22,7 @@ resource "aws_network_interface" "eth1" {
   #private_ips          = ["10.100.1.10"]      
     
   attachment  {
-    instance            = PA-VM-1.id
+    instance            = aws_instance.PA-VM-1.id
     device_index        = 1
   }
 }
