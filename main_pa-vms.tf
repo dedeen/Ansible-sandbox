@@ -53,7 +53,7 @@ resource "aws_instance" "PA-VM-2" {
 }
   
 # Add two more NICs to the PA-VM instance 
-resource "aws_network_interface" "eth1" {
+resource "aws_network_interface" "eth3" {
   subnet_id             = module.vpc["secvpc"].intra_subnets[7]                   #internal (app-vpc side) subnet
   security_groups       = [aws_security_group.SG-allow_ipv4["secvpc"].id]
   #private_ips          = ["10.100.1.10"]      
@@ -64,7 +64,7 @@ resource "aws_network_interface" "eth1" {
   }
 }
 
-resource "aws_network_interface" "eth2" {
+resource "aws_network_interface" "eth4" {
   subnet_id             = module.vpc["secvpc"].intra_subnets[8]             #public subnet
   security_groups       = [aws_security_group.SG-allow_ipv4["secvpc"].id]
   #private_ips          = ["10.100.1.10"]      
