@@ -37,7 +37,7 @@ resource "aws_internet_gateway" "mgmt_vpc_igw" {
 	vpc_id = module.vpc["mgmtvpc"].vpc_id
 		
 	tags = {
-	  Name = "sec_vpc_igw"
+	  Name = "mgmt_vpc_igw"
 	}
 }
 		
