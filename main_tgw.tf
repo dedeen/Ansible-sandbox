@@ -127,3 +127,6 @@ resource "aws_ec2_transit_gateway_route_table_propagation" "mgmtvpc-to-sec-rt" {
   transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.mgmtvpc-att.id
   transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.TGW-RT-Security-VPC.id
 }
+
+# Create route table for app1vpc instances 
+    dan - start here with app1 route table
