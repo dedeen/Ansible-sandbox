@@ -135,8 +135,8 @@ resource "aws_ec2_transit_gateway_route_table_propagation" "mgmtvpc-to-sec-rt" {
 }
 
 #>>dje
-#  Propagate routes from >> security VPC to teh security_route_table
-resource "aws_ec2_transit_gateway_route_table_propagation" "mgmtvpc-to-sec-rt" {
+#  Propagate routes from >> security VPC to the security_route_table
+resource "aws_ec2_transit_gateway_route_table_propagation" "secvpc-to-sec-rt" {
   transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.secvpc-att.id
   transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.TGW-RT-Security-VPC.id
 }
