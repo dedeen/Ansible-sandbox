@@ -141,7 +141,7 @@ resource "aws_route_table" "app1vpc-rt" {
     Name  = "App1-instances-RT"
   }  
 }
-
+/*
 # Associate RT with both instance subnets in app1vpc (one per AZ)
 resource "aws_route_table_association" "app1-az1-assoc" {
   subnet_id           = module.vpc["app1vpc"].intra_subnets[0]
@@ -151,4 +151,4 @@ resource "aws_route_table_association" "app1-az2-assoc" {
   subnet_id           = module.vpc["app1vpc"].intra_subnets[2]
   route_table_id      = aws_route_table.app1vpc-rt.id
 }
-
+*/
