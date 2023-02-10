@@ -5,6 +5,7 @@ resource "aws_instance" "EC2-app1vpc-az1" {
   instance_type                       = "t2.micro"
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = false
+  private_ip                          = "10.104.0.20"
   subnet_id                           = module.vpc["app1vpc"].intra_subnets[0]
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["app1vpc"].id]  
   source_dest_check                   = true
@@ -19,6 +20,7 @@ resource "aws_instance" "EC2-app1vpc-az2" {
   instance_type                       = "t2.micro"
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = false
+  private_ip                          = "10.104.128.20"
   subnet_id                           = module.vpc["app1vpc"].intra_subnets[2]
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["app1vpc"].id]  
   source_dest_check                   = true
@@ -33,6 +35,7 @@ resource "aws_instance" "EC2-app2vpc-az1" {
   instance_type                       = "t2.micro"
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = false
+  private_ip                          = "10.105.0.20"
   subnet_id                           = module.vpc["app2vpc"].intra_subnets[0]
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["app2vpc"].id]  
   source_dest_check                   = true
@@ -47,6 +50,7 @@ resource "aws_instance" "EC2-app2vpc-az2" {
   instance_type                       = "t2.micro"
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = false
+  private_ip                          = "10.105.128.20"
   subnet_id                           = module.vpc["app2vpc"].intra_subnets[2]
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["app2vpc"].id]  
   source_dest_check                   = true
