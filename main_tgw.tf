@@ -152,3 +152,27 @@ resource "aws_route_table_association" "app1-az2-assoc" {
   route_table_id      = aws_route_table.app1vpc-rt.id
 }
 */
+
+# Create RT for app2vpc instances
+resource "aws_route_table" "app2vpc-rt" {
+  vpc_id                = module.vpc["app2vpc"].vpc_id 
+  route {                                                       # local route to the VPC is added to RT automatically 
+    cidr_block          = "0.0.0.0/0"
+    transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
+  }
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "App2-instances-RT"
+  }  
+}
+
+# Associate RT with both instance subnets in app2vpc (one per AZ)
+resource "aws_route_table_association" "app2-az1-assoc" {
+  subnet_id           = module.vpc["app2vpc"].intra_subnets[0]
+  route_table_id      = aws_route_table.app2vpc-rt.id
+}  /*
+resource "aws_route_table_association" "app2-az2-assoc" {
+  subnet_id           = module.vpc["app2vpc"].intra_subnets[2]
+  route_table_id      = aws_route_table.app2vpc-rt.id
+}
+*/
