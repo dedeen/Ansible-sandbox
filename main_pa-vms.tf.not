@@ -77,3 +77,18 @@ resource "aws_network_interface" "eth4" {
   }
 }
 
+# Create two EIPs for each PA-VM, one for the mgmt interface, and one for the public-side interface for outbound traffic flows from app-vpcs. 
+resource "aws_eip" "PA1-eip-mgmt-int" {
+  vpc   = true
+}
+resource "aws_eip" "PA1-eip-public-int" {
+  vpc   = true
+}
+resource "aws_eip" "PA2-eip-mgmt-int" {
+  vpc   = true
+}
+resource "aws_eip" "PA2-eip-public-int" {
+  vpc   = true
+}
+  
+
