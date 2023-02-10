@@ -41,17 +41,17 @@ resource "aws_internet_gateway" "mgmt_vpc_igw" {
 	}
 }
 		
-output  "vpc_app1" { 
+output  "vpc_ID" { 
   value = module.vpc["app1vpc"].vpc_id
 }
-output  "vpc_subnets" { 
-  value = module.vpc["app1vpc"].intra_subnets
+output  "subnet-0" { 
+  value = module.vpc["app1vpc"].intra_subnets[0]
 }
-output  "vpc_rts" { 
+output  "module-RT" { 
   value = module.vpc["app1vpc"].intra_route_table_ids
 }
 output  "vpc_rtassoc" { 
-  value = module.vpc["app1vpc"].intra_route_table_association_ids
+  value = module.vpc["app1vpc"].intra_route_table_association_ids[0]
 }
 	
   
