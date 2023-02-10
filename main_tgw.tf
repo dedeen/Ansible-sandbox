@@ -132,9 +132,13 @@ resource "aws_ec2_transit_gateway_route_table_propagation" "mgmtvpc-to-sec-rt" {
 # Create route table for app1vpc instances
 resource "aws_route_table" "app1vpc-rt" {
   vpc_id                = module.vpc["app1vpc"].vpc_id 
-  route {
+  route {                                                       # local route to the VPC is added to RT automatically 
     cidr_block          = "0.0.0.0/0"
     transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
   }
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "app1vpc-rt"
+  }  
 }
 
