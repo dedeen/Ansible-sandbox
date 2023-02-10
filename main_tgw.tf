@@ -109,6 +109,12 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "secvpc-att" {
   transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.mgmtvpc-att.id
   transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.TGW-RT-Spoke-VPCs.id
 }
+  
+ #  Associate security route table with the security vpc TGW attachment
+ resource "aws_ec2_transit_gateway_route_table_association" "sec-rt-to-secvpc" {
+  transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.secvpc-att.id
+  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.TGW-RT-Security-VPC.id
+}
     
 #  Propagate routes from app1vpc TGW attachment to the route table for the security vpc
 resource "aws_ec2_transit_gateway_route_table_propagation" "app1vpc-to-sec-rt" {
