@@ -145,7 +145,6 @@ resource "aws_ec2_transit_gateway_route_table_propagation" "secvpc-to-spokes-rt"
   transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.TGW-RT-Spoke-VPCs.id
 }
  
-#dje 
 #  Add default route to TGW spokes RT to direct all traffic to the security VPC
 resource "aws_ec2_transit_gateway_route" "spokes-def-route-via-TGW" {
   destination_cidr_block         = "0.0.0.0/0"
