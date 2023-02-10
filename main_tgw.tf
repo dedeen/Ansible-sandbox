@@ -167,12 +167,13 @@ resource "aws_route_table" "app2vpc-rt" {
 }
 
 # Associate RT with both instance subnets in app2vpc (one per AZ)
+  /* >>> This commented out due to terraform bug, will add to cleanup bash script 
 resource "aws_route_table_association" "app2-az1-assoc" {
   subnet_id           = module.vpc["app2vpc"].intra_subnets[0]
   route_table_id      = aws_route_table.app2vpc-rt.id
-}  /*
+} 
 resource "aws_route_table_association" "app2-az2-assoc" {
   subnet_id           = module.vpc["app2vpc"].intra_subnets[2]
   route_table_id      = aws_route_table.app2vpc-rt.id
 }
-*/
+*/ >>> End of terraform bug skip
