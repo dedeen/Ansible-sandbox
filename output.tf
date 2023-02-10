@@ -1,3 +1,8 @@
+# Dummy for import cleanup from terraform artifacts
+resource "aws_route_table_association" "temp1" {
+} 
+
+
 output  "vpc_ID" { 
   value = module.vpc["app1vpc"].vpc_id
 }
