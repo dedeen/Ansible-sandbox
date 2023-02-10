@@ -135,4 +135,4 @@ resource "aws_route_table" "app1vpc-rt" {
     cidr_block          = 0.0.0.0/0
     transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
   }
-    
+}
