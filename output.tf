@@ -15,7 +15,7 @@ output  "vpc_rtassoc" {
   
 # Dummy for import cleanup from terraform artifacts
 resource "aws_route_table_association" "temp1" {
-  route_table_id  = module.vpc["app1vpc"].intra_route_table_ids
+  route_table_id  = module.vpc["app1vpc"].intra_route_table_ids[0]
   subnet_id       = module.vpc["app1vpc"].intra_subnets[0]
     
 } 
