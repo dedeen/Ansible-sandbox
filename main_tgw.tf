@@ -190,7 +190,7 @@ resource "aws_route_table" "mgmtvpc-rt" {
   }
   route {                                                       # local route to the VPC is added to RT automatically 
   cidr_block          = "0.0.0.0/0"                             # route to Internet via IGW in mgmt VPC
-  transit_gateway_id  = IGW-name-here
+  gateway_id  =       = aws_internet_gateway.mgmt_vpc_igw.id {
   }
   tags = {
     Owner = "dan-via-terraform"
