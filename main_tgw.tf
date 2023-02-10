@@ -132,7 +132,7 @@ resource "aws_ec2_transit_gateway_route_table_propagation" "mgmtvpc-to-sec-rt" {
 resource "aws_route_table" "app1vpc-rt" {
   vpc_id                = module.vpc["app1vpc"].vpc_id 
   route {
-    cidr_block          = 0.0.0.0/0
+    cidr_block          = "0.0.0.0/0"
     transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
   }
 }
