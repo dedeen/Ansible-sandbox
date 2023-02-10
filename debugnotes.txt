@@ -1,19 +1,45 @@
 File to track EC2 resources for validation of end-to-end routing within environment. 
 
+==============
+EC-2 Instances 
+==============
+VPC             EC-2                    Int        Expected IP      Actual IP         Int-Subnet         Notes
+==================================================================================================================================
+App01-VPC(az1)  EC2-app1vpc-az1         eth0       dhcp                              10.104.0.0/24
+App01-VPC(az2)  EC2-app1vpc-az2         eth0       dhcp                              10.104.128.0/24
 
-VPC             EC-2                    Int        Expected IP      Actual IP         Int-Subnet          Notes
-=====================================================================================================================
-App01-VPC       EC2-app1vpc-az1                    dhcp                              10.104.0.0/24
-App01-VPC       EC2-app1vpc-az2                    dhcp                              10.104.128.0/24
+App02-VPC(az1)  EC2-app2vpc-az1         eth0       dhcp                              10.105.0.0/24          
+App02-VPC(az2)  EC2-app2vpc-az2         eth0       dhcp                              10.105.128.0/24
 
-App02-VPC       EC2-app2vpc-az1                    dhcp                              10.105.0.0/24          
-App02-VPC       EC2-app2vpc-az2                    dhcp                              10.105.128.0/24
-
-Sec01-VPC(az1)  PA-VM-1                 eth0-mgt   10.100.0.10                       10.100.0.0/24
+Sec01-VPC(az1)  PA-VM-1                 eth0-mgt   10.100.0.10                       10.100.0.0/24       Palo Alto NGFW-VM
                                         eth1-int   10.100.1.10                       10.100.1.0/24
                                         eth2-pub   10.100.2.10                       10.100.2.0/24
 
-Sec01-VPC(az2)  PA-VM-2                 eth0-mgt   10.100.64.10                      10.100.64.0/24
+Sec01-VPC(az2)  PA-VM-2                 eth0-mgt   10.100.64.10                      10.100.64.0/24      Palo Alto NGFW-VM
                                         eth1-int   10.100.65.10                      10.100.65.0/24
                                         eth2-pub   10.100.66.10                      10.100.66.0/24
+
+Mgmt-VPC(az1)   Panorama-1              eth0       10.255.0.10                       10.255.0.0/24      Palo Alto Panorama-VM
+Mgmt-VPC(az2)   Panorama-1              eth0       10.255.128.10                     10.255.128.0/24    Palo Alto Panorama-VM
+
+
+==============
+Internet_GWs
+==============
+VPC             IGW                    
+===================================
+Mgmt-VPC        mgmt_vpc_igw 
+Sec01-VPC       mgmt_vpc_igw 
+
+
+=================
+NAT Realizations
+=================
+Inside VPC      NAT'ed traffic notes 
+===================================
+Mgmt-VPC        IGW NAT - Panorama Mgmt interfaces (1 each) to the Internet
+Sec01-VPC       IGW NAT - PA-VM Mgmt interfaces (1 each) to the Internet 
+                PA-VM   - Firewall performing NAT between internal EC-2s and traffic to Internet 
+inbound         ... will fill this in later ...                
+
 
