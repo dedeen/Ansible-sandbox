@@ -146,7 +146,7 @@ resource "aws_route_table" "app1vpc-rt" {
 resource "aws_route_table_association" "app1-az1-assoc" {
   subnet_id           = module.vpc["app1vpc"].intra_subnets[0]
   route_table_id      = aws_route_table.app1vpc-rt.id
-  force_repace        = true
+  force_replace        = true
 }
 resource "aws_route_table_association" "app1-az2-assoc" {
   subnet_id           = module.vpc["app1vpc"].intra_subnets[2]
