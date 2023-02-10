@@ -20,6 +20,8 @@ module "vpc" {
     intra_subnet_names 		= each.value.subnet_names
     enable_ipv6            	= false
     enable_nat_gateway   	= false
+    enable_dns_hostname		= true		# default is false
+    enable_dns_support		= true		# default is true 
   
 }
 	
