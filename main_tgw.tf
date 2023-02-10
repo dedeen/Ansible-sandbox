@@ -129,7 +129,7 @@ resource "aws_ec2_transit_gateway_route_table_propagation" "mgmtvpc-to-sec-rt" {
 }
 
  
-# Create route table for app1vpc instances
+# Create RT for app1vpc instances
 resource "aws_route_table" "app1vpc-rt" {
   vpc_id                = module.vpc["app1vpc"].vpc_id 
   route {                                                       # local route to the VPC is added to RT automatically 
@@ -138,7 +138,18 @@ resource "aws_route_table" "app1vpc-rt" {
   }
   tags = {
     Owner = "dan-via-terraform"
-    Name  = "app1vpc-rt"
+    Name  = "App1-instances-RT"
   }  
 }
+
+# Associate RT with both instance subnets in app1vpc (one per AZ)
+resource "aws_route_table_association" "app1-az1-assoc" {
+  subnet_id           = module.vpc["app1vpc"].intra_subnets[1]
+  route_table_id      = aws_route_table.app1vpc-rt.id
+}
+resource "aws_route_table_association" "app1-az2-assoc" {
+  subnet_id           = module.vpc["app1vpc"].intra_subnets[3]
+  route_table_id      = aws_route_table.app1vpc-rt.id
+}
+  
 
