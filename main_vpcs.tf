@@ -51,7 +51,7 @@ output  "vpc_rts" {
   value = module.vpc["app1vpc"].intra_route_table_ids
 }
 output  "vpc_rtassoc" { 
-  value = module.vpc["app1vpc"].intra_route_association_ids
+  value = module.vpc["app1vpc"].intra_route_table_association_ids
 }
 	
   
