@@ -79,16 +79,29 @@ resource "aws_network_interface" "eth4" {
 
 # Create two EIPs for each PA-VM, one for the mgmt interface, and one for the public-side interface for outbound traffic flows from app-vpcs. 
 resource "aws_eip" "PA1-eip-mgmt-int" {
-  vpc   = true
+  vpc                   = true
 }
 resource "aws_eip" "PA1-eip-public-int" {
-  vpc   = true
+  vpc                   = true
 }
 resource "aws_eip" "PA2-eip-mgmt-int" {
-  vpc   = true
+  vpc                   = true
 }
 resource "aws_eip" "PA2-eip-public-int" {
-  vpc   = true
+  vpc                   = true
 }
+
+# Associate these EIPs with the specific firewall NICs 
+resource "aws_eip_association" "pa1-mgt-assoc" {
+  allocation_id         = aws_eip.PA1-eip-mgmt-int.id
+  network_instance_id   = aws_instance.PA-VM-1.primary_network_interface_id.id
+}
+resource "aws_eip_association" "pa1-pub-assoc" {
+  allocation_id         = aws_eip.PA1-eip-public-int.id
+  network_instance_id   = aws_network_interface.eth2.id
+  aws_instance.PA-VM-1.primary_network_interface_id.id
+}
+
+  
   
 
