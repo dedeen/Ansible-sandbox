@@ -111,7 +111,7 @@ resource "aws_security_group" "SG-PAFW-Private" {
 resource "aws_security_group" "SG-Panorama-Public" {
   name                  = "SG-Panorama-Public"
   description           = "SG-Panorama-Public"
-  vpc_id                = module.vpc["mgmtpc"].vpc_id
+  vpc_id                = module.vpc["mgmtvpc"].vpc_id
   ingress {
     description         = "inbound v4"
     cidr_blocks         = ["0.0.0.0/0"]
@@ -136,7 +136,7 @@ resource "aws_security_group" "SG-Panorama-Public" {
 resource "aws_security_group" "SG-Panorama-Private" {
   name                  = "SG-Panorama-Private"
   description           = "SG-Panorama-Private"
-  vpc_id                = module.vpc["mgmtpc"].vpc_id
+  vpc_id                = module.vpc["mgmtvpc"].vpc_id
   ingress {
     description         = "inbound v4"
     cidr_blocks         = ["0.0.0.0/0"]
