@@ -99,9 +99,15 @@ resource "aws_eip_association" "pa1-mgt-assoc" {
 resource "aws_eip_association" "pa1-pub-assoc" {
   allocation_id         = aws_eip.PA1-eip-public-int.id
   network_instance_id   = aws_network_interface.eth2.id
-  aws_instance.PA-VM-1.primary_network_interface_id.id
 }
-
+resource "aws_eip_association" "pa2-mgt-assoc" {
+  allocation_id         = aws_eip.PA2-eip-mgmt-int.id
+  network_instance_id   = aws_instance.PA-VM-2.primary_network_interface_id.id
+}
+resource "aws_eip_association" "pa2-pub-assoc" {
+  allocation_id         = aws_eip.PA2-eip-public-int.id
+  network_instance_id   = aws_network_interface.eth4.id
+}
   
   
 
