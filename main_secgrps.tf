@@ -106,3 +106,53 @@ resource "aws_security_group" "SG-PAFW-Private" {
     Owner = "dan-via-terraform"
     }
 }
+
+#  This secgrp is for the public side of the Panorama instances
+resource "aws_security_group" "SG-Panorama-Public" {
+  name                  = "SG-Panorama-Public"
+  description           = "SG-Panorama-Public"
+  vpc_id                = module.vpc["mgmtpc"].vpc_id
+  ingress {
+    description         = "inbound v4"
+    cidr_blocks         = ["0.0.0.0/0"]
+    from_port           = 0
+    to_port             = 0
+    protocol            = "-1"
+  }
+  egress {
+    description         = "outbound v4"
+    cidr_blocks         = ["0.0.0.0/0"]
+    from_port           = 0
+    to_port             = 0
+    protocol            = "-1"
+  }
+  tags = {
+    Name = "SG-Panorama-Public"
+    Owner = "dan-via-terraform"
+    }
+}
+  
+  #  This secgrp is for the private (internal) interface of the Panorama instances
+resource "aws_security_group" "SG-Panorama-Private" {
+  name                  = "SG-Panorama-Private"
+  description           = "SG-Panorama-Private"
+  vpc_id                = module.vpc["mgmtpc"].vpc_id
+  ingress {
+    description         = "inbound v4"
+    cidr_blocks         = ["0.0.0.0/0"]
+    from_port           = 0
+    to_port             = 0
+    protocol            = "-1"
+  }
+  egress {
+    description         = "outbound v4"
+    cidr_blocks         = ["0.0.0.0/0"]
+    from_port           = 0
+    to_port             = 0
+    protocol            = "-1"
+  }
+  tags = {
+    Name = "SG-Panorama-Private"
+    Owner = "dan-via-terraform"
+    }
+}
