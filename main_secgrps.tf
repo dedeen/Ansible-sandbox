@@ -31,3 +31,28 @@ resource "aws_security_group" "SG-allow_ipv4" {
       Owner = "dan-via-terraform"
     }
 }
+
+#  This secgrp is for the public side of the PA firewalls, connected through an IGW with an EIP
+resource "aws_security_group" "SG-PAFW-Public" {
+  name                  = "SG-PAWF-Public"
+  description           = "SG-PAWF-Public"
+  vpc_id                = module.vpc["secvpc"].vpc_id
+  ingress {
+    description         = "inbound v4"
+    cidr_blocks         = ["0.0.0.0/0"]
+    from_port           = 0
+    to_port             = 0
+    protocol            = "-1"
+  }
+  egress {
+    description         = "outbound v4"
+    cidr_blocks         = ["0.0.0.0/0"]
+    from_port           = 0
+    to_port             = 0
+    protocol            = "-1"
+  }
+  tags = {
+    Name = "SG-PAWF-Public"
+    Owner = "dan-via-terraform"
+    }
+}
