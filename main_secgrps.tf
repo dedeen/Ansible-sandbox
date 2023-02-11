@@ -56,3 +56,53 @@ resource "aws_security_group" "SG-PAFW-Public" {
     Owner = "dan-via-terraform"
     }
 }
+
+#  This secgrp is for the mgmt interface of the PA firewalls
+resource "aws_security_group" "SG-PAFW-Mgmt" {
+  name                  = "SG-PAFW-Mgmt"
+  description           = "SG-PAFW-Mgmt"
+  vpc_id                = module.vpc["secvpc"].vpc_id
+  ingress {
+    description         = "inbound v4"
+    cidr_blocks         = ["0.0.0.0/0"]
+    from_port           = 0
+    to_port             = 0
+    protocol            = "-1"
+  }
+  egress {
+    description         = "outbound v4"
+    cidr_blocks         = ["0.0.0.0/0"]
+    from_port           = 0
+    to_port             = 0
+    protocol            = "-1"
+  }
+  tags = {
+    Name = "SG-PAFW-Mgmt"
+    Owner = "dan-via-terraform"
+    }
+}
+  
+#  This secgrp is for the internal side (client VPCs) of the PA firewalls
+resource "aws_security_group" "SG-PAFW-Private" {
+  name                  = "SG-PAFW-Private"
+  description           = "SG-PAFW-Private"
+  vpc_id                = module.vpc["secvpc"].vpc_id
+  ingress {
+    description         = "inbound v4"
+    cidr_blocks         = ["0.0.0.0/0"]
+    from_port           = 0
+    to_port             = 0
+    protocol            = "-1"
+  }
+  egress {
+    description         = "outbound v4"
+    cidr_blocks         = ["0.0.0.0/0"]
+    from_port           = 0
+    to_port             = 0
+    protocol            = "-1"
+  }
+  tags = {
+    Name = "SG-PAFW-Private"
+    Owner = "dan-via-terraform"
+    }
+}
