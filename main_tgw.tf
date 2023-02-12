@@ -290,7 +290,7 @@ resource "aws_route_table_association" "sec-pub2-assoc" {
    
   
   
-/* Placeholder for additional RTs: 
+/* dje - uncomment these 2 RTs and add GWLB-eps after building the resources: 
 resource "aws_route_table" "secvpc-rt-tgw-az1" {
   vpc_id                = module.vpc["secvpc"].vpc_id 
   route {                                                      
@@ -316,7 +316,7 @@ resource "aws_route_table" "secvpc-rt-tgw-az2" {
   }  
 }
 # and associate here to subnet sec-az2-TGW_Att
-  
+*/  
 resource "aws_route_table" "secvpc-rt-gwlbe-tgw" {
   vpc_id                = module.vpc["secvpc"].vpc_id 
   route {                                                      
@@ -328,6 +328,15 @@ resource "aws_route_table" "secvpc-rt-gwlbe-tgw" {
     Name  = "Secvpc-GWLBe-az1andaz2-to-TGW-RT"
   }  
 }
-# and associate here to subnet sec-az2-TGW_Att
-  
+# associate with GWLB-EP subnets (both)
+  /* >>> This commented out due to terraform bug, will add to cleanup bash script 
+resource "aws_route_table_association" "sec-gwlbe-tgw-assoc" {
+  subnet_id           = module.vpc["secvpc"].intra_subnets[4]
+  route_table_id      = aws_route_table.secvpc-rt-gwlbe-tgw.id
+} 
+resource "aws_route_table_association" "sec-gwlbe-tgw-assoc" {
+  subnet_id           = module.vpc["secvpc"].intra_subnets[10]
+  route_table_id      = aws_route_table.secvpc-rt-gwlbe-tgw.id
+} 
+*/ end of commented out association >>>  
   
