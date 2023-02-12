@@ -235,16 +235,16 @@ resource "aws_route_table_association" "mgmt-az2-assoc" {
 >>> End of terraform bug skip   */
     
   
-# Create RT for public subnet of Security VPC
+# Create RT for public subnets (2) of Security VPC
 resource "aws_route_table" "secvpc-rt-public-subnets" {
   vpc_id                = module.vpc["secvpc"].vpc_id 
   route {                                                      
-    cidr_block          = "0.0.0.0/0"                          # route to PA-VM firewalls
+    cidr_block          = "0.0.0.0/0"                          # route to IGW - gives outside access for inbound traffic to PA-VMs
     gateway_id  = aws_internet_gateway.sec_vpc_igw.id
   }
   tags = {
     Owner = "dan-via-terraform"
-    Name  = "secvpc-rt-public-subnets"
+    Name  = "Secvpc-public-subnets-RT"
   }  
 }
 # Associate this RT with the public subnets in the security VPC
@@ -258,4 +258,32 @@ resource "aws_route_table_association" "sec-pub2-assoc" {
   route_table_id      = aws_route_table.secvpc-rt-public-subnets.id
 }
 >>> End of terraform bug skip   */
-  
+ 
+dje::
+# Create RT for mgmt subnets (2) of Security VPC
+resource "aws_route_table" "secvpc-rt-mgmt-subnets" {
+  vpc_id                = module.vpc["secvpc"].vpc_id 
+  route {                                                      
+    cidr_block          = "0.0.0.0/0"                          # route to IGW - mgmt interface of PA-VMs 
+    gateway_id  = aws_internet_gateway.sec_vpc_igw.id
+  }
+  route {                                                      
+    cidr_block          = "10.255.0.0/16"                      # route via TGW to mgmt VPC (Panoramas) from mgmt int of PA-VMs 
+    transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
+  }
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "Secvpc-mgmt-subnets-RT"
+  }  
+}
+# Associate this RT with the public subnets in the security VPC
+  /* >>> This commented out due to terraform bug, will add to cleanup bash script 
+resource "aws_route_table_association" "sec-pub1-assoc" {
+  subnet_id           = module.vpc["secvpc"].intra_subnets[0]
+  route_table_id      = aws_route_table.secvpc-rt-public-subnets.id
+} 
+resource "aws_route_table_association" "sec-pub2-assoc" {
+  subnet_id           = module.vpc["secvpc"].intra_subnets[6]
+  route_table_id      = aws_route_table.secvpc-rt-public-subnets.id
+}
+>>> End of terraform bug skip   */
