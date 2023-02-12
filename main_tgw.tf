@@ -329,7 +329,7 @@ resource "aws_route_table" "secvpc-rt-gwlbe-tgw" {
   }  
 }
 # associate with GWLB-EP subnets (both)
-  /* >>> This commented out due to terraform bug, will add to cleanup bash script 
+/* >>> This commented out due to terraform bug, will add to cleanup bash script 
 resource "aws_route_table_association" "sec-gwlbe-tgw-assoc" {
   subnet_id           = module.vpc["secvpc"].intra_subnets[4]
   route_table_id      = aws_route_table.secvpc-rt-gwlbe-tgw.id
@@ -338,5 +338,5 @@ resource "aws_route_table_association" "sec-gwlbe-tgw-assoc" {
   subnet_id           = module.vpc["secvpc"].intra_subnets[10]
   route_table_id      = aws_route_table.secvpc-rt-gwlbe-tgw.id
 } 
-*/ end of commented out association >>>  
+>>> end of commented out association  */
   
