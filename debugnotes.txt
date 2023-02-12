@@ -56,3 +56,23 @@ Secvpc-GWLBe-az1andaz2-to-TGW-RT    -> sec-az1-GWLB_EndPt
 Secvpc-GWLBe-az1andaz2-to-TGW-RT    -> sec-az1-GWLB_EndPt
 
 
+Debug instructions/notes: 
+ssh ec2-user@34.208.9.49 -i terraform-key-pair.55b0.pem
+
+[PA-VM-2]
+ping 10.100.64.10
+ping 10.100.65.10
+ping 10.100.66.10
+
+[EC2-app1vpc-az1, az2]
+ping 10.104.0.20
+ping 10.104.128.20
+
+[EC2-app2vpc-az1, az2]
+ping 10.105.0.20
+ping 10.105.128.20
+
+
+
+
+
