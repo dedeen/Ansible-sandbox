@@ -43,12 +43,12 @@ Sec01-VPC       IGW NAT - PA-VM Mgmt interfaces (1 each) to the Internet
 inbound         ... will fill this in later ...                
 
 Route Table Associations (terraform bug workaround)
-RT->subnet:     
+    Associate RT  ->  subnet:     
 
 Secvpc-public-subnets-RT    -> sec-az1-pub, sec-az2-pub 
 Secvpc-mgmt-subnets-RT      -> sec-az1-mgt, suc-az2-mgt
 App1-instances-RT           -> app1-az1-inst, app1-az2-inst
 App2-instances-RT           -> app2-az1-inst, app2-az2-inst
-
+Mgmt-instances-RT           -> mgmt-az1-inst, mgmt-az2-inst 
 
 
