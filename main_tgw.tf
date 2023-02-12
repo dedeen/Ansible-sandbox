@@ -259,7 +259,7 @@ resource "aws_route_table_association" "sec-pub2-assoc" {
 }
 >>> End of terraform bug skip   */
  
-dje::
+  
 # Create RT for mgmt subnets (2) of Security VPC
 resource "aws_route_table" "secvpc-rt-mgmt-subnets" {
   vpc_id                = module.vpc["secvpc"].vpc_id 
