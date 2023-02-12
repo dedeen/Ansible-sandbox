@@ -73,6 +73,18 @@ ping 10.105.0.20
 ping 10.105.128.20
 
 
+##################
+aws commands to work around terraform bug with subnet to route table associations
+
+aws ec2 describe-subnets --filters "Name=tag:Name,Values=sec-az1-pub" --query "Subnets[*].SubnetId" --output text
+aws ec2 describe-subnets --filters "Name=tag:Name,Values=sec-az2-pub" --query "Subnets[*].SubnetId" --output text
+  subnet-0d1cc0de52e8fe501
+  subnet-01cbf0131579c38d8
+aws ec2 describe-route-tables --filters "Name=tag:Name,Values=Secvpc-public-subnets-RT" --query "RouteTables[*].RouteTableId"  --output text
+  rtb-06bcacd8cb1b628c1
+
+aws ec2 associate-route-table --route-table-id rtb-06bcacd8cb1b628c1 --subnet-id subnet-0d1cc0de52e8fe501
+aws ec2 associate-route-table --route-table-id rtb-06bcacd8cb1b628c1 --subnet-id subnet-01cbf0131579c38d8
 
 
 
