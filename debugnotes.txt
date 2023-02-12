@@ -46,7 +46,8 @@ Route Table Associations (terraform bug workaround)
     Associate RT  ->  subnet:     
 
 Secvpc-public-subnets-RT            -> sec-az1-pub, sec-az2-pub 
-Secvpc-mgmt-subnets-RT              -> sec-az1-mgt, suc-az2-mgt
+Secvpc-mgmt-subnets-RT              -> sec-az1-mgt, sec-az2-mgt
+Secvpc-private-subnets-RT           -> sec-az1-int, sec-az2-int
 App1-instances-RT                   -> app1-az1-inst, app1-az2-inst
 App2-instances-RT                   -> app2-az1-inst, app2-az2-inst
 Mgmt-instances-RT                   -> mgmt-az1-inst, mgmt-az2-inst 
@@ -97,3 +98,13 @@ awscmd3="aws ec2 associate-route-table --route-table-id ${rt2} --subnet-id ${sub
 echo $awscmd3
 awscmd4="aws ec2 associate-route-table --route-table-id ${rt2} --subnet-id ${sub4}"
 echo $awscmd4
+echo "######################################"
+sub5=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=sec-az1-int" --query "Subnets[*].SubnetId" --output text)
+sub6=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=sec-az2-int" --query "Subnets[*].SubnetId" --output text)
+rt56=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=Secvpc-private-subnets-RT" --query "RouteTables[*].RouteTableId"  --output text)
+awscmd5="aws ec2 associate-route-table --route-table-id ${rt56} --subnet-id ${sub5}"
+echo $awscmd5
+awscmd6="aws ec2 associate-route-table --route-table-id ${rt56} --subnet-id ${sub6}"
+echo $awscmd6
+
+
