@@ -287,7 +287,28 @@ resource "aws_route_table_association" "sec-pub2-assoc" {
   route_table_id      = aws_route_table.secvpc-rt-public-subnets.id
 }
 >>> End of terraform bug skip   */
-   
+
+
+# Create RT for private subnets (2) of Security VPC to end user VPCs via TGW
+resource "aws_route_table" "secvpc-rt-private-subnets" {
+  vpc_id                = module.vpc["secvpc"].vpc_id 
+  route {                                                      
+    cidr_block          = "10.104.0.0/0"                         
+    transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
+  }
+  route {                                                      
+    cidr_block          = "10.105.0.0/16"                       
+    transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
+  }
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "Secvpc-private-subnets-RT"
+  }  
+}  
+# Need to associate this RT to the two private subnets in the security VPC
+#   This is done via bash script due to terraform bug with RT association changes 
+ #    subnet_id = module.vpc["secvpc"].intra_subnets[1] to TGW (subnet name is sec-az1-int)
+ #    subnet_id = module.vpc["secvpc"].intra_subnets[7] to TGW (subnet name is sec-az2-int)
   
   
 /* dje - uncomment these 2 RTs and add GWLB-eps after building the resources: 
