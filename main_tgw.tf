@@ -307,8 +307,12 @@ resource "aws_route_table" "secvpc-rt-private-subnets" {
 }  
 # Need to associate this RT to the two private subnets in the security VPC
 #   This is done via bash script due to terraform bug with RT association changes 
- #    subnet_id = module.vpc["secvpc"].intra_subnets[1] to TGW (subnet name is sec-az1-int)
- #    subnet_id = module.vpc["secvpc"].intra_subnets[7] to TGW (subnet name is sec-az2-int)
+#     subnet_id = module.vpc["secvpc"].intra_subnets[1] to TGW (subnet name is sec-az1-int)
+#     subnet_id = module.vpc["secvpc"].intra_subnets[7] to TGW (subnet name is sec-az2-int)
+#     Bash cmds to make these associations are as follows: 
+#dje
+#
+#
   
   
 /* dje - uncomment these 2 RTs and add GWLB-eps after building the resources: 
