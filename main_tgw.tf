@@ -233,3 +233,29 @@ resource "aws_route_table_association" "mgmt-az2-assoc" {
   route_table_id      = aws_route_table.mgmtvpc-rt.id
 }
 >>> End of terraform bug skip   */
+    
+  
+# Create RT for public subnet of Security VPC
+resource "aws_route_table" "secvpc-rt-public-subnets" {
+  vpc_id                = module.vpc["secvpc"].vpc_id 
+  route {                                                      
+    cidr_block          = "0.0.0.0/0"                          # route to PA-VM firewalls
+    gateway_id  = aws_internet_gateway.sec_vpc_igw.id
+  }
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "secvpc-rt-public-subnets"
+  }  
+}
+# Associate this RT with the public subnets in the security VPC
+  /* >>> This commented out due to terraform bug, will add to cleanup bash script 
+resource "aws_route_table_association" "sec-pub1-assoc" {
+  subnet_id           = module.vpc["secvpc"].intra_subnets[2]
+  route_table_id      = aws_route_table.secvpc-rt-public-subnets.id
+} 
+resource "aws_route_table_association" "sec-pub2-assoc" {
+  subnet_id           = module.vpc["secvpc"].intra_subnets[8]
+  route_table_id      = aws_route_table.secvpc-rt-public-subnets.id
+}
+>>> End of terraform bug skip   */
+  
