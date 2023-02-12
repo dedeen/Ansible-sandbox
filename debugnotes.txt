@@ -93,4 +93,7 @@ echo "######################################"
 sub3=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=sec-az1-mgt" --query "Subnets[*].SubnetId" --output text)
 sub4=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=sec-az2-mgt" --query "Subnets[*].SubnetId" --output text)
 rt2=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=Secvpc-mgmt-subnets-RT" --query "RouteTables[*].RouteTableId"  --output text)
-
+awscmd3="aws ec2 associate-route-table --route-table-id ${rt2} --subnet-id ${sub3}"
+echo $awscmd3
+awscmd4="aws ec2 associate-route-table --route-table-id ${rt2} --subnet-id ${sub4}"
+echo $awscmd4
