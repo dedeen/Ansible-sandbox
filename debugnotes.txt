@@ -50,5 +50,8 @@ Secvpc-mgmt-subnets-RT      -> sec-az1-mgt, suc-az2-mgt
 App1-instances-RT           -> app1-az1-inst, app1-az2-inst
 App2-instances-RT           -> app2-az1-inst, app2-az2-inst
 Mgmt-instances-RT           -> mgmt-az1-inst, mgmt-az2-inst 
+Secvpc-TGW-AZ1-to-GWLBe-RT  -> sec-az1-TGW_Att
+Secvpc-TGW-AZ2-to-GWLBe-RT  -> sec-az2-TGW_Att
+
 
 
