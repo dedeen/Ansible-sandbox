@@ -294,7 +294,7 @@ resource "aws_route_table_association" "sec-pub2-assoc" {
 resource "aws_route_table" "secvpc-rt-tgw-az1" {
   vpc_id                = module.vpc["secvpc"].vpc_id 
   route {                                                      
-    cidr_block          = "0.0.0.0/0"                          # route to IGW - mgmt interface of PA-VMs 
+    cidr_block          = "0.0.0.0/0"                          
     gateway_id  = GWLB-Endpoint-2A
   }
   tags = {
@@ -304,11 +304,10 @@ resource "aws_route_table" "secvpc-rt-tgw-az1" {
 }
 # and associate here to subnet sec-az1-TGW_Att
 
-/* Placeholder for additional RTs: 
 resource "aws_route_table" "secvpc-rt-tgw-az2" {
   vpc_id                = module.vpc["secvpc"].vpc_id 
   route {                                                      
-    cidr_block          = "0.0.0.0/0"                          # route to IGW - mgmt interface of PA-VMs 
+    cidr_block          = "0.0.0.0/0"                         
     gateway_id  = GWLB-Endpoint-2B
   }
   tags = {
@@ -318,6 +317,17 @@ resource "aws_route_table" "secvpc-rt-tgw-az2" {
 }
 # and associate here to subnet sec-az2-TGW_Att
   
-dje - add 5th RT from page 66 here. 
+resource "aws_route_table" "secvpc-rt-gwlbe-tgw" {
+  vpc_id                = module.vpc["secvpc"].vpc_id 
+  route {                                                      
+    cidr_block          = "0.0.0.0/0"                         
+    transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
+  }
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "Secvpc-GWLBe-az1andaz2-to-TGW-RT"
+  }  
+}
+# and associate here to subnet sec-az2-TGW_Att
   
   
