@@ -120,7 +120,7 @@ while [ $index -le 2 ]; do
     echo "false"
     fi
     
-    if (($oksofar))
+    if $oksofar
     then 
         echo "OK"
     else
