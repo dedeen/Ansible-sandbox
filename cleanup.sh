@@ -122,8 +122,8 @@ while [ $index -le $count ]; do
     echo ">"$rtbassoc">"$currrtb">"$currsubnet">"
     echo "<"$subnet1"<"$rt0"<"
     echo "-."${awsrtassoc[$index]}
-    echo "-.."{$awsrtb[$index]}
-    echo {$awssubnet[$index]}
+    echo "-.."${awsrtb[$index]}
+    echo "-..."${awssubnet[$index]}
     #echo "-.-"
     #echo $index">"
     #awsrtassoc[0]=$rtbassoc
