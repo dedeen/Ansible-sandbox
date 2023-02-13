@@ -57,7 +57,7 @@ targetrt[11]=Mgmt-instances-RT
 subnet[11]=mgmt-az2-inst
 
 echo ${targetrt[11]}
-exit 0
+
 
 count=11
 index=0
@@ -70,6 +70,7 @@ while [ $index -le count] do
     index=$(($index+1))
 done
 
+exit 0
 
    # Get subnet-id#
 subnet1=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=sec-az1-pub" --query "Subnets[*].SubnetId" --output text)
