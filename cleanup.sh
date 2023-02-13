@@ -104,7 +104,7 @@ while [ $index -le $count ]; do
     if [ "$result1" = "" ];
     then
         echo "Empty String Returned"
-    if 
+    fi 
     
     #################
     # Store the resource IDs from AWS in 4 arrays, parse them and store into the arrays with sync'ed indices
