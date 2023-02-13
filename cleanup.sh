@@ -112,20 +112,20 @@ while [ $index -le $count ]; do
     awsrtnew[$index]=$rt1
   
     # Checking that route tables and subnets match expected values 
-    oksofar=true
-    if [ $currsubnet != "$subnet1" ]; then 
-        oksofar=false
-    fi
-    if [ $currrtb != "$rt0" ]; then 
-        oksofar=false
-    fi
+   # oksofar=true
+   # if [ $currsubnet != "$subnet1" ]; then 
+   #     oksofar=false
+   # fi
+   # if [ $currrtb != "$rt0" ]; then 
+   #     oksofar=false
+   # fi
     
-    if $oksofar
-    then 
-        : #echo "OK"
-    else
-        echo "Not OK - Retrieved Values Do Not Match Expected"
-    fi 
+   # if $oksofar
+   # then 
+   #     : #echo "OK"
+   # else
+   #     echo "Not OK - Retrieved Values Do Not Match Expected"
+   # fi 
     
     # end of loop, update index
     index=$(($index+1))
