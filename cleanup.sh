@@ -84,7 +84,8 @@ while [ $index -le $count ]; do
     orRT=${originalrt[$index]}
     targRT=${targetrt[$index]}
         
-    subnet1=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${targRT}" --query "Subnets[*].SubnetId" --output text)
+    #subnet1=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${targRT}" --query "Subnets[*].SubnetId" --output text)
+    subnet1=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=sec-az1-pub" --query "Subnets[*].SubnetId" --output text)
     #exit 0
     rt0=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=${orRT}" --query "RouteTables[*].RouteTableId"  --output text)
     #exit 0
