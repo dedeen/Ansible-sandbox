@@ -102,7 +102,7 @@ while [ $index -le $count ]; do
     awscmd1="aws ec2 describe-route-tables --route-table-ids ${rt0} --filters \"Name=association.subnet-id,Values=${subnet1}\" --query \"RouteTables[*].Associations[?SubnetId=='${subnet1}']\"  --output text"
     result1=$(eval "$awscmd1")
     #exit 0
-    echo "."${subnet1}".."${rt0}"..."${rt1}
+    #echo "."${subnet1}".."${rt0}"..."${rt1}
     echo "....."${result1}
     
     #################
@@ -114,11 +114,11 @@ while [ $index -le $count ]; do
     currsubnet=$(cut -d " " -f 4 <<<$result1)
     awssubnet[$index]=$currsubnet
     
-    echo ">"$rtbassoc">"$currrtb">"$currsubnet">"
-    echo "<"$subnet1"<"$rt0"<"
-    echo "-."${awsrtassoc[$index]}
-    echo "-.."${awsrtb[$index]}
-    echo "-..."${awssubnet[$index]}
+    #echo ">"$rtbassoc">"$currrtb">"$currsubnet">"
+    #echo "<"$subnet1"<"$rt0"<"
+    #echo "-."${awsrtassoc[$index]}
+    #echo "-.."${awsrtb[$index]}
+    #echo "-..."${awssubnet[$index]}
     #echo "-.-"
     #echo $index">"
     #awsrtassoc[0]=$rtbassoc
@@ -159,7 +159,7 @@ index=0
 echo "---------------------------"
 echo "AWS resource IDs retrieved "
 echo "----------------------------------------------"
-echo "Subnet             Orig-RT              New-RT"
+echo "Route Table Association           Orig-RT            Subnet Working With"
 echo "------             -------              ------"
 while [ $index -le $count ]; do
 echo ${awsrtassoc[$index]}"    "${awsrtb[$index]}"    "${awssubnet[$index]}
