@@ -159,14 +159,15 @@ index=0
 echo "---------------------------"
 echo "AWS resource IDs retrieved "
 echo "----------------------------------------------"
-echo "Route Table Association           Orig-RT            Subnet Working With"
-echo "------             -------              ------"
+echo "Route Table Association       Orig-RT                  Subnet Working With"
+echo "-----------------------       -------                  ------"
 while [ $index -le $count ]; do
 echo ${awsrtassoc[$index]}"    "${awsrtb[$index]}"    "${awssubnet[$index]}
 
 # end of loop, update index
     index=$(($index+1))
 done
+echo "----------------------------------------------"
 exit 0
 
 #nrt1=
