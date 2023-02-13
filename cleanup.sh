@@ -8,13 +8,30 @@ declare -a originalrt
 declare -a targetrt
 declare -a subnet 
 
-originalrt[0]="Sec01-VPC-intra"
+originalrt[0]=Sec01-VPC-intra
 targetrt[0]=Secvpc-public-subnets-RT
 subnet[0]=sec-az1-pub
 #
 originalrt[1]=Sec01-VPC-intra
 targetrt[1]=Secvpc-public-subnets-RT
 subnet[1]=sec-az2-pub
+#
+originalrt[2]=Sec01-VPC-intra
+targetrt[2]=Secvpc-mgmt-subnets-RT
+subnet[2]=sec-az1-mgt
+#
+originalrt[3]=Sec01-VPC-intra
+targetrt[3]=Secvpc-mgmt-subnets-RT
+subnet[3]=sec-az2-mgt
+#
+originalrt[4]=Sec01-VPC-intra
+targetrt[4]=Secvpc-private-subnets-RT
+subnet[4]=sec-az1-int
+#
+originalrt[5]=Sec01-VPC-intra
+targetrt[5]=Secvpc-private-subnets-RT
+subnet[5]=sec-az1-int
+#
 
 echo ${originalrt[0]}
 echo ${targetrt[0]}
