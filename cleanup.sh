@@ -101,6 +101,11 @@ while [ $index -le $count ]; do
     result1=$(eval "$awscmd1")
     echo "AWSCLI Query Results->"${result1}
     
+    if [ "$result1" = "" ];
+    then
+        echo "Empty String Returned"
+    if 
+    
     #################
     # Store the resource IDs from AWS in 4 arrays, parse them and store into the arrays with sync'ed indices
     rtbassoc=$(cut -d " " -f 2 <<<$result1)
