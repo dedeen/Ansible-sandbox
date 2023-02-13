@@ -12,11 +12,17 @@ originalrt[0]="Sec01-VPC-intra"
 targetrt[0]=Secvpc-public-subnets-RT
 subnet[0]=sec-az1-pub
 #
-#originalrt[1]=Sec01-VPC-intra
+originalrt[1]=Sec01-VPC-intra
 targetrt[1]=Secvpc-public-subnets-RT
 subnet[1]=sec-az2-pub
 
 echo ${originalrt[0]}
+echo ${targetrt[0]}
+echo ${subnet[0]}
+
+echo ${originalrt[1]}
+echo ${targetrt[1]}
+echo ${subnet[1]}
 exit 0
 
 
