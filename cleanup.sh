@@ -83,7 +83,9 @@ while [ $index -le $count ]; do
     sNet=subnet[$index]}
     orRT=${originalrt[$index]}
     targRT=${targetrt[$index]}
-    echo "~"${targRT}
+    echo "~"${sNet}
+    echo "~~"${orRT}
+    echo "~~~"${targRT}
         
     subnet1=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${sNet}" --query "Subnets[*].SubnetId" --output text)
     subnet1a=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=sec-az1-pub" --query "Subnets[*].SubnetId" --output text)
