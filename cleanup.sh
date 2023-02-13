@@ -109,10 +109,10 @@ while [ $index -le 2 ]; do
     echo $rtbassoc" "$currrtb" "$currsubnet
   
     oksofar=true
-    if [ "$currsubnet" != "$sNet" ]; then 
+    if [ "$currsubnet" != "$subnet1" ]; then 
     oksofar=false
     fi
-    if [ "$currrtb" != "$orRT" ]; then 
+    if [ "$currrtb" != "$rt0" ]; then 
     oksofar=false
     fi
     
