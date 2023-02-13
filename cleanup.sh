@@ -72,10 +72,10 @@ index=0
 echo "-------------------------------------------------"
 echo "Subnet<->Input Route Table Associations To Change"
 echo "-------------------------------------------------"
-echo "Subnet             Orig-RT              New-RT"
-echo "------             -------              ------"
+echo "#    Subnet             Orig-RT              New-RT"
+echo "--   ------             -------              ------"
 while [ $index -le $count ]; do
-    echo "("$index")   "echo ${subnet[$index]}" : "${originalrt[$index]}" -> "${targetrt[$index]}
+    echo "("$index")   "${subnet[$index]}" : "${originalrt[$index]}" -> "${targetrt[$index]}
     #
     #
     #
