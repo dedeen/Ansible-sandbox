@@ -56,7 +56,8 @@ originalrt[11]=Mgmt-VPC-intra
 targetrt[11]=Mgmt-instances-RT
 subnet[11]=mgmt-az2-inst
 
-count=11
+#count=11
+count="${#originalrt[@]}"   # number of elements in arrays
 index=0
 
 echo "-----------------------------"
@@ -72,7 +73,9 @@ while [ $index -le $count ]; do
     index=$(($index+1))
 done
 echo "----------------------------------------------"
-exit 0
+#exit 0
+
+
 
    # Get subnet-id#
 subnet1=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=sec-az1-pub" --query "Subnets[*].SubnetId" --output text)
