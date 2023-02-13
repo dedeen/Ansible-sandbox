@@ -146,7 +146,16 @@ echo ${awsrtassoc[$index]}"    "${awsrtborig[$index]}"    "${awssubnet[$index]}"
     index=$(($index+1))
 done
 echo "----------------------------------------------"
-exit 0
+#exit 0
+
+# Now that all of the prep work is completed and AWS resource IDs are known, we will loop through them changing subnet to RT associations as needed
+index=0
+echo "----------------------------------------------"
+echo "----------------------------------------------"
+while [ $index -le $count ]; do
+echo $index
+done
+echo "----------------------------------------------"
 
 #nrt1=
    # Get subnet-id#
