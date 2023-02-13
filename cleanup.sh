@@ -106,16 +106,11 @@ while [ $index -le $count ]; do
     echo "....."${result1}
     
     #################
-    # Store the resource IDs from AWS in 3 arrays
-    #
-    # Parse out the values returned and check for expected values. 
+    # Store the resource IDs from AWS in 3 arrays, parse them and store into 3 arrays with sync'ed indices
     rtbassoc=$(cut -d " " -f 2 <<<$result1)
     awsrtassoc[$index]=$rtbassoc
-    #awsrtassoc[$index]=$(cut -d " " -f 2 <<<$result1)
-    
     currrtb=$(cut -d " " -f 3 <<<$result1)
     awsrtb[$index]=$currrtb
-    
     currsubnet=$(cut -d " " -f 4 <<<$result1)
     awssubnet[$index]=$currsubnet
     
@@ -157,8 +152,24 @@ while [ $index -le $count ]; do
     # end of loop, update index
     index=$(($index+1))
 done   
-exit 0 
-    #nrt1=
+
+
+# Loop through the arrays of AWS resource IDs, print out before changing all of the associations
+index=0
+echo "---------------------------"
+echo "AWS resource IDs retrieved "
+echo "----------------------------------------------"
+echo "Subnet             Orig-RT              New-RT"
+echo "------             -------              ------"
+while [ $index -le $count ]; do
+echo ${awsrtassoc[$index]}"    "${awsrtb[$index]}"    "${awssubnet[$index]}
+
+# end of loop, update index
+    index=$(($index+1))
+done
+exit 0
+
+#nrt1=
    # Get subnet-id#
 #subnet1=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=sec-az1-pub" --query "Subnets[*].SubnetId" --output text)
 
