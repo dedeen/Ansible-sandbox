@@ -70,7 +70,7 @@ count=$((count-1))          # indexed starting at zero
 index=0
 
 echo "-------------------------------------------------"
-echo "Subnet<->Input Route Table Associations to change"
+echo "Subnet<->Input Route Table Associations To Change"
 echo "-------------------------------------------------"
 echo "Subnet             Orig-RT              New-RT"
 echo "------             -------              ------"
