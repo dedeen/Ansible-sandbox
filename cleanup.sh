@@ -114,10 +114,10 @@ while [ $index -le $count ]; do
     #awsrtassoc[$index]=$(cut -d " " -f 2 <<<$result1)
     
     currrtb=$(cut -d " " -f 3 <<<$result1)
-    awsrtb[$index]=$(cut -d " " -f 3 <<<$result1)
+    awsrtb[$index]=$currrtb
     
     currsubnet=$(cut -d " " -f 4 <<<$result1)
-    awssubnet[$index]=$(cut -d " " -f 4 <<<$result1)
+    awssubnet[$index]=$currsubnet
     
     echo ">"$rtbassoc">"$currrtb">"$currsubnet">"
     echo "<"$subnet1"<"$rt0"<"
