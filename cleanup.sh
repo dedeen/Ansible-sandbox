@@ -144,7 +144,7 @@ while [ $index -le $count ]; do
     
     if $oksofar
     then 
-        #echo "OK"
+        : #echo "OK"
     else
         echo "Not OK - Retrieved Values Do Not Match Expected"
     fi 
