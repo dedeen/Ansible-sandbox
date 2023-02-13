@@ -92,10 +92,10 @@ while [ $index -le $count ]; do
     #exit 0
     result1=$(eval "$awscmd1")
     #exit 0
-    echo ${subnet1}
-    echo ${rt0}
-    echo ${awscmd1}
-    echo ${result1}
+    echo "."${subnet1}
+    echo ".."${rt0}
+    echo "..."${awscmd1}
+    echo "...."${result1}
     exit 0 
     index=$(($index+1))
 done   
