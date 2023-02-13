@@ -75,7 +75,7 @@ echo "-------------------------------------------------"
 echo "Subnet             Orig-RT              New-RT"
 echo "------             -------              ------"
 while [ $index -le $count ]; do
-    echo ${subnet[$index]}" : "${originalrt[$index]}" -> "${targetrt[$index]}
+    echo "("$index")   "echo ${subnet[$index]}" : "${originalrt[$index]}" -> "${targetrt[$index]}
     #
     #
     #
@@ -140,7 +140,7 @@ echo "------"
 echo "Route Table Association       Orig-RT                  Subnet Working With           New-RT"
 echo "-----------------------       -------                  -------------------           ------"
 while [ $index -le $count ]; do
-echo $index" "${awsrtassoc[$index]}"    "${awsrtborig[$index]}"    "${awssubnet[$index]}"      "${awsrtnew[$index]}
+echo  echo "("$index")   "${awsrtassoc[$index]}"    "${awsrtborig[$index]}"    "${awssubnet[$index]}"      "${awsrtnew[$index]}
 
 # end of loop, update index
     index=$(($index+1))
