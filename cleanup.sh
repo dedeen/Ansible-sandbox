@@ -30,16 +30,31 @@ subnet[4]=sec-az1-int
 #
 originalrt[5]=Sec01-VPC-intra
 targetrt[5]=Secvpc-private-subnets-RT
-subnet[5]=sec-az1-int
+subnet[5]=sec-az2-int
 #
-
-echo ${originalrt[0]}
-echo ${targetrt[0]}
-echo ${subnet[0]}
-
-echo ${originalrt[1]}
-echo ${targetrt[1]}
-echo ${subnet[1]}
+originalrt[6]=App01-VPC-intra
+targetrt[6]=App1-instances-RT
+subnet[6]=app1-az1-inst
+#
+originalrt[7]=App01-VPC-intra
+targetrt[7]=App1-instances-RT
+subnet[7]=app1-az2-inst
+#
+originalrt[8]=App02-VPC-intra
+targetrt[8]=App2-instances-RT
+subnet[8]=app2-az1-inst
+#
+originalrt[9]=App02-VPC-intra
+targetrt[9]=App2-instances-RT
+subnet[9]=app2-az2-inst
+#
+originalrt[10]=Mgmt-VPC-intra
+targetrt[10]=Mgmt-instances-RT
+subnet[10]=mgmt-az1-inst
+#
+originalrt[11]=Mgmt-VPC-intra
+targetrt[11]=Mgmt-instances-RT
+subnet[11]=mgmt-az2-inst
 exit 0
 
 
