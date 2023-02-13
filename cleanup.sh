@@ -140,7 +140,7 @@ echo "------"
 echo "      Route Table Association       Orig-RT                  Subnet Working With           New-RT"
 echo "      -----------------------       -------                  -------------------           ------"
 while [ $index -le $count ]; do
-    echo"("$index")   "${awsrtassoc[$index]}"    "${awsrtborig[$index]}"    "${awssubnet[$index]}"      "${awsrtnew[$index]}
+    echo "("$index")   "${awsrtassoc[$index]}"    "${awsrtborig[$index]}"    "${awssubnet[$index]}"      "${awsrtnew[$index]}
 
 # end of loop, update index
     index=$(($index+1))
