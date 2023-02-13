@@ -106,6 +106,7 @@ while [ $index -le 2 ]; do
     rtbassoc=$(cut -d " " -f 2 <<<$result1)
     currrtb=$(cut -d " " -f 3 <<<$result1)
     currsubnet=$(cut -d " " -f 3 <<<$result1)
+    echo $rtbassoc" "$currrtb" "$currsubnet
   
     oksofar=true
     if [ "$currsubnet" != "$sNet" ]; then 
