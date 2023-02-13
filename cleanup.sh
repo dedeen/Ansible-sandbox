@@ -55,6 +55,8 @@ subnet[10]=mgmt-az1-inst
 originalrt[11]=Mgmt-VPC-intra
 targetrt[11]=Mgmt-instances-RT
 subnet[11]=mgmt-az2-inst
+
+echo ${targetrt[11]}
 exit 0
 
 
