@@ -111,24 +111,24 @@ while [ $index -le $count ]; do
     # Parse out the values returned and check for expected values. 
     rtbassoc=$(cut -d " " -f 2 <<<$result1)
     #awsrtassoc[1] = {$rtbassoc}
-    awsrtassoc[$index] = $rtbassoc
+    awsrtassoc[$index]=$(cut -d " " -f 2 <<<$result1)
     currrtb=$(cut -d " " -f 3 <<<$result1)
-    awsrtb[$index] = $(cut -d " " -f 3 <<<$result1)
+    awsrtb[$index]=$(cut -d " " -f 3 <<<$result1)
     currsubnet=$(cut -d " " -f 4 <<<$result1)
-    awssubnet[$index] = $(cut -d " " -f 4 <<<$result1)
+    awssubnet[$index]=$(cut -d " " -f 4 <<<$result1)
     
     echo ">"$rtbassoc">"$currrtb">"$currsubnet">"
     echo "<"$subnet1"<"$rt0"<"
     echo "-."${awsrtassoc[$index]}"-.."{$awsrtb[$index]}"-..."{$awssubnet[$index]}
-    echo "-.-"
-    echo $index">"
-    awsrtassoc[0]=$rtbassoc
-    echo ${awsrtassoc[0]}
-    awsrtassoc[1]=$rtbassoc
-    echo ${awsrtassoc[1]}
-    awsrtassoc[$index]=$rtbassoc
-    echo ${awsrtassoc[$index]}
-    exit 0 
+    #echo "-.-"
+    #echo $index">"
+    #awsrtassoc[0]=$rtbassoc
+    #echo ${awsrtassoc[0]}
+    #awsrtassoc[1]=$rtbassoc
+    #echo ${awsrtassoc[1]}
+    #awsrtassoc[$index]=$rtbassoc
+    #echo ${awsrtassoc[$index]}
+    #exit 0 
     
     #echo "${awsrtassoc[$index]}"
     #echo ${awsrtassoc[1]}
