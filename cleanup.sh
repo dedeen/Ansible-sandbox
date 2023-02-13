@@ -17,6 +17,7 @@ subnet[0]=sec-az1-pub
 targetrt[1]=Secvpc-public-subnets-RT
 subnet[1]=sec-az2-pub
 
+echo ${originalrt[0]}
 exit 0
 
 
