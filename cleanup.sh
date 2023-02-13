@@ -112,10 +112,12 @@ while [ $index -le 2 ]; do
   
     oksofar=true
     if [ $currsubnet != "$subnet1" ]; then 
-    oksofar=false
+    #oksofar=false
+      echo "false"
     fi
     if [ $currrtb != "$rt0" ]; then 
-    oksofar=false
+    #oksofar=false
+    echo "false"
     fi
     
     if (($oksofar))
