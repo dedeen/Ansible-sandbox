@@ -75,7 +75,7 @@ echo "-------------------------------------------------"
 echo "#     Subnet         Orig-RT           New-RT"
 echo "--    ------         -------           ------"
 while [ $index -le $count ]; do
-    echo $index".   "${subnet[$index]}" : "${originalrt[$index]}" -> "${targetrt[$index]}
+    echo $index".\t "${subnet[$index]}" : "${originalrt[$index]}" -> "${targetrt[$index]}
     #
     #
     #
