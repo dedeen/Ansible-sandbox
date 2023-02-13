@@ -96,9 +96,10 @@ while [ $index -le $count ]; do
     #exit 0
     echo "."${subnet1}".."${rt0}"..."${rt1}
     echo "....."${result1}
-    exit 0 
+  
     index=$(($index+1))
 done   
+exit 0 
     #nrt1=
    # Get subnet-id#
 #subnet1=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=sec-az1-pub" --query "Subnets[*].SubnetId" --output text)
