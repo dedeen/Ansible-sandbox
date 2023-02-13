@@ -91,7 +91,7 @@ while [ $index -le $count ]; do
     sNet=${subnet[$index]}
     orRT=${originalrt[$index]}
     targRT=${targetrt[$index]}
-    echo "~"${sNet}"~~"${orRT}"~~~"${targRT}
+   # echo "~"${sNet}"~~"${orRT}"~~~"${targRT}
    # echo "~~"${orRT}
    # echo "~~~"${targRT}
         
@@ -103,7 +103,7 @@ while [ $index -le $count ]; do
     result1=$(eval "$awscmd1")
     #exit 0
     #echo "."${subnet1}".."${rt0}"..."${rt1}
-    echo "....."${result1}
+    echo "String Returned >"${result1}
     
     #################
     # Store the resource IDs from AWS in 3 arrays, parse them and store into 3 arrays with sync'ed indices
@@ -131,7 +131,7 @@ while [ $index -le $count ]; do
     
     #echo "${awsrtassoc[$index]}"
     #echo ${awsrtassoc[1]}
-    echo "-.-"
+    #echo "-.-"
     
   
     oksofar=true
