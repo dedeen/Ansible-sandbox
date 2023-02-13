@@ -124,7 +124,7 @@ while [ $index -le $count ]; do
     awsrtassoc[1]=$rtbassoc
     echo ${awsrtassoc[1]}
     awsrtassoc[$index] = $rtbassoc
-    echo ${awsrtassoc[0]}
+    echo ${awsrtassoc[$index]}
     exit 0 
     
     echo "${awsrtassoc[$index]}"
