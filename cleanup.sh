@@ -76,8 +76,26 @@ done
 echo "----------------------------------------------"
 #exit 0
 
-
-
+# Loop through the subnet/route table associations, retrieve keys, verify, change, verify-change
+index=0
+while [ $index -le $count ]; do
+    # Get subnet-id 
+    sNet=subnet[$index]}
+    orRT=${originalrt[$index]}
+    targRT=${targetrt[$index]}
+        
+    subnet1=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${targRT}" --query "Subnets[*].SubnetId" --output text)
+    rt0=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=${orRT}" --query "RouteTables[*].RouteTableId"  --output text)
+    awscmd1=aws ec2 describe-route-tables --route-table-ids ${orRT} --filters \"Name=association.subnet-id,Values=${subnet1}\" --query \"RouteTables[*].Associations[?SubnetId=='${subnet1}']\"  --output text"
+    result1=$(eval "$awscmd1")
+    
+    echo ${subnet1}
+    echo ${rt0}
+    echo ${awscmd1}
+    echo ${result1}
+    exit 0 
+    
+    #nrt1=
    # Get subnet-id#
 subnet1=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=sec-az1-pub" --query "Subnets[*].SubnetId" --output text)
 
