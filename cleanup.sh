@@ -12,7 +12,7 @@ declare -a subnet
 # 3 arrays of retrieved AWS identifiers (rtassoc, rt, subnet)
 #   Examples: rtbassoc-0e75d7d78911a038b rtb-02ede393e6ff03c1e subnet-0004d84cfba3089d1
 declare -a awsrtassoc
-declare -a awsrtb
+declare -a awsrtborig
 declare -a awssubnet
 
 originalrt[0]=Sec01-VPC-intra
@@ -111,7 +111,7 @@ while [ $index -le $count ]; do
     rtbassoc=$(cut -d " " -f 2 <<<$result1)
     awsrtassoc[$index]=$rtbassoc
     currrtb=$(cut -d " " -f 3 <<<$result1)
-    awsrtb[$index]=$currrtb
+    awsrtborig[$index]=$currrtb
     currsubnet=$(cut -d " " -f 4 <<<$result1)
     awssubnet[$index]=$currsubnet
     
@@ -163,7 +163,7 @@ echo "----------------------------------------------"
 echo "Route Table Association       Orig-RT                  Subnet Working With"
 echo "-----------------------       -------                  -------------------"
 while [ $index -le $count ]; do
-echo ${awsrtassoc[$index]}"    "${awsrtb[$index]}"    "${awssubnet[$index]}
+echo ${awsrtassoc[$index]}"    "${awsrtborig[$index]}"    "${awssubnet[$index]}
 
 # end of loop, update index
     index=$(($index+1))
