@@ -62,7 +62,7 @@ echo ${targetrt[11]}
 count=11
 index=0
 
-while [ $index -le count]; do
+while [ $index -le count ]; do
     echo ${targetrt[$index]}
     #
     #
