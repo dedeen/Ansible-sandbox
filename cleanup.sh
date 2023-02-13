@@ -151,9 +151,14 @@ echo "----------------------------------------------"
 # Now that all of the prep work is completed and AWS resource IDs are known, we will loop through them changing subnet to RT associations as needed
 index=0
 echo "----------------------------------------------"
-echo "----------------------------------------------"
 while [ $index -le $count ]; do
 echo $index
+awsrtcmd="aws ec2 replace-route-table-association --association-id $awsrtassoc[$index] --route-table-id $awsrtnew[$index] --no-cli-auto-prompt --output text"
+echo "cmd:"$awsrtcmd
+#rt0=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=${orRT}" --query "RouteTables[*].RouteTableId"  --output text)
+#awscmd1="aws ec2 describe-route-tables --route-table-ids ${rt0} --filters \"Name=association.subnet-id,Values=${subnet1}\" --query \"RouteTables[*].Associations[?SubnetId=='${subnet1}']\"  --output text"
+#    result1=$(eval "$awscmd1")
+    
 
 
 index=$(($index+1))
