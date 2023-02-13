@@ -59,6 +59,16 @@ subnet[11]=mgmt-az2-inst
 echo ${targetrt[11]}
 exit 0
 
+count=11
+index=0
+
+while [ $index -le count] do
+    echo ${targetrt[$index]}
+    #
+    #
+    #
+    index=$(($index+1))
+done
 
 
    # Get subnet-id#
