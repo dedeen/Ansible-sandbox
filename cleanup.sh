@@ -115,9 +115,11 @@ while [ $index -le 2 ]; do
     oksofar=false
     fi
     
-    if (($oksofar))
+    if [(($oksofar))
     then 
         echo "OK"
+    else
+        echo "Not OK"
     fi 
     
     # end of loop, update index
