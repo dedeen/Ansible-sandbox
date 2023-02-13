@@ -57,7 +57,7 @@ targetrt[11]=Mgmt-instances-RT
 subnet[11]=mgmt-az2-inst
 
 #count=11
-count="${#originalrt[@]} - 1"  # number of elements in arrays
+count="${#originalrt[@]}"-1  # number of elements in arrays
 index=0
 
 echo "-----------------------------"
