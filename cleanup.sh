@@ -88,7 +88,7 @@ while [ $index -le $count ]; do
     #exit 0
     rt0=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=${orRT}" --query "RouteTables[*].RouteTableId"  --output text)
     #exit 0
-    #awscmd1=aws ec2 describe-route-tables --route-table-ids ${orRT} --filters \"Name=association.subnet-id,Values=${subnet1}\" --query \"RouteTables[*].Associations[?SubnetId=='${subnet1}']\"  --output text"
+    awscmd1=aws ec2 describe-route-tables --route-table-ids ${orRT} --filters \"Name=association.subnet-id,Values=${subnet1}\" --query \"RouteTables[*].Associations[?SubnetId=='${subnet1}']\"  --output text"
     #exit 0
     result1=$(eval "$awscmd1")
     #exit 0
