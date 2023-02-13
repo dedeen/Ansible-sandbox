@@ -8,8 +8,7 @@ declare -a originalrt
 declare -a targetrt
 declare -a subnet 
 
-originalrt[0]=5
-#originalrt[0]="Sec01-VPC-intra"
+originalrt[0]="Sec01-VPC-intra"
 targetrt[0]=Secvpc-public-subnets-RT
 subnet[0]=sec-az1-pub
 #
