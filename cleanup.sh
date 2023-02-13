@@ -80,7 +80,7 @@ echo "----------------------------------------------"
 index=0
 while [ $index -le $count ]; do
     # Get subnet-id 
-    sNet=subnet[$index]}
+    sNet=${subnet[$index]}
     orRT=${originalrt[$index]}
     targRT=${targetrt[$index]}
     echo "~"${sNet}
