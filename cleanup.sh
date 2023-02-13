@@ -62,8 +62,11 @@ echo ${targetrt[11]}
 count=11
 index=0
 
+echo "Subnet associations to change"
+echo "-----------------------------"
+echo "Subnet             Orig-RT              New-RT"
 while [ $index -le $count ]; do
-    echo ${targetrt[$index]}
+    echo ${subnet[$index]}" : "${originalrt[$index]}" -> "${targetrt[$index]}
     #
     #
     #
