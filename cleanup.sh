@@ -64,7 +64,7 @@ originalrt[11]=Mgmt-VPC-intra
 targetrt[11]=Mgmt-instances-RT
 subnet[11]=mgmt-az2-inst
 
-#count=11
+#count is number of entries in static array above
 count="${#originalrt[@]}"   # number of elements in arrays
 count=$((count-1))          # indexed starting at zero 
 index=0
@@ -99,7 +99,7 @@ while [ $index -le $count ]; do
        
     awscmd1="aws ec2 describe-route-tables --route-table-ids ${rt0} --filters \"Name=association.subnet-id,Values=${subnet1}\" --query \"RouteTables[*].Associations[?SubnetId=='${subnet1}']\"  --output text"
     result1=$(eval "$awscmd1")
-    echo "AWSCLI Query Results:"${result1}
+    echo "AWSCLI Query Results->"${result1}
     
     #################
     # Store the resource IDs from AWS in 4 arrays, parse them and store into the arrays with sync'ed indices
