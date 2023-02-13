@@ -63,8 +63,9 @@ count=11
 index=0
 
 echo "Subnet associations to change"
-echo "-----------------------------"
+echo "----------------------------------------------"
 echo "Subnet             Orig-RT              New-RT"
+echo "------             -------              ------"
 while [ $index -le $count ]; do
     echo ${subnet[$index]}" : "${originalrt[$index]}" -> "${targetrt[$index]}
     #
@@ -72,7 +73,7 @@ while [ $index -le $count ]; do
     #
     index=$(($index+1))
 done
-
+echo "----------------------------------------------"
 exit 0
 
    # Get subnet-id#
