@@ -105,7 +105,7 @@ while [ $index -le 2 ]; do
     # Parse out the values returned and check for expected values. 
     rtbassoc=$(cut -d " " -f 2 <<<$result1)
     currrtb=$(cut -d " " -f 3 <<<$result1)
-    currsubnet=$(cut -d " " -f 3 <<<$result1)
+    currsubnet=$(cut -d " " -f 4 <<<$result1)
     echo $rtbassoc" "$currrtb" "$currsubnet
   
     oksofar=true
