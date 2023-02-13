@@ -1,4 +1,20 @@
-############################################ Final working stuff #####################
+#### This script changes route table associations with multiple subnets. This is done here to work around a terraform limitation on reassigning
+#       associations when one already exists. This is a known bug with terraform. 
+#
+# Here we set up a list of the subnet associations that will need to be changed after all of the terraform scripts have been run. 
+#       Using 4 arrays here that are matched in order on index
+
+originalrt[0]='Sec01-VPC-intra'
+targetrt[0]='Secvpc-public-subnets-RT'
+subnet[0]='sec-az1-pub'
+#
+originalrt[1]='Sec01-VPC-intra'
+targetrt[1]='Secvpc-public-subnets-RT'
+subnet[1]='sec-az2-pub'
+
+
+
+
    # Get subnet-id#
 subnet1=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=sec-az1-pub" --query "Subnets[*].SubnetId" --output text)
 
