@@ -4,6 +4,10 @@
 # Here we set up a list of the subnet associations that will need to be changed after all of the terraform scripts have been run. 
 #       Using 4 arrays here that are matched in order on index
 
+declare -a originalrt
+declare -a targetrt
+declare -a subnet 
+
 originalrt[0]='Sec01-VPC-intra'
 targetrt[0]='Secvpc-public-subnets-RT'
 subnet[0]='sec-az1-pub'
