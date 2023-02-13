@@ -160,7 +160,7 @@ echo "---------------------------"
 echo "AWS resource IDs retrieved "
 echo "----------------------------------------------"
 echo "Route Table Association       Orig-RT                  Subnet Working With"
-echo "-----------------------       -------                  ------"
+echo "-----------------------       -------                  -------------------"
 while [ $index -le $count ]; do
 echo ${awsrtassoc[$index]}"    "${awsrtb[$index]}"    "${awssubnet[$index]}
 
