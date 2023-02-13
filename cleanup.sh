@@ -69,9 +69,9 @@ count="${#originalrt[@]}"   # number of elements in arrays
 count=$((count-1))          # indexed starting at zero 
 index=0
 
-echo "-------------------------------------------"
-echo "Subnet<->Route Table associations to change"
-echo "----------------------------------------------"
+echo "-------------------------------------------------"
+echo "Subnet<->Input Route Table Associations to change"
+echo "-------------------------------------------------"
 echo "Subnet             Orig-RT              New-RT"
 echo "------             -------              ------"
 while [ $index -le $count ]; do
@@ -92,20 +92,14 @@ while [ $index -le $count ]; do
     sNet=${subnet[$index]}
     orRT=${originalrt[$index]}
     targRT=${targetrt[$index]}
-   # echo "~"${sNet}"~~"${orRT}"~~~"${targRT}
-   # echo "~~"${orRT}
-   # echo "~~~"${targRT}
-        
+           
     subnet1=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${sNet}" --query "Subnets[*].SubnetId" --output text)
     rt0=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=${orRT}" --query "RouteTables[*].RouteTableId"  --output text)
     rt1=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=${targRT}" --query "RouteTables[*].RouteTableId"  --output text)
-    echo "~~~"${rt1}
-    
+       
     awscmd1="aws ec2 describe-route-tables --route-table-ids ${rt0} --filters \"Name=association.subnet-id,Values=${subnet1}\" --query \"RouteTables[*].Associations[?SubnetId=='${subnet1}']\"  --output text"
     result1=$(eval "$awscmd1")
-    #exit 0
-    #echo "."${subnet1}".."${rt0}"..."${rt1}
-    echo "String Returned >"${result1}
+    echo "AWSCLI Query Results:"${result1}
     
     #################
     # Store the resource IDs from AWS in 4 arrays, parse them and store into the arrays with sync'ed indices
@@ -116,26 +110,8 @@ while [ $index -le $count ]; do
     currsubnet=$(cut -d " " -f 4 <<<$result1)
     awssubnet[$index]=$currsubnet
     awsrtnew[$index]=$rt1
-    #echo ">"$rtbassoc">"$currrtb">"$currsubnet">"
-    #echo "<"$subnet1"<"$rt0"<"
-    #echo "-."${awsrtassoc[$index]}
-    #echo "-.."${awsrtb[$index]}
-    #echo "-..."${awssubnet[$index]}
-    #echo "-.-"
-    #echo $index">"
-    #awsrtassoc[0]=$rtbassoc
-    #echo ${awsrtassoc[0]}
-    #awsrtassoc[1]=$rtbassoc
-    #echo ${awsrtassoc[1]}
-    #awsrtassoc[$index]=$rtbassoc
-    #echo ${awsrtassoc[$index]}
-    #exit 0 
-    
-    #echo "${awsrtassoc[$index]}"
-    #echo ${awsrtassoc[1]}
-    #echo "-.-"
-    
   
+    # Checking that route tables and subnets match expected values 
     oksofar=true
     if [ $currsubnet != "$subnet1" ]; then 
         oksofar=false
@@ -158,9 +134,9 @@ done
 
 # Loop through the arrays of AWS resource IDs, print out before changing all of the associations
 index=0
-echo "---------------------------"
-echo "AWS resource IDs retrieved "
 echo "----------------------------------------------"
+echo "AWS resource IDs retrieved "
+echo "------"
 echo "Route Table Association       Orig-RT                  Subnet Working With           New-RT"
 echo "-----------------------       -------                  -------------------           ------"
 while [ $index -le $count ]; do
