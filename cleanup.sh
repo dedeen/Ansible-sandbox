@@ -78,7 +78,8 @@ echo "----------------------------------------------"
 
 # Loop through the subnet/route table associations, retrieve keys, verify, change, verify-change
 index=0
-while [ $index -le $count ]; do
+#while [ $index -le $count ]; do
+while [ $index -le 2 ]; do
     # Get subnet-id 
     sNet=${subnet[$index]}
     orRT=${originalrt[$index]}
