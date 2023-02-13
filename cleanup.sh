@@ -110,7 +110,7 @@ while [ $index -le $count ]; do
     #
     # Parse out the values returned and check for expected values. 
     rtbassoc=$(cut -d " " -f 2 <<<$result1)
-    awsrtassoc[$index]={$rtbassoc}
+    awsrtassoc[$index]=$rtbassoc
     #awsrtassoc[$index]=$(cut -d " " -f 2 <<<$result1)
     
     currrtb=$(cut -d " " -f 3 <<<$result1)
