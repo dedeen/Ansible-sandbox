@@ -97,7 +97,30 @@ while [ $index -le 2 ]; do
     #exit 0
     echo "."${subnet1}".."${rt0}"..."${rt1}
     echo "....."${result1}
+    
+    ###########################
+    # Now we have the AWS associations and resource IDs, will do some logging and check for expected values. If as expected, will change the 
+    #   association between route table and subnet to what is needed for the Palo Alto Firewall environment. 
+    #####
+    # Parse out the values returned and check for expected values. 
+    rtbassoc=$(cut -d " " -f 2 <<<$result1)
+    currrtb=$(cut -d " " -f 3 <<<$result1)
+    currsubnet=$(cut -d " " -f 3 <<<$result1)
   
+    oksofar=true
+    if [ "$currsubnet" != "$sNet" ]; then 
+    oksofar=false
+    fi
+    if [ "$currrtb" != "$orRT" ]; then 
+    oksofar=false
+    fi
+    
+    if $oksofar 
+    then 
+        echo "OK"
+    fi 
+    
+    # end of loop, update index
     index=$(($index+1))
 done   
 exit 0 
