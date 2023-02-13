@@ -88,18 +88,18 @@ while [ $index -le $count ]; do
     echo "~~~"${targRT}
         
     subnet1=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${sNet}" --query "Subnets[*].SubnetId" --output text)
-    subnet1a=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=sec-az1-pub" --query "Subnets[*].SubnetId" --output text)
-    #exit 0
     rt0=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=${orRT}" --query "RouteTables[*].RouteTableId"  --output text)
-    #exit 0
+    rt1=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=${targRT}" --query "RouteTables[*].RouteTableId"  --output text)
+    
     #awscmd1=aws ec2 describe-route-tables --route-table-ids ${orRT} --filters \"Name=association.subnet-id,Values=${subnet1}\" --query \"RouteTables[*].Associations[?SubnetId=='${subnet1}']\"  --output text"
     #exit 0
     result1=$(eval "$awscmd1")
     #exit 0
-    echo "."${subnet1}".."${subnet1a}
+    echo "."${subnet1}
     echo ".."${rt0}
-    echo "..."${awscmd1}
-    echo "...."${result1}
+    echo "..."${rt1}
+    echo "...."${awscmd1}
+    echo "....."${result1}
     exit 0 
     index=$(($index+1))
 done   
