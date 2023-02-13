@@ -4,9 +4,16 @@
 # Here we set up a list of the subnet associations that will need to be changed after all of the terraform scripts have been run. 
 #       Using 4 arrays here that are matched in order on index
 
+# 3 arrays of input items (subnets and route tables)
 declare -a originalrt
 declare -a targetrt
 declare -a subnet 
+
+# 3 arrays of retrieved AWS identifiers (rtassoc, rt, subnet)
+#   Examples: rtbassoc-0e75d7d78911a038b rtb-02ede393e6ff03c1e subnet-0004d84cfba3089d1
+declare -a awsrtassoc
+declare -a awsrtb
+declare -a awssubnet
 
 originalrt[0]=Sec01-VPC-intra
 targetrt[0]=Secvpc-public-subnets-RT
@@ -61,8 +68,8 @@ count="${#originalrt[@]}"   # number of elements in arrays
 count=$((count-1))          # indexed starting at zero 
 index=0
 
-echo "-----------------------------"
-echo "Subnet associations to change"
+echo "-------------------------------------------"
+echo "Subnet<->Route Table associations to change"
 echo "----------------------------------------------"
 echo "Subnet             Orig-RT              New-RT"
 echo "------             -------              ------"
@@ -98,16 +105,20 @@ while [ $index -le $count ]; do
     echo "."${subnet1}".."${rt0}"..."${rt1}
     echo "....."${result1}
     
-    ###########################
-    # Now we have the AWS associations and resource IDs, will do some logging and check for expected values. If as expected, will change the 
-    #   association between route table and subnet to what is needed for the Palo Alto Firewall environment. 
-    #####
+    #################
+    # Store the resource IDs from AWS in 3 arrays
+    #
     # Parse out the values returned and check for expected values. 
     rtbassoc=$(cut -d " " -f 2 <<<$result1)
+    awsrtassoc[$index] = $(cut -d " " -f 2 <<<$result1)
     currrtb=$(cut -d " " -f 3 <<<$result1)
+    awsrtb[$index] = $(cut -d " " -f 3 <<<$result1)
     currsubnet=$(cut -d " " -f 4 <<<$result1)
+    awssubnet[$index] = $(cut -d " " -f 4 <<<$result1)
+    
     echo ">"$rtbassoc">"$currrtb">"$currsubnet">"
     echo "<"$subnet1"<"$rt0"<"
+    echo awsrtassoc[$index]"-"awsrtb[$index]"-"awssubnet[$index]
     
   
     oksofar=true
