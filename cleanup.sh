@@ -56,12 +56,10 @@ originalrt[11]=Mgmt-VPC-intra
 targetrt[11]=Mgmt-instances-RT
 subnet[11]=mgmt-az2-inst
 
-echo ${targetrt[11]}
-
-
 count=11
 index=0
 
+echo "-----------------------------"
 echo "Subnet associations to change"
 echo "----------------------------------------------"
 echo "Subnet             Orig-RT              New-RT"
