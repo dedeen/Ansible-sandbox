@@ -161,7 +161,13 @@ index=0
 echo "----------------------------------------------"
 while [ $index -le $count ]; do
     awsrtcmd="aws ec2 replace-route-table-association --association-id ${awsrtassoc[$index]} --route-table-id ${awsrtnew[$index]} --no-cli-auto-prompt --output text"
-    echo $awsrtcmd
+    
+    if [ ${awsrtassoc[$index]} = "No_work_to_perform" ];
+    then 
+        echo "No work to perform on this row"
+    else        
+        echo $awsrtcmd
+    fi
 #rt0=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=${orRT}" --query "RouteTables[*].RouteTableId"  --output text)
 #awscmd1="aws ec2 describe-route-tables --route-table-ids ${rt0} --filters \"Name=association.subnet-id,Values=${subnet1}\" --query \"RouteTables[*].Associations[?SubnetId=='${subnet1}']\"  --output text"
 #    result1=$(eval "$awscmd1")
