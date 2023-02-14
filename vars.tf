@@ -28,8 +28,8 @@ variable "app_vpcs" {
 			map_key			= 	"mgmtvpc"
 			region_dc		= 	"Mgmt-VPC"
 			cidr			= 	"10.255.0.0/16"
-			az_list			= 	["us-west-2a","us-west-2a","us-west-2b","us-west-2b"]
-			vpc_subnets		= 	["10.255.0.0/24","10.255.1.0/24","10.255.128.0/24","10.255.129.0/24"]
+			az_list			= 	["us-west-2a","us-west-2a","us-west-2a","us-west-2b","us-west-2b","us-west-2b"]
+			vpc_subnets		= 	["10.255.0.0/24","10.255.1.0/24","10.255.2.0/24","10.255.128.0/24","10.255.129.0/24","10.255.130.0/24"]
 			#subnet_names		= 	["mgmt-az1-inst","mgmt-az1-TGW","mgmt-az2-inst","mgmt-az2-TGW"]
 			subnet_names		= 	["mgmt-az1-int","mgmt-az1-pub","mgmt-az1-TGW","mgmt-az2-int","mgmt-az2-pub","mgmt-az2-TGW"]
 		}  
