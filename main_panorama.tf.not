@@ -39,7 +39,7 @@ resource "aws_instance" "Panorama-2" {
   source_dest_check                   = false
   tags = {
           Owner = "dan-via-terraform"
-          Name  = "Panorama-1"
+          Name  = "Panorama-2"
     }
 }
 # Add one more NIC to the Panorama instance 
