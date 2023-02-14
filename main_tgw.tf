@@ -268,6 +268,14 @@ resource "aws_route_table" "secvpc-rt-mgmt-subnets" {
     gateway_id  = aws_internet_gateway.sec_vpc_igw.id
   }
   route {                                                      
+    cidr_block          = "10.104.0.0/16"                      # route via TGW to App1 VPC
+    transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
+  }
+  route {                                                      
+    cidr_block          = "10.105.0.0/16"                      # route via TGW to App2 VPC 
+    transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
+  }
+  route {                                                      
     cidr_block          = "10.255.0.0/16"                      # route via TGW to mgmt VPC (Panoramas) from mgmt int of PA-VMs 
     transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
   }
