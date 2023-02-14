@@ -25,3 +25,15 @@ resource "aws_instance" "BastionHost-app1vpc-az1" {
     }
 }
  
+# Route table for debugging bastion host in app1 vpc
+ resource "aws_route_table" "bastion-app1vpc-rt" {
+  vpc_id                = module.vpc["app1vpc"].vpc_id 
+  route {                                                     
+    cidr_block          = "0.0.0.0/0"
+    gateway_id  = aws_internet_gateway.bastion1_igw.id
+  }
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "bastion-app1vpc-rt"
+  }  
+}
