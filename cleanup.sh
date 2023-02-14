@@ -166,7 +166,11 @@ while [ $index -le $count ]; do
     then 
         echo "No work to perform on this row"
     else        
+        echo "Sending this AWS CLI cmd:"
         echo $awsrtcmd
+        result2=$(eval "$awsrtcmd")
+        echo "Returned results:"$result2
+        exit 0
     fi
 #rt0=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=${orRT}" --query "RouteTables[*].RouteTableId"  --output text)
 #awscmd1="aws ec2 describe-route-tables --route-table-ids ${rt0} --filters \"Name=association.subnet-id,Values=${subnet1}\" --query \"RouteTables[*].Associations[?SubnetId=='${subnet1}']\"  --output text"
