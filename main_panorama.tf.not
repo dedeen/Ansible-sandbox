@@ -64,11 +64,11 @@ resource "aws_eip" "Pano2-eip-mgmt-int" {
 
 # Associate the EIPs to the public side NICs on each Panorama 
 resource "aws_eip_association" "pano1-pub-assoc" {
-  allocation_id         = aws_eip.Pano1-eip-int.id
+  allocation_id         = aws_eip.Pano1-eip-mgmt-int.id
   network_interface_id  = aws_instance.Panorama-1.primary_network_interface_id
 }
  
 resource "aws_eip_association" "pano2-pub-assoc" {
-  allocation_id         = aws_eip.Pano2-eip-int.id
+  allocation_id         = aws_eip.Pano2-eip-mgmt-int.id
   network_interface_id  = aws_instance.Panorama-2.primary_network_interface_id
 }
