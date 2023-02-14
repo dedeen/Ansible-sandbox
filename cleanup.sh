@@ -57,12 +57,25 @@ targetrt[9]=App2-instances-RT
 subnet[9]=app2-az2-inst
 #
 originalrt[10]=Mgmt-VPC-intra
-targetrt[10]=Mgmt-instances-RT
-subnet[10]=mgmt-az1-inst
+#targetrt[10]=Mgmt-instances-RT
+targetrt[10]=Mgmt-private-subnets-RT
+#subnet[10]=mgmt-az1-inst
+subnet[10]=mgmt-az1-int
 #
 originalrt[11]=Mgmt-VPC-intra
-targetrt[11]=Mgmt-instances-RT
-subnet[11]=mgmt-az2-inst
+#targetrt[11]=Mgmt-instances-RT
+targetrt[11]=Mgmt-private-subnets-RT
+#subnet[11]=mgmt-az2-inst
+subnet[11]=mgmt-az2-int
+#
+#(12,13 are new)
+originalrt[12]=Mgmt-VPC-intra
+targetrt[12]=Mgmt-public-subnets-RT
+subnet[12]=mgmt-az1-pub
+#
+originalrt[13]=Mgmt-VPC-intra
+targetrt[13]=Mgmt-public-subnets-RT
+subnet[13]=mgmt-az2-pub
 
 #count is number of entries in static array above
 count="${#originalrt[@]}"   # number of elements in arrays
