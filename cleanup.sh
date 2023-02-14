@@ -103,7 +103,7 @@ while [ $index -le $count ]; do
     if [ "$result1" = "" ];
     then
         # Empty string returned, so no rt association to change for this row
-        result1="Not_Appl Not_Appl Not_Appl Not_Appl Not_Appl" 
+        result1="Not_Applicable: No work to perform"
        # echo "Empty String Returned"
     fi 
     
