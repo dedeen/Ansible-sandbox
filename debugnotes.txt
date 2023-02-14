@@ -19,9 +19,11 @@ Sec01-VPC(az2)  PA-VM-2                 eth0-mgt   10.100.64.10                 
                                         eth1-int   10.100.65.10                      10.100.65.0/24
                                         eth2-pub   10.100.66.10                      10.100.66.0/24
 
-Mgmt-VPC(az1)   Panorama-1              eth0       10.255.0.10                       10.255.0.0/24      Palo Alto Panorama-VM
-Mgmt-VPC(az2)   Panorama-1              eth0       10.255.128.10                     10.255.128.0/24    Palo Alto Panorama-VM
-
+Mgmt-VPC(az1)   Panorama-1              eth0-int   10.255.0.10                       10.255.0.0/24      Palo Alto Panorama-VM
+                                        eth1-pub   10.255.1.10                       10.255.0.0/24
+                                        
+Mgmt-VPC(az2)   Panorama-2              eth0-int   10.255.128.10                     10.255.128.0/24    Palo Alto Panorama-VM
+                                        eth1-pub   10.255.129.10                     10.255.129.0/24
 
 ==============
 Internet_GWs
