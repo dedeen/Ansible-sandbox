@@ -69,6 +69,12 @@ Sec01-VPC-intra   Secvpc-TGW-AZ1-to-GWLBe-RT          -> sec-az1-TGW_Att
 Debug instructions/notes: 
 ssh ec2-user@34.208.9.49 -i terraform-key-pair.55b0.pem
 
+Check routing: 
+[from Panorama-1]
+[ ] ssh to Panorama-1 
+[ ] ping 10.104.0.20
+
+
 [PA-VM-2]
 ping 10.100.64.10
 ping 10.100.65.10
