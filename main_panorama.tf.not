@@ -1,4 +1,4 @@
-#  Terraform to create EC2s as Palo Alto Panorama systems
+#  Terraform to create EC2s for Palo Alto Panorama systems, 
 #    For starters, just building t2.micro EC2s, one in each AZ subnet
 
 resource "aws_instance" "Panorama-1" {
@@ -6,8 +6,8 @@ resource "aws_instance" "Panorama-1" {
   instance_type                       = "t2.micro"               
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = false
-  private_ip                          = "10.255.0.10"
-  subnet_id                           = module.vpc["mgmtvpc"].intra_subnets[0]           #PA-VM mgmt submet
+  private_ip                          = "10.255.1.10"
+  subnet_id                           = module.vpc["mgmtvpc"].intra_subnets[1]           #Panoramo AZ1 public subnet
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["mgmtvpc"].id]  
   source_dest_check                   = false
   tags = {
@@ -15,19 +15,60 @@ resource "aws_instance" "Panorama-1" {
           Name  = "Panorama-1"
     }
 }
-  
-  resource "aws_instance" "Panorama-2" {
+# Add one more NIC to the Panorama instance 
+resource "aws_network_interface" "eth1-1" {
+  subnet_id             = module.vpc["mgmtvpc"].intra_subnets[0]                   #Pamorama AZ1 private (internal) subnet
+  security_groups       = [aws_security_group.SG-allow_ipv4["mgmtvpc"].id]
+  private_ips           = ["10.255.0.10"]     
+    
+  attachment  {
+    instance            = aws_instance.Panorama-1.id
+    device_index        = 1
+  }
+}
+ 
+#################
+resource "aws_instance" "Panorama-2" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"               
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = false
-  private_ip                          = "10.255.128.10"
-  subnet_id                           = module.vpc["mgmtvpc"].intra_subnets[2]           #PA-VM mgmt submet
+  private_ip                          = "10.255.129.10"
+  subnet_id                           = module.vpc["mgmtvpc"].intra_subnets[4]           #Panoramo AZ2 public subnet
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["mgmtvpc"].id]  
   source_dest_check                   = false
   tags = {
           Owner = "dan-via-terraform"
-          Name  = "Panorama-2"
+          Name  = "Panorama-1"
     }
 }
-  
+# Add one more NIC to the Panorama instance 
+resource "aws_network_interface" "eth2-1" {
+  subnet_id             = module.vpc["mgmtvpc"].intra_subnets[3]                   #Pamorama AZ2 private (internal) subnet
+  security_groups       = [aws_security_group.SG-allow_ipv4["mgmtvpc"].id]
+  private_ips           = ["10.255.128.10"]     
+    
+  attachment  {
+    instance            = aws_instance.Panorama-2.id
+    device_index        = 1
+  }
+} 
+################
+# Create one EIPs for each Panorama system for the public side, and the "Mgmt-public-subnets-RT" route table's default will be the IGW in the vpc
+resource "aws_eip" "Pano1-eip-mgmt-int" {
+  vpc                   = true
+}
+resource "aws_eip" "Pano2-eip-mgmt-int" {
+  vpc                   = true
+}
+
+# Associate the EIPs to the public side NICs on each Panorama 
+resource "aws_eip_association" "pano1-pub-assoc" {
+  allocation_id         = aws_eip.Pano1-eip-int.id
+  network_interface_id  = aws_instance.Panorama-1.primary_network_interface_id
+}
+ 
+resource "aws_eip_association" "pano2-pub-assoc" {
+  allocation_id         = aws_eip.Pano2-eip-int.id
+  network_interface_id  = aws_instance.Panorama-2.primary_network_interface_id
+}
