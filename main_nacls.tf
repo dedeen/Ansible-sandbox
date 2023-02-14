@@ -47,13 +47,21 @@ resource "aws_network_acl" "NACL-allow_ipv4" {
     subnet_id        = module.vpc["app2vpc"].intra_subnets[2]
   }
     
-  #  Assoc to the 2 Mgmt VPC AZ instance subnets 
-  resource "aws_network_acl_association" "vpc-subnet-NACL-mgmt-az1" {
+  #  Assoc to the 4 Mgmt VPC instance subnets 
+  resource "aws_network_acl_association" "vpc-subnet-NACL-mgmt-az1-int" {
      network_acl_id   = aws_network_acl.NACL-allow_ipv4["mgmtvpc"].id
      subnet_id        = module.vpc["mgmtvpc"].intra_subnets[0]
   }
-  resource "aws_network_acl_association" "vpc-subnet-NACL-mgmt-az2" {
+  resource "aws_network_acl_association" "vpc-subnet-NACL-mgmt-az1-pub" {
     network_acl_id   = aws_network_acl.NACL-allow_ipv4["mgmtvpc"].id
-    subnet_id        = module.vpc["mgmtvpc"].intra_subnets[2]
+    subnet_id        = module.vpc["mgmtvpc"].intra_subnets[1]
   }
-    
+  
+  resource "aws_network_acl_association" "vpc-subnet-NACL-mgmt-az2-int" {
+     network_acl_id   = aws_network_acl.NACL-allow_ipv4["mgmtvpc"].id
+     subnet_id        = module.vpc["mgmtvpc"].intra_subnets[3]
+  }
+  resource "aws_network_acl_association" "vpc-subnet-NACL-mgmt-az2-pub" {
+    network_acl_id   = aws_network_acl.NACL-allow_ipv4["mgmtvpc"].id
+    subnet_id        = module.vpc["mgmtvpc"].intra_subnets[4]
+  }
