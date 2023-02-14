@@ -78,7 +78,7 @@ ping 10.105.128.20
 
 ##################
 
-
+git ls-files | xargs wc -l
 
 
 
