@@ -12,7 +12,7 @@ variable "app_vpcs" {
 			map_key			= 	"app1vpc"	# Easy way to dereference map elements, must match var name to work
 			region_dc		= 	"App01-VPC"
 			cidr			= 	"10.104.0.0/16"
-			az_list			= 	["us-west-2a","us-west-2a","us-west-2b","us-west-2b"]
+			az_list			= 	["us-west-2a","us-west-2a","us-west-2b","us-west-2b","us-west-2a"]
 			vpc_subnets		= 	["10.104.0.0/24","10.104.1.0/24","10.104.128.0/24","10.104.129.0/24","10.104.3.0/24"]
 			subnet_names		= 	["app1-az1-inst","app1-az1-TGW", "app1-az2-inst","app1-az2-TGW","app1-az1-bastion"]
 		},
