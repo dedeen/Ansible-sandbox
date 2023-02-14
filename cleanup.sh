@@ -99,14 +99,15 @@ while [ $index -le $count ]; do
        
     awscmd1="aws ec2 describe-route-tables --route-table-ids ${rt0} --filters \"Name=association.subnet-id,Values=${subnet1}\" --query \"RouteTables[*].Associations[?SubnetId=='${subnet1}']\"  --output text"
     result1=$(eval "$awscmd1")
-    echo "AWSCLI Query Results->"${result1}
-    
+        
     if [ "$result1" = "" ];
     then
         # Empty string returned, so no rt association to change for this row
         result1="Not_Appl Not_Appl Not_Appl Not_Appl Not_Appl" 
        # echo "Empty String Returned"
     fi 
+    
+    echo "AWSCLI Query Results->"${result1}
     
     #################
     # Store the resource IDs from AWS in 4 arrays, parse them and store into the arrays with sync'ed indices
@@ -171,32 +172,3 @@ index=$(($index+1))
 done
 echo "----------------------------------------------"
 
-#nrt1=
-   # Get subnet-id#
-#subnet1=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=sec-az1-pub" --query "Subnets[*].SubnetId" --output text)
-
-   # Get original route-table-id#
-#ort1=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=Sec01-VPC-intra" --query "RouteTables[*].RouteTableId"  --output text)
-
-   # Get new route-table-id#
-#nrt1=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=Secvpc-public-subnets-RT" --query "RouteTables[*].RouteTableId"  --output text)
-
-   # Build cmd string - Get current subnet to route-table association
-#awscmd1="aws ec2 describe-route-tables --route-table-ids ${ort1} --filters \"Name=association.subnet-id,Values=${subnet1}\" --query \"RouteTables[*].Associations[?SubnetId=='${subnet1}']\"  --output text"
-
-   # Run it
-#res1=$(eval "$awscmd1")
-
-   # Parse the results 
-rtbassoc=$(cut -d " " -f 2 <<<$res1)
-currrtb=$(cut -d " " -f 3 <<<$res1)
-currsubnet=$(cut -d " " -f 4 <<<$res1)
-
-   # Confirm expected results before changing any of the associations 
-if [ "$currrtb" == "$ort1" ]; then 
-    echo "matched expected 1"
-fi 
-
-if [ "$currsubnet" == "$subnet1" ]; then 
-    echo "matched expected 2"
-fi
