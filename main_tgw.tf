@@ -209,13 +209,9 @@ resource "aws_route_table_association" "app2-az2-assoc" {
 resource "aws_route_table" "mgmtvpc-rt-private-subnets" {
   vpc_id                = module.vpc["mgmtvpc"].vpc_id 
   route {                                                       # local route to the VPC is added to RT automatically 
-    cidr_block          = "10.0.0.0/8"                          # route to PA-VM firewalls
+    cidr_block          = "10.100.0.0/16"                       # route to PA-VM firewalls
     transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
   }
- # route {                                                       # local route to the VPC is added to RT automatically 
- # cidr_block          = "0.0.0.0/0"                             # route to Internet via IGW in mgmt VPC
- # gateway_id          = aws_internet_gateway.mgmt_vpc_igw.id 
- # }
   tags = {
     Owner = "dan-via-terraform"
     Name  = "Mgmt-private-subnets-RT"
@@ -232,6 +228,10 @@ resource "aws_route_table" "mgmtvpc-rt-public-subnets" {
   vpc_id                = module.vpc["mgmtvpc"].vpc_id 
   route {                                                       # local route to the VPC is added to RT automatically 
     cidr_block          = "0.0.0.0/0"
+    gateway_id          = aws_internet_gateway.mgmt_vpc_igw.id 
+  }
+  route {                                                       # local route to the VPC is added to RT automatically 
+    cidr_block          = "10.100.0.0/16"
     gateway_id          = aws_internet_gateway.mgmt_vpc_igw.id 
   }
   tags = {
