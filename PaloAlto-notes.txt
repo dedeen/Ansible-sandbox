@@ -1,0 +1,6 @@
+PAN's AMI: ami-081f4bfe293d7f414
+  Tag: PA-VM-AWS-10.1.8-h2-7064e142-2859-40a4-ab62-8b0996b842e9
+
+#aws ec2 describe-images --executable-users all --region us-west-1 --image-id ami-081f4bfe293d7f414
+
+aws   describe-images --executable-users all --region us-west-1 --filters "ImageId=ami-081f4bfe293d7f414"
