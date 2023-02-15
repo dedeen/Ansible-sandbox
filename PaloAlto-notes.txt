@@ -1,6 +1,68 @@
 PAN's AMI: ami-081f4bfe293d7f414
   Tag: PA-VM-AWS-10.1.8-h2-7064e142-2859-40a4-ab62-8b0996b842e9
 
-#aws ec2 describe-images --executable-users all --region us-west-1 --image-id ami-081f4bfe293d7f414
+#aws ec2 describe-images --executable-users all --region us-west-1 --image-ids ami-081f4bfe293d7f414
 
-aws   describe-images --executable-users all --region us-west-1 --filters "ImageId=ami-081f4bfe293d7f414"
+aws ec2 describe-images --executable-users all --region us-west-1 --filters "Name=ImageId,Values=ami-081f4bfe293d7f414"
+
+aws ec2 describe-images --query 'ImageID[*].[ImageID]' --output text
+
+aws ec2 describe-images --executable-users all --region us-west-1 --filters "Name=name,Values=${ami-081f4bfe293d7f414}"
+
+aws ec2 describe-images --executable-users all --region us-west-1 | grep PA-VM-AWS-10
+aws ec2 describe-images --executable-users all --region us-west-1 | grep PA-VM-AWS-10.1.8
+
+aws ec2 describe-images --executable-users all --region us-west-1 --filters "Name=name,Values=${ami-081f4bfe293d7f414}"
+
+
+
+"ImageLocation": "aws-marketplace/PA-VM-AWS-10.1.8-h2-0825b781-215f-4686-8da2-b95275cc8dd0",
+            "Description": "[Copied ami-0c5be8a9123dcfc4d from us-east-1] PA-VM-AWS-10.1.8-h2",
+            
+            
+            
+            
+            
+            
+            
+            [cloudshell-user@ip-10-2-90-167 ~]$ cat imglog2 
+        {
+            "Architecture": "x86_64",
+            "CreationDate": "2023-02-07T00:33:47.000Z",
+            "ImageId": "ami-06789a3c4162e7091",
+            "ImageLocation": "aws-marketplace/PA-VM-AWS-10.1.8-h2-f1260463-68e1-4bfb-bf2e-075c2664c1d7",
+            "ImageType": "machine",
+            "Public": true,
+            "OwnerId": "679593333241",
+            "PlatformDetails": "Linux/UNIX",
+            "UsageOperation": "RunInstances",
+            "ProductCodes": [
+                {
+                    "ProductCodeId": "e9yfvyj3uag5uo5j2hjikv74n",
+                    "ProductCodeType": "marketplace"
+                }
+            ],
+            "State": "available",
+            "BlockDeviceMappings": [
+                {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                        "DeleteOnTermination": false,
+                        "SnapshotId": "snap-07ae88aa8b7868bf5",
+                        "VolumeSize": 60,
+                        "VolumeType": "gp2",
+                        "Encrypted": false
+                    }
+                }
+            ],
+            "Description": "[Copied ami-0c5be8a9123dcfc4d from us-east-1] PA-VM-AWS-10.1.8-h2",
+            "EnaSupport": true,
+            "Hypervisor": "xen",
+            "ImageOwnerAlias": "aws-marketplace",
+            "Name": "PA-VM-AWS-10.1.8-h2-f1260463-68e1-4bfb-bf2e-075c2664c1d7",
+            "RootDeviceName": "/dev/xvda",
+            "RootDeviceType": "ebs",
+            "SriovNetSupport": "simple",
+            "VirtualizationType": "hvm",
+            "DeprecationTime": "2025-02-07T00:33:47.000Z"
+        },
