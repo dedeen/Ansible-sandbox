@@ -16,15 +16,14 @@ resource "aws_s3_bucket" "ova-filestore" {
 }
 
 resource "aws_s3_bucket_acl" "ova-filestore" {
-  bucket = aws_s3_bucket.terraform-filestore.id
+  bucket = aws_s3_bucket.ova-filestore.id
   acl    = "private"
  }
 
 locals {
-  index_file      = "source_files/index.html"
-  launch_script   = "source_files/launch_script.sh"
-}
-
+  ova_inbound      = "source_files/PA-VM-ESX-10.1.0"
+ }
+dje
 #  Copy the files to the bucket created above
 resource "aws_s3_object" "file1" {
   bucket                  = aws_s3_bucket.terraform-filestore.id
