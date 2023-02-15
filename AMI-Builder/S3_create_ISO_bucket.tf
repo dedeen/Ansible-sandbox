@@ -1,21 +1,21 @@
-# Terraform script to build an S3 bucket and store index files for the Apache to be installed on my web servers. 
-#    to create a multi-subnet VPC with PAN firewall between outside and the internal subnets. Will also create IAM 
-#    to allow the instances to retrieve these file(s). 
-#    	Key insights from https://gmusumeci.medium.com/how-to-upload-files-to-private-or-public-aws-ec2-instances-using-terraform-e62d3c4dd3a6  
+# Terraform script to build an S3 bucket ans associate IAM role(s) to use it as follows: 
+#    - import OVA into the bucket
+#    - create EC2 instance 
+#    - create AMI from EC2 instance. 
 #         -- Dan Edeen, dan@dsblue.net, 2022  --   
-#
+
 
 #  Creating an S3 bucket for files to be retrieved by instances
-resource "aws_s3_bucket" "terraform-filestore" {
-  bucket = "terraform-filestore"
+resource "aws_s3_bucket" "ova-filestore" {
+  bucket = "ova-filestore"
   
     tags = {
-    Name = "S3-filestore"
+    Name = "ova-filestore"
     Owner = "dan-via-terraform"
   }
 }
 
-resource "aws_s3_bucket_acl" "terraform-filestore" {
+resource "aws_s3_bucket_acl" "ova-filestore" {
   bucket = aws_s3_bucket.terraform-filestore.id
   acl    = "private"
  }
