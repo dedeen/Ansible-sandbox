@@ -232,7 +232,7 @@ resource "aws_route_table" "mgmtvpc-rt-public-subnets" {
   }
   route {                                                       # local route to the VPC is added to RT automatically 
     cidr_block          = "10.100.0.0/16"
-    gateway_id          = aws_internet_gateway.mgmt_vpc_igw.id 
+    gateway_id          = aws_ec2_transit_gateway.TGW-PAN.id 
   }
   tags = {
     Owner = "dan-via-terraform"
