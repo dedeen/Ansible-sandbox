@@ -11,7 +11,7 @@
 #  4. There is another json file in the ./AMI-Builder directory named vmimport-role-policy.json 
 #  4a. Run this command to assign it to the vmimport role created previously
 #         aws iam put-role-policy --role-name vmimport --policy-name vmimport --policy-document file:///var/tmp/role-policy.json
-
+#  5. There is a json file in the same ./AMI-Builder directory named vmimport-role-policy.json 
 #  (later)
 
 
