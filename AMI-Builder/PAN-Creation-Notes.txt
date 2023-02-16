@@ -1,0 +1,2 @@
+1. On esxi 6.7, import OVA, snap it, then launch. 
+2. 
