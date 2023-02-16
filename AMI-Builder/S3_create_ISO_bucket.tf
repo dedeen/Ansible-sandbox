@@ -31,7 +31,7 @@ locals {
 #  Copy the files to the bucket created above
 resource "aws_s3_object" "file1" {
   bucket                  = aws_s3_bucket.ova-filestore.id
-  key                     = firewall_ova
+  key                     = "firewall_ova"
   source                  = local.ova_inbound
   source_hash             = filemd5(local.ova_inbound)
   etag                    = filemd5(local.ova_inbound)   # checked on each tf apply and will replace file if changed
