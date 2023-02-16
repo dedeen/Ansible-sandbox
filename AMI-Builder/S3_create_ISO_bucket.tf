@@ -30,7 +30,7 @@ locals {
 
 #  Copy the files to the bucket created above
 resource "aws_s3_object" "file1" {
-  bucket                  = aws_s3_bucket.terraform-filestore.id
+  bucket                  = aws_s3_bucket.ova-filestore.id
   key                     = "index.html"
   source                  = local.index_file
   source_hash             = filemd5(local.index_file)
