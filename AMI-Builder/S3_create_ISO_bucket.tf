@@ -10,12 +10,41 @@
 #         aws iam create-role --role-name vmimport --assume-role-policy-document file:///..current dir../AMI_Builder/vmimport-trust-policy.json
 #  4. There is another json file in the ./AMI-Builder directory named vmimport-role-policy.json 
 #     - Run this command to assign it to the vmimport role created previously:
-#         aws iam put-role-policy --role-name vmimport --policy-name vmimport --policy-document file:///..current dir../AMI_Builder/role-policy.json
+#         aws iam put-role-policy --role-name vmimport --policy-name vmimport --policy-document file:///..current dir../AMI_Builder/vmimport-role-policy.json
 #  5. There is a json file in the same ./AMI-Builder directory named containers.json 
 #     - Run this command to import the OVA from the S3 bucket: It will run for 20 minutes or more. 
 #          aws ec2 import-image --description "DansImport" --license-type BYOL --disk-containers file:///..current dir../AMI_Builder/containers.json
 #     - You can check the run / progress with this command:
 #          aws ec2 describe-import-image-tasks --import-task-ids import-ami-XXXXXXX, where XXXXXX is returned from the previous command. 
+#             Here is an example
+#               aws ec2 describe-import-image-tasks --import-task-ids import-ami-08a28f151919d3c6c
+#               ... 
+            #####################
+            #		{
+            #		    "ImportImageTasks": [
+            #		        {
+            #		            "Description": "DansImport",
+            #		            "ImportTaskId": "import-ami-08a28f151919d3c6c",
+            #		            "LicenseType": "BYOL",
+            #		            "Progress": "19",
+            #		            "SnapshotDetails": [
+            #		                {
+            #                		    "DiskImageSize": 3660171776.0,
+            #		                    "Format": "VMDK",
+            #		                    "Status": "active",
+            #		                    "UserBucket": {
+            #		                        "S3Bucket": "ova-filestore",
+            #		                        "S3Key": "PA-VM-ESX-10.1.0.ova"
+            #		                    }
+            #		                }
+            #		            ],
+            #		            "Status": "active",
+            #		            "StatusMessage": "converting",
+            #		            "Tags": []
+            #		        }
+            #		    ]
+            #		}
+            #####################
 #       Run the command until the status returns as "completed". 
 
 #  Creating an S3 bucket for files to be retrieved by instances
