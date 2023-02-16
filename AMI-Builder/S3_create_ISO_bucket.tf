@@ -21,7 +21,7 @@ resource "aws_s3_bucket_acl" "ova-filestore" {
 locals {
   ova_inbound      = "source_files/PA-VM-ESX-10.1.0"
  }
-dje
+
 #  Copy the files to the bucket created above
 resource "aws_s3_object" "file1" {
   bucket                  = aws_s3_bucket.terraform-filestore.id
