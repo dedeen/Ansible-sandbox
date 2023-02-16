@@ -1,8 +1,6 @@
-# Terraform script to build an S3 bucket ans associate IAM role(s) to use it as follows: 
+# Terraform script to build an S3 bucket for ISO to make an AMI for the firewalls:
+#    - create an S3 bucket 
 #    - import OVA into the bucket
-#    - create EC2 instance 
-#    - create AMI from EC2 instance. 
-#         -- Dan Edeen, dan@dsblue.net, 2022  --   
 
 
 #  Creating an S3 bucket for files to be retrieved by instances
