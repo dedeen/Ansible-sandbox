@@ -2,9 +2,9 @@
 #    - create an S3 bucket 
 #    - import OVA into the bucket
 #You will need to do the following: 
-#  1. Copy this .tf file up a level to the terraform runtime location
-#  2. Copy the source OVA into the .../source_files directory referenced below
-#  3. Run this script
+#  1. Run this script to create an S3 bucket for the OVA file
+#  2. Copy the source OVA into the S3 bucket
+#  3. 
 #  ....
 #  (later)
 
