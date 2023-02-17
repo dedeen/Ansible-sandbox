@@ -39,6 +39,19 @@ Configure XFF headers
  ethernet1/1.1: sub = .1, tag=1, vr=vr-default, IPv4: DHCP client, disable auto default route, mgmt profile = None
  
  --- pausing here to take an esxi snapshot (#2) and export an OVA to import to AWS --- 
+ 
+ 
+>>> Cannot export from ESXi WebUI, so used VMWare's OVF Tool version 4.4 as seen here. 
+
+C:\Program Files\VMware\VMware OVF Tool4-4>ovftool.exe --noSSLVerify vi://10.0.0.109/PAVMBaseline2 "c:\PAVMBaseline2.ovf"
+Enter login information for source vi://10.0.0.109/
+Username: root
+Password: ********
+Opening VI source: vi://root@10.0.0.109:443/PAVMBaseline2
+Opening OVF target: c:\PAVMBaseline2.ovf
+Writing OVF package: c:\PAVMBaseline2.ovf
+Disk progress: 54%
+
  Configure the route table(s):  
  
  
