@@ -67,3 +67,89 @@ Up next, import to AWS and make an AMI.
  Configure the route table(s):  
  
  
+ #############################################
+ Exploring vmdk disk set from PAVMBaseline2
+ #############################################
+ Disks 0,1,3 have the interesting files 
+ 
+ 
+ - Disk1: etc\os-release:"CentOS Linux 7 (Core)"
+ - In debug menu: active sysroot: sysroot0
+ - looks like legacy grub 
+ - Disk0:\boot\grub\link.link...
+
+
+(2) grub files for each sysroot (0 & 1): maint_sysroot0_ramdisk_grub.conf, sysroot0_ramdisk_grub.conf 
+
+I am booting with sysroot0_ramdisk_grub.conf, here are the production values: 
+ ---------------
+ #boot=/dev/sda
+
+default=2
+hiddenmenu
+password --md5 $1$Uy24.YjO$mps2Xqi1COBzPoiy.iF2I/
+timeout=5
+serial --unit=0 --speed=9600
+terminal --silent --timeout=5 serial console
+title PANOS (maint-other)
+        root (hd0,2)
+        kernel /boot/vmlinuz ro root=/dev/sda3 init=/sbin/init_maint console=ttyS0,9600n8 console=tty0 alternate_root=/dev/vda3 alternate_root=/dev/xvda3 alternate_root=/dev/nvme0n1p3
+title PANOS (maint)
+        root (hd0,1)
+        kernel /boot/vmlinuz ro root=/dev/sda2 init=/sbin/init_maint console=ttyS0,9600n8 console=tty0 alternate_root=/dev/vda2 alternate_root=/dev/xvda2 alternate_root=/dev/nvme0n1p2
+title PANOS (sysroot0)
+        root (hd0,1)
+        kernel /boot/vmlinuz ro root=/dev/sda2 init=/sbin/init_single_core console=ttyS0,9600n8 console=tty0 alternate_root=/dev/vda2 alternate_root=/dev/xvda2 hugepages=0 alternate_root=/dev/nvme0n1p2
+ ---------------
+ (hd0,1) means boot from first partition of the disk hd0 - looks like partition 2 has the other PAN linux release in it 
+ default=2 selects the 3rd (from 0) menu item by default 
+ root (hd0,1): default rood device name (here it is hd0, partition 1)
+ timeout=5: in seconds, -1 disables count down 
+ title: menu entry name 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ NAME="CentOS Linux"
+VERSION="7 (Core)"
+ID="centos"
+ID_LIKE="rhel fedora"
+VERSION_ID="7"
+PRETTY_NAME="CentOS Linux 7 (Core)"
+ANSI_COLOR="0;31"
+CPE_NAME="cpe:/o:centos:centos:7"
+HOME_URL="https://www.centos.org/"
+BUG_REPORT_URL="https://bugs.centos.org/"
+
+CENTOS_MANTISBT_PROJECT="CentOS-7"
+CENTOS_MANTISBT_PROJECT_VERSION="7"
+REDHAT_SUPPORT_PRODUCT="centos"
+REDHAT_SUPPORT_PRODUCT_VERSION="7"
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
