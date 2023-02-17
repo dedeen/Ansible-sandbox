@@ -1,2 +1,20 @@
-1. On esxi 6.7, import OVA, snap it, then launch. 
-2. 
+1. On esxi 6.7, import OVA, snap a clean baseline, then launch/power it up and connect to the console. 
+2. It might take a couple of boots to get running, then get the IP from ESXi/VCSA. 
+3. https://dhcp-address, login with admin/admin
+4. Change the default password to Temp1234!, you will get logged out, reconnect with admin and new pwd, commit the pwd change. 
+5. Disable the welcome splash screen. Don't enable telemetry collection. 
+6. Configure as follows: 
+
+[General Settings]
+Hostname:PA-VM-1
+Timezone:US/Pacific
+Disable - Hypervisor MAC addresses 
+
+[Panorama]
+Disable - pushing device monitoring data to Panorama
+
+[Banners]
+Message of the day (enabled) PA-VM within AWS
+Allow Do Not Display Again 
+
+[Telemetry] Disable all 
