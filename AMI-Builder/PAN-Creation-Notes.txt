@@ -38,6 +38,7 @@ Configure XFF headers
  ethernet1/2: type=L3, zone=public  , vr=vr-default, IPv4: DHCP client, ENABLE auto default route, mgmt profile = None
  ethernet1/1.1: sub = .1, tag=1, vr=vr-default, IPv4: DHCP client, disable auto default route, mgmt profile = None
  
+ --- pausing here to take an esxi snapshot (#2) and export an OVA to import to AWS --- 
  Configure the route table(s):  
  
  
