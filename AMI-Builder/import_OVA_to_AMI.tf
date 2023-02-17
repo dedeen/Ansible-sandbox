@@ -47,6 +47,8 @@
             #####################
 #       Run the command until the status returns as "completed". 
 
+#  >>> The AMI created is import-ami-0db4f9a7ceaede72e. 
+
 #  Creating an S3 bucket for files to be retrieved by instances
 resource "aws_s3_bucket" "ova-filestore" {
   bucket = "ova-filestore"
