@@ -52,6 +52,18 @@ Opening OVF target: c:\PAVMBaseline2.ovf
 Writing OVF package: c:\PAVMBaseline2.ovf
 Disk progress: 54%
 
+###
+Then I convert from OVF to OVA: 
+C:\Program Files\VMware\VMware OVF Tool4-4>ovftool D:\aaa-z490-localfiles\Computing-tools\OVAs\PAVM_OVF\PAVMBaseline2.ovf PAVMBaseline2.ova
+Opening OVF source: D:\aaa-z490-localfiles\Computing-tools\OVAs\PAVM_OVF\PAVMBaseline2.ovf
+The manifest validates
+Opening OVA target: PAVMBaseline2.ova
+Writing OVA package: PAVMBaseline2.ova
+Transfer Completed
+Completed successfully
+###
+Up next, import to AWS and make an AMI. 
+
  Configure the route table(s):  
  
  
