@@ -4,6 +4,6 @@
     "Format": "ova", 
     "UserBucket": { 
         "S3Bucket": "ova-filestore", 
-        "S3Key": "PA-VM-ESX-10.1.0.ova" 
+        "S3Key": "PAVMBaseline2.ova" 
     } 
 }]
