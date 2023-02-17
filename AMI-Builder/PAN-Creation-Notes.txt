@@ -18,3 +18,26 @@ Message of the day (enabled) PA-VM within AWS
 Allow Do Not Display Again 
 
 [Telemetry] Disable all 
+-------------------------------
+Configure DNS & NTP (for AWS env) 
+[Device>Setup>Services>cog] 
+  Primary DNS:169.254.169.253 (no secondary)
+  Pirmary NTP:0.pool.ntp.org
+  Secondary NTP: 1.pool.ntp.org
+Configure XFF headers
+[Device>Setup>Content-ID>X-Forwarded..>cog] 
+  Enabled-for-Security-Policy
+[Device>Setup>Interfaces>Management>cog]
+  DHCP Client, HTTPS, SSH, Ping
+
+ [Network>Network Profiles>Interface Mgmt]
+ Add: Name = Health Checks, select HTTPS
+ 
+ Configure the interfaces: 
+ ethernet1/1: type=L3, zone=internal, vr=vr-default, IPv4: DHCP client, disable auto default route, mgmt profile=Health Checks
+ ethernet1/2: type=L3, zone=public  , vr=vr-default, IPv4: DHCP client, ENABLE auto default route, mgmt profile = None
+ ethernet1/1.1: sub = .1, tag=1, vr=vr-default, IPv4: DHCP client, disable auto default route, mgmt profile = None
+ 
+ Configure the route table(s): 
+ 
+ 
