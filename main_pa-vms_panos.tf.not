@@ -1,5 +1,7 @@
 #  Terraform to create EC2s as Palo Alto VM-NGFWs
-#    For starters, just building t2.small EC2s with 3 NICs each, one in each subnet of each AZ
+#    To test all the routes in this environment, run the main_pa-vms_awslinux.tf script. 
+#    To build the PAN-OS version for actual firewalls, run this version (main_pa-vms_panos.tf). 
+#      The main difference is the AMI used to build the EC2 instances. 
 
 resource "aws_instance" "PA-VM-1" {
   ami                                 = "ami-094125af156557ca2"
