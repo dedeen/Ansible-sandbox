@@ -13,7 +13,8 @@ locals {
 resource "aws_instance" "PA-VM-1" {
   #ami                                 = "ami-094125af156557ca2"
   ami                                 = local.panos_ami
-  instance_type                       = "t2.small"                # max 4 NICs
+  #instance_type                       = "t2.small"                # max 4 NICs
+  instance_type                       = "m5.2xlarge"               # PAN min recommendation
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = false
   private_ip                          = "10.100.0.10"
