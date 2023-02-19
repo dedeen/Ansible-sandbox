@@ -8,6 +8,7 @@
 locals {
   panos_ami           = "ami-081f4bfe293d7f414"
   aws_linux_ami       = "ami-094125af156557ca2"
+  }
 
 resource "aws_instance" "PA-VM-1" {
   #ami                                 = "ami-094125af156557ca2"
