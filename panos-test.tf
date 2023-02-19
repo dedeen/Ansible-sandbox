@@ -6,13 +6,13 @@
 #          Palo Alto PA-VM firewall: ami-081f4bfe293d7f414
 
 locals {
-  panos_ami           = "ami-081f4bfe293d7f414"
-  aws_linux_ami       = "ami-094125af156557ca2"
+  panos_ami11           = "ami-081f4bfe293d7f414"
+  aws_linux_ami11       = "ami-094125af156557ca2"
   }
 
 resource "aws_instance" "PA-VM-11" {
   #ami                                 = "ami-094125af156557ca2"
-  ami                                 = local.panos_ami
+  ami                                 = local.panos_ami11
   #instance_type                       = "t2.small"                # max 4 NICs
   instance_type                       = "m5.2xlarge"               # PAN min recommendation
   key_name                            = "${aws_key_pair.generated_key.key_name}"
