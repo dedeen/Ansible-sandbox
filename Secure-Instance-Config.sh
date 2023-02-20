@@ -1,7 +1,10 @@
 #### This script will build an EC2 bastion host in a preexisting subnet within a VPC. 
 
-# Set up some variables 
+# Set up some variables (bh == bastion host)
 bastion_subnet=app1-az1-bastion
+bh_AMI=ami-094125af156557ca2
+bh_type=t2.micro
+
 
 # Get the subnet ID 
 subnetid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].SubnetId" --output text)
