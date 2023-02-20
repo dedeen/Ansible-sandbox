@@ -2,12 +2,15 @@
 
 # Set up some variables 
 bastion_subnet=app1-az-bastion
+
+# Get the subnet handle 
+subnet1=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].SubnetId" --output text)
 echo "Subnet Info Returned"${subnet1}
 exit 0
 
 
-# Get the subnet handle 
-subnet1=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].SubnetId" --output text)
+
+
 
 changes route table associations with multiple subnets. This is done here to work around a terraform limitation on reassigning
 #       associations when one already exists. This is a known bug with terraform. 
