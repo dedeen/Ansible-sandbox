@@ -13,7 +13,8 @@ echo "SubnetId:"${subnetid}
 echo "VpcId:"${vpcid}
 echo "CIDR:"${cidr}
 
-
+Build an IGW so we can access the bastion host from the Internet 
+aws ec2 create-internet-gateway --vpc-id ${vpcid}
 
 exit 0
 
