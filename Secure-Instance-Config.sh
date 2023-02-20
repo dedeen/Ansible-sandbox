@@ -5,21 +5,17 @@ bastion_subnet=app1-az1-bastion
 bh_AMI=ami-094125af156557ca2
 bh_type=t2.micro
 
-
-# Get the EC2 target subnet ID 
+# Get some info from AWS for the target subnet
 subnetid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].SubnetId" --output text)
 echo "SubnetId:"${subnetid}
 
-# Get the VPC ID
 vpcid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].VpcId" --output text)
 echo "VpcId:"${vpcid}
 
-# Get the CIDR Block
 cidr=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].CidrBlock" --output text)
 echo "CIDR:"${cidr}
 
 
-# Get the IGW target VPC ID
 
 exit 0
 
