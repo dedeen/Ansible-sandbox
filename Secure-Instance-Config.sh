@@ -14,9 +14,10 @@ echo "VpcId:"${vpcid}
 echo "CIDR:"${cidr}
 
 #Build an IGW so we can access the bastion host from the Internet 
-awscmd1="aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=\"bastion-igw\"}]"
-results1=$(eval "$awscmd1")
-echo "->"${result1}
+#awscmd1="aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=\"bastion-igw\"}]"
+results2=$(aws ec2 create-internet-gateway --query InternetGateway.InternetGatewayId --output text)
+echo ">"${results2}
+
 
 exit 0
 
