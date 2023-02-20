@@ -93,6 +93,9 @@ ping 10.105.128.20
 
 git ls-files | xargs wc -l
 aws ec2 describe-import-image-tasks --import-task-ids=import-ami-0797d04919bc40668
-aws ec2 describe-images --filters "Name=product-code,Values=6nj11pau431dv1qxipg63mvah"  -output json
+
+aws ec2 describe-images --filters "Name=product-code,Values=6njl1pau431dv1qxipg63mvah" Name=name,Values=PA-VM-AWS*10*  --region us-west-2 --output json
+6njl1pau431dv1qxipg63mvah
+
 
 
