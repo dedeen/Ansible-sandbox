@@ -3,10 +3,9 @@
 # Set up some variables 
 bastion_subnet=app1-az1-bastion
 
-# Get the subnet handle 
-subnet1=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].SubnetId" --output text)
-#subnet1=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=app1-az1-bastion" --query "Subnets[*].SubnetId" --output text)
-echo "Subnet Info Returned:"${subnet1}
+# Get the subnet ID 
+subnetid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].SubnetId" --output text)
+echo "Subnet Info Returned:"${subnetid}
 exit 0
 
 
