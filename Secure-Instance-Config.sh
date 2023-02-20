@@ -6,13 +6,25 @@ bh_AMI=ami-094125af156557ca2
 bh_type=t2.micro
 
 
-# Get the subnet ID 
+# Get the EC2 target subnet ID 
 subnetid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].SubnetId" --output text)
-echo "Subnet Info Returned:"${subnetid}
+echo "SubnetId:"${subnetid}
+
+# Get the VPC ID
+vpcid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].VpcId" --output text)
+echo "VpcId:"${vpcid}
+
+# Get the CIDR Block
+cidr=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].CidrBlock" --output text)
+echo "CIDR:"${cidr}
+
+
+# Get the IGW target VPC ID
+
 exit 0
 
 
-
+aws ec2 describe-subnets --filters "Name=tag:Name,Values=app1-az1-bastion" --query "Subnets[*].VpcId" --output text
 
 
 changes route table associations with multiple subnets. This is done here to work around a terraform limitation on reassigning
