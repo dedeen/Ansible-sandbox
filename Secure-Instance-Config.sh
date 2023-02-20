@@ -7,12 +7,10 @@ bh_type=t2.micro
 
 # Get some info from AWS for the target subnet
 subnetid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].SubnetId" --output text)
-echo "SubnetId:"${subnetid}
-
 vpcid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].VpcId" --output text)
-echo "VpcId:"${vpcid}
-
 cidr=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].CidrBlock" --output text)
+echo "SubnetId:"${subnetid}
+echo "VpcId:"${vpcid}
 echo "CIDR:"${cidr}
 
 
