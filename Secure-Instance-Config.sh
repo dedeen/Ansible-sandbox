@@ -1,4 +1,15 @@
-#### This script changes route table associations with multiple subnets. This is done here to work around a terraform limitation on reassigning
+#### This script will build an EC2 bastion host in a preexisting subnet within a VPC. 
+
+# Set up some variables 
+bastion_subnet=app1-az-bastion
+echo "Subnet Info Returned"${subnet1}
+exit 0
+
+
+# Get the subnet handle 
+subnet1=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].SubnetId" --output text)
+
+changes route table associations with multiple subnets. This is done here to work around a terraform limitation on reassigning
 #       associations when one already exists. This is a known bug with terraform. 
 #
 # Here we set up a list of the subnet associations that will need to be changed after all of the terraform scripts have been run. 
