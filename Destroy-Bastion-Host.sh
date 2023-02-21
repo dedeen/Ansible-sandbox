@@ -14,9 +14,9 @@ vpcname=App01-VPC
 igwid=$(aws ec2 describe-internet-gateways --filter Name=tag:Name,Values=${igwname} --query "InternetGateways[*].InternetGatewayId" --output text)
 vpcid=$(aws ec2 describe-vpcs --filters Name=tag:Name,Values=${vpcname} --query "Vpcs[*].VpcId" --output text)
 echo "Detaching IGW:"${igwid}" from VPC:"${vpcid}
+aws ec2 detach-internet-gateway --vpc-id ${vpcid}
 
-#aws ec2 detach-internet-gateway --internet-gateway-id ${igwid} --vpc-id ${vpcid}
-#aws ec2 detach-internet-gateway --internet-gateway-id ${igwid} --vpc-id ${vpcid}
+
 exit 0
 
 
