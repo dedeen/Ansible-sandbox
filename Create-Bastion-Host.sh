@@ -121,12 +121,12 @@ result2=$(eval "$awsrtcmd")
 echo "... Returned results:"$result2
 
 # All done now
-echo "#############################################"
-echo "# Bastion host has been deployed"
-echo "#   - Wait a few minutes for init"
-echo "#   - Public IP: " ${publicip}
-echo "#   - Private IP: " ${privateip}
-echo "#   - ssh key:   " ${bh_keypair}".pem"
-echo "# ssh ec2-user@"${publicip}" -i "${bh_keypair}".pem"
-echo "#############################################"
+echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+echo "| Bastion host deployed, IGW & routes added"
+echo "|     Public IP: " ${publicip}
+echo "|     Private IP: " ${privateip}
+echo "|     ssh key:   " ${bh_keypair}".pem"
+echo "| Wait a few minutes for EC2 to initialize"
+echo "|     ssh ec2-user@"${publicip}" -i "${bh_keypair}".pem"
+echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 exit 0
