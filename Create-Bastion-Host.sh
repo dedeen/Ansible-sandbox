@@ -4,7 +4,7 @@
 #        same directory. 
 
 # Set up some variables (bh == bastion host)
-debug_flag=1   #0: run straight through script, 1: pause and prompt during script run
+debug_flag=0   #0: run straight through script, 1: pause and prompt during script run
 
 bastion_subnet=app1-az1-bastion
 bh_AMI=ami-094125af156557ca2
