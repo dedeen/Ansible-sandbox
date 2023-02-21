@@ -11,9 +11,14 @@ bh_rt_name=Bastion-Host-RT
 bastion_subnet=app1-az1-bastion
 
 # Terminate the EC2 bastion host
-#-->instid=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${instname} --query "Reservations[*].Instances[*].InstanceId" --output text)
-#-->echo "Terminating ec2 named:"${instname}", InstanceID:"${instid}
-#-->aws ec2 terminate-instances --instance-ids ${instid}
+instid=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${instname} --query "Reservations[*].Instances[*].InstanceId" --output text)
+echo "Terminating ec2 named:"${instname}", InstanceID:"${instid}
+      #~~~
+      if [ $debug_flag -eq 1 ]
+         then read -p "___Paused, enter to proceed___"
+      fi
+      #~~~
+aws ec2 terminate-instances --instance-ids ${instid}
 
 # Delete the IGW for the bastion subnet/VPC
 igwid=$(aws ec2 describe-internet-gateways --filter Name=tag:Name,Values=${igwname} --query "InternetGateways[*].InternetGatewayId" --output text)
