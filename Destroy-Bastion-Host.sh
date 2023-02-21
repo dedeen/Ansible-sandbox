@@ -1,6 +1,9 @@
 ### This script will tear down the EC2 bastion host in the App endpoint VPC(s), that was created by the Create-Bastion-Host.sh script in this same repo. 
 
 # Set up some variables (bh == bastion host)
+#debug_flag=0  #0: run straight through script 
+debug_flag=1   #1: pause and prompt during script run
+
 instname=Bastion-Host
 igwname=Bastion-IGW
 vpcname=App01-VPC
@@ -15,10 +18,23 @@ bastion_subnet=app1-az1-bastion
 # Delete the IGW for the bastion subnet/VPC
 igwid=$(aws ec2 describe-internet-gateways --filter Name=tag:Name,Values=${igwname} --query "InternetGateways[*].InternetGatewayId" --output text)
 vpcid=$(aws ec2 describe-vpcs --filters Name=tag:Name,Values=${vpcname} --query "Vpcs[*].VpcId" --output text)
+
+      #~~~
+      if [ $debug_flag -eq 1 ]
+         then read -p "Paused, enter to proceed"
+      fi
+      #~~~
+
 echo "Detaching IGW:"${igwid}" from VPC:"${vpcid}
 #-->aws ec2 detach-internet-gateway --vpc-id ${vpcid} --internet-gateway-id ${igwid}
 echo "Deleting IGW:"${igwid}
 aws ec2 delete-internet-gateway --internet-gateway-id ${igwid}
+
+      #~~~
+      if [ $debug_flag -eq 1 ]
+         then read -p "Paused, enter to proceed"
+      fi
+      #~~~
 
 # Remove the association between the RT for the bastion host/subnet and the VPC
 #    We do this by finding the association VPC<->RT, and changing the association
@@ -56,6 +72,13 @@ awsrtnew=$rt1
 
 awsrtcmd="aws ec2 replace-route-table-association --association-id ${rtbassoc} --route-table-id ${awsrtnew} --no-cli-auto-prompt --output text"
 echo "... Sending this AWS CLI cmd:"
+
+      #~~~
+      if [ $debug_flag -eq 1 ]
+         then read -p "Paused, enter to proceed"
+      fi
+      #~~~
+
 echo $awsrtcmd
 result2=$(eval "$awsrtcmd")
 echo "... Returned results:"$result2
