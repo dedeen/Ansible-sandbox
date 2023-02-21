@@ -42,7 +42,7 @@ echo "PublicIP:"${publicip}
 # Create a route table for the bastion subnet and associate it to the new IGW
 #   This couldn't be created when VPC was built as bastion IGW didn't exist yet 
 
-rtid=$(aws ec2 create-route-table --vpc-id ${vpcid} --query "RouteTable[*].RouteTableId" --output text)
+rtid=$(aws ec2 create-route-table --vpc-id ${vpcid} --query "RouteTable.RouteTableId" --output text)
 echo "Route Table for Bastion Subnet:"${rtid}
 aws ec2 create-tags --resources $rtid --tags Key=Name,Value="RT-For-Bastion-Host"
 
