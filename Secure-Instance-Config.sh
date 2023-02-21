@@ -39,15 +39,21 @@ aws ec2 create-tags --resources $instid --tags Key=Name,Value="Bastion-Host"
 publicip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
 echo "PublicIP:"${publicip}
 
-# Create a route table for the bastion subnet and associate it to the new IGW
+# Create a route table for the bastion subnet with a default route to the new IGW
 #   This couldn't be created when VPC was built as bastion IGW didn't exist yet 
 
+# Create RT
 rtid=$(aws ec2 create-route-table --vpc-id ${vpcid} --query "RouteTable.RouteTableId" --output text)
 echo "Route Table for Bastion Subnet:"${rtid}
-aws ec2 create-tags --resources $rtid --tags Key=Name,Value="RT-For-Bastion-Host"
+aws ec2 create-tags --resources $rtid --tags Key=Name,Value="Bastion-Host-RT"
 
+# Add default route
 routesuccess=$(aws ec2 create-route --route-table-id ${rtid} --destination-cidr-block 0.0.0.0/0 --gateway-id ${igwid})
 echo "Successfully created route?:"${routesuccess}
+
+# Associate to bastion subnet 
+assocrtsn=$aws ec2 associate-route-table --route-table-id ${rtid} --subnet-id ${subnetid}
+
 ###################
 echo "#############################################"
 echo "# Bastion host has been deployed"
