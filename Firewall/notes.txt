@@ -1,1 +1,2 @@
+Build the PA-VMs from the main .tf files after switching to AMI and instance type for Palo FW. 
 
