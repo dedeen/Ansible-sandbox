@@ -53,7 +53,7 @@ echo "#############################################"
 echo "# Bastion host has been deployed"
 echo "#   - Wait a few minutes for init"
 echo "#   - Public IP: " ${publicip}
-echo "#   - ssh key: " ${bh_keypair}
+echo "#   - ssh key:   " ${bh_keypair}
 echo "#   #ssh ec2-user@ip -i keypairfilename"
 echo "#############################################"
 exit 0
