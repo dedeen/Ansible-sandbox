@@ -4,6 +4,8 @@
 #        same directory. 
 
 # Set up some variables (bh == bastion host)
+debug_flag=1   #0: run straight through script, 1: pause and prompt during script run
+
 bastion_subnet=app1-az1-bastion
 bh_AMI=ami-094125af156557ca2
 bh_type=t2.micro
@@ -19,6 +21,12 @@ echo "SubnetId:"${subnetid}
 echo "VpcId:"${vpcid}
 echo "CIDR:"${cidr}
 
+      #~~~
+      if [ $debug_flag -eq 1 ]
+         then read -p "Paused, enter to proceed"
+      fi
+      #~~~
+
 #Build an IGW so we can access the bastion host from the outside 
 igwid=$(aws ec2 create-internet-gateway --query InternetGateway.InternetGatewayId --output text)
 echo "IGW:"${igwid}
@@ -26,6 +34,12 @@ aws ec2 create-tags --resources $igwid --tags Key=Name,Value="Bastion-IGW"
 
 # Attach the bastion IGW to the bastion subnet's VPC 
 aws ec2 attach-internet-gateway --internet-gateway-id ${igwid} --vpc-id ${vpcid}
+
+      #~~~
+      if [ $debug_flag -eq 1 ]
+         then read -p "Paused, enter to proceed"
+      fi
+      #~~~
 
 # Get the security group in the target VPC that is wide open for IPv4, name referenced above
 secgroupid=$(aws ec2 describe-security-groups --filters Name=group-name,Values=${open_sec_group} Name=vpc-id,Values=${vpcid} --query "SecurityGroups[*].GroupId" --output text)
@@ -40,6 +54,12 @@ aws ec2 create-tags --resources $instid --tags Key=Name,Value="Bastion-Host"
 publicip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
 echo "PublicIP:"${publicip}
 
+      #~~~
+      if [ $debug_flag -eq 1 ]
+         then read -p "Paused, enter to proceed"
+      fi
+      #~~~
+      
 # Create a route table for the bastion subnet with a default route to the new IGW
 #   This couldn't be created when VPC was built as bastion IGW didn't exist yet 
 
@@ -52,6 +72,12 @@ aws ec2 create-tags --resources $rtid --tags Key=Name,Value=${bh_rt_name}
 routesuccess=$(aws ec2 create-route --route-table-id ${rtid} --destination-cidr-block 0.0.0.0/0 --gateway-id ${igwid})
 echo "Successfully created route?:"${routesuccess}
 read -p "... " -n1 -s
+
+      #~~~
+      if [ $debug_flag -eq 1 ]
+         then read -p "Paused, enter to proceed"
+      fi
+      #~~~
 
 # Associate to bastion subnet 
 # Get RT ID for RT currently associated to the bastion subnet
@@ -82,6 +108,13 @@ awsrtnew=$rt1
 
 awsrtcmd="aws ec2 replace-route-table-association --association-id ${rtbassoc} --route-table-id ${awsrtnew} --no-cli-auto-prompt --output text"
 echo "... Sending this AWS CLI cmd:"
+
+      #~~~
+      if [ $debug_flag -eq 1 ]
+         then read -p "Paused, enter to proceed"
+      fi
+      #~~~
+
 echo $awsrtcmd
 result2=$(eval "$awsrtcmd")
 echo "... Returned results:"$result2
