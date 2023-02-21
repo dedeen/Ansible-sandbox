@@ -8,6 +8,7 @@ bastion_subnet=app1-az1-bastion
 bh_AMI=ami-094125af156557ca2
 bh_type=t2.micro
 bh_keypair=bastion-keypair
+bh_rt_name=Bastion-Host-RT
 open_sec_group=SG-allow_ipv4
 
 # Get some info from AWS for the target subnet
@@ -45,7 +46,7 @@ echo "CIDR:"${cidr}
 # Create RT
 rtid=$(aws ec2 create-route-table --vpc-id ${vpcid} --query "RouteTable.RouteTableId" --output text)
 echo "Route Table for Bastion Subnet:"${rtid}
-aws ec2 create-tags --resources $rtid --tags Key=Name,Value="Bastion-Host-RT"
+aws ec2 create-tags --resources $rtid --tags Key=Name,Value=${bh_rt_name}
 
 # Add default route
 #---->routesuccess=$(aws ec2 create-route --route-table-id ${rtid} --destination-cidr-block 0.0.0.0/0 --gateway-id ${igwid})
@@ -54,7 +55,7 @@ aws ec2 create-tags --resources $rtid --tags Key=Name,Value="Bastion-Host-RT"
 # Associate to bastion subnet 
 # Get RT ID for RT currently associated to the bastion subnet
 orRT=App01-VPC-intra
-targRT=Bastion-Host-RT
+targRT=$bh_rt_name
 subnet1=$subnetid
 
 rt0=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=${orRT}" --query "RouteTables[*].RouteTableId"  --output text)
