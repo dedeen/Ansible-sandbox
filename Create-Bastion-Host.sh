@@ -50,9 +50,11 @@ instid=$(aws ec2 run-instances --image-id ${bh_AMI} --instance-type ${bh_type} -
 echo "InstanceID:"${instid}
 aws ec2 create-tags --resources $instid --tags Key=Name,Value="Bastion-Host"
 
-# Get the public IP of the bastion host
+# Get the public & private IPs of the bastion host
 publicip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
 echo "PublicIP:"${publicip}
+privateip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].PrivateIpAddress" --output text)
+echo "PrivateIP:"${privateip}
 
       #~~~
       if [ $debug_flag -eq 1 ]
@@ -124,6 +126,7 @@ echo "#############################################"
 echo "# Bastion host has been deployed"
 echo "#   - Wait a few minutes for init"
 echo "#   - Public IP: " ${publicip}
+echo "#   - Private IP: " ${privateip}
 echo "#   - ssh key:   " ${bh_keypair}
 echo "#   #ssh ec2-user@ip -i keypairfilename"
 echo "#############################################"
