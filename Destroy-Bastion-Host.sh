@@ -4,6 +4,8 @@
 instname=Bastion-Host
 igwname=Bastion-IGW
 vpcname=App01-VPC
+bh_rt_name=Bastion-Host-RT
+bastion_subnet=app1-az1-bastion
 
 # Terminate the EC2 bastion host
 #-->instid=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${instname} --query "Reservations[*].Instances[*].InstanceId" --output text)
@@ -18,62 +20,17 @@ echo "Detaching IGW:"${igwid}" from VPC:"${vpcid}
 echo "Deleting IGW:"${igwid}
 aws ec2 delete-internet-gateway --internet-gateway-id ${igwid}
 
+# Remove the association between the RT for the bastion host/subnet and the VPC
+#    We do this by finding the association VPC<->RT, and changing the association
+#    This is not strictly necessary, as the RT will now be a blackhole to the deleted IGW, but it is cleaner if we put back the original assoc to subnet.
 
-exit 0
-
-
-secgroupid=$(aws ec2 describe-security-groups 
---filters Name=group-name,Values=${open_sec_group} Name=vpc-id,Values=${vpcid} --query "SecurityGroups[*].GroupId" --output text)
-
-# Get some info from AWS for the target subnet
-subnetid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].SubnetId" --output text)
-vpcid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].VpcId" --output text)
-cidr=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].CidrBlock" --output text)
-echo "SubnetId:"${subnetid}
-echo "VpcId:"${vpcid}
-echo "CIDR:"${cidr}
-read -p "... " -n1 -s
-
-#Build an IGW so we can access the bastion host from the outside 
-igwid=$(aws ec2 create-internet-gateway --query InternetGateway.InternetGatewayId --output text)
-echo "IGW:"${igwid}
-aws ec2 create-tags --resources $igwid --tags Key=Name,Value="Bastion-IGW"
-
-# Attach the bastion IGW to the bastion subnet's VPC 
-aws ec2 attach-internet-gateway --internet-gateway-id ${igwid} --vpc-id ${vpcid}
-read -p "... " -n1 -s
-
-# Get the security group in the target VPC that is wide open for IPv4, name referenced above
-secgroupid=$(aws ec2 describe-security-groups --filters Name=group-name,Values=${open_sec_group} Name=vpc-id,Values=${vpcid} --query "SecurityGroups[*].GroupId" --output text)
-echo "secgrp:"${secgroupid}
-
-# Launch an EC2 that will be a bastion host into the VPC
-instid=$(aws ec2 run-instances --image-id ${bh_AMI} --instance-type ${bh_type} --subnet-id ${subnetid} --key-name ${bh_keypair} --security-group-ids ${secgroupid} --associate-public-ip-address --query "Instances[*].InstanceId" --output text)
-echo "InstanceID:"${instid}
-aws ec2 create-tags --resources $instid --tags Key=Name,Value="Bastion-Host"
-
-# Get the public IP of the bastion host
-publicip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
-echo "PublicIP:"${publicip}
-
-read -p "... " -n1 -s
-# Create a route table for the bastion subnet with a default route to the new IGW
-#   This couldn't be created when VPC was built as bastion IGW didn't exist yet 
-
-# Create RT
-rtid=$(aws ec2 create-route-table --vpc-id ${vpcid} --query "RouteTable.RouteTableId" --output text)
-echo "Route Table for Bastion Subnet:"${rtid}
-aws ec2 create-tags --resources $rtid --tags Key=Name,Value=${bh_rt_name}
-
-# Add default route
-routesuccess=$(aws ec2 create-route --route-table-id ${rtid} --destination-cidr-block 0.0.0.0/0 --gateway-id ${igwid})
-echo "Successfully created route?:"${routesuccess}
-read -p "... " -n1 -s
-
-# Associate to bastion subnet 
+# Dis-associate RT from  bastion subnet 
 # Get RT ID for RT currently associated to the bastion subnet
-orRT=App01-VPC-intra
-targRT=$bh_rt_name
+subnetid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].SubnetId" --output text)
+#orRT=App01-VPC-intra
+#targRT=$bh_rt_name
+targRT=App01-VPC-intra
+orRT=$bh_rt_name
 subnet1=$subnetid
 
 rt0=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=${orRT}" --query "RouteTables[*].RouteTableId"  --output text)
@@ -101,15 +58,9 @@ awsrtcmd="aws ec2 replace-route-table-association --association-id ${rtbassoc} -
 echo "... Sending this AWS CLI cmd:"
 read -p "... " -n1 -s
 echo $awsrtcmd
+exit 0
 result2=$(eval "$awsrtcmd")
 echo "... Returned results:"$result2
 
 # All done now
-echo "#############################################"
-echo "# Bastion host has been deployed"
-echo "#   - Wait a few minutes for init"
-echo "#   - Public IP: " ${publicip}
-echo "#   - ssh key:   " ${bh_keypair}
-echo "#   #ssh ec2-user@ip -i keypairfilename"
-echo "#############################################"
 exit 0
