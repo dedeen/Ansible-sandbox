@@ -46,7 +46,7 @@ rtid=$(aws ec2 create-route-table --vpc-id ${vpcid} --query "RouteTables[*].Asso
 echo "Route Table for Bastion Subnet:"${rtid}
 aws ec2 create-tags --resources $rtid --tags Key=Name,Value="RT-For-Bastion-Host"
 
-#routesuccess=$(aws ec2 create-route --route-table-id ${rtid} --destination-cidr-block 0.0.0.0/0 --gateway-id ${igwid})
+routesuccess=$(aws ec2 create-route --route-table-id ${rtid} --destination-cidr-block 0.0.0.0/0 --gateway-id ${igwid})
 echo "Successfully created route?:"${routesuccess}
 ###################
 echo "#############################################"
