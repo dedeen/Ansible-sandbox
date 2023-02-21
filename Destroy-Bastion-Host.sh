@@ -1,8 +1,7 @@
 ### This script will tear down the EC2 bastion host in the App endpoint VPC(s), that was created by the Create-Bastion-Host.sh script in this same repo. 
 
 # Set up some variables (bh == bastion host)
-#debug_flag=0  #0: run straight through script 
-debug_flag=1   #1: pause and prompt during script run
+debug_flag=0   #0: run straight through script, 1: pause and prompt during script run
 
 instname=Bastion-Host
 igwname=Bastion-IGW
