@@ -33,6 +33,10 @@ echo "secgrp:"${secgroupid}
 # Launch an EC2 that will be a bastion host into the VPC
 instid=$(aws ec2 run-instances --image-id ${bh_AMI} --instance-type ${bh_type} --subnet-id ${subnetid} --key-name ${bh_keypair} --security-group-ids ${secgroupid} --associate-public-ip-address --query "Instances[*].InstanceId" --output text)
 echo "InstanceID:"${instid}
+
+# Get the public IP of the bastion host
+publicip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Instances[*].PublicIpAddress" --output text)
+echo "PublicIP:"${publicip}
 exit 0
 
 
