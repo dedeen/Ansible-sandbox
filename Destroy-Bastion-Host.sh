@@ -21,7 +21,7 @@ vpcid=$(aws ec2 describe-vpcs --filters Name=tag:Name,Values=${vpcname} --query 
 
       #~~~
       if [ $debug_flag -eq 1 ]
-         then read -p "Paused, enter to proceed"
+         then read -p "___Paused, enter to proceed___"
       fi
       #~~~
 
@@ -32,7 +32,7 @@ aws ec2 delete-internet-gateway --internet-gateway-id ${igwid}
 
       #~~~
       if [ $debug_flag -eq 1 ]
-         then read -p "Paused, enter to proceed"
+         then read -p "___Paused, enter to proceed___"
       fi
       #~~~
 
@@ -75,7 +75,7 @@ echo "... Sending this AWS CLI cmd:"
 
       #~~~
       if [ $debug_flag -eq 1 ]
-         then read -p "Paused, enter to proceed"
+         then read -p "___Paused, enter to proceed___"
       fi
       #~~~
 
