@@ -13,11 +13,13 @@ echo "SubnetId:"${subnetid}
 echo "VpcId:"${vpcid}
 echo "CIDR:"${cidr}
 
-#Build an IGW so we can access the bastion host from the Internet 
+#Build an IGW so we can access the bastion host from the outside 
 igwid=$(aws ec2 create-internet-gateway --query InternetGateway.InternetGatewayId --output text)
 echo "IGW:"${igwid}
 aws ec2 create-tags --resources $igwid --tags Key=Name,Value="Bastion-IGW"
 
+# Attach the bastion IGW to the bastion subnet 
+aws ec2 attach-internet-gateway --internet-gateway-id ${igwid} --vpc-id ${vpcid}
 
 exit 0
 
