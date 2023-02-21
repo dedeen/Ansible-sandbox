@@ -35,7 +35,8 @@ instid=$(aws ec2 run-instances --image-id ${bh_AMI} --instance-type ${bh_type} -
 echo "InstanceID:"${instid}
 
 # Get the public IP of the bastion host
-publicip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Instances[*].PublicIpAddress" --output text)
+#publicip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Instances[*].PublicIpAddress" --output text)
+publicip=$(aws ec2 describe-instances --instance-ids ${instid} --query --output text)
 echo "PublicIP:"${publicip}
 exit 0
 
