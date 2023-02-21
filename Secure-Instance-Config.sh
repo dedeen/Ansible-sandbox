@@ -52,7 +52,7 @@ routesuccess=$(aws ec2 create-route --route-table-id ${rtid} --destination-cidr-
 echo "Successfully created route?:"${routesuccess}
 
 # Associate to bastion subnet 
-assocrtsn=$aws ec2 associate-route-table --route-table-id ${rtid} --subnet-id ${subnetid}
+assocrtsn=$(aws ec2 associate-route-table --route-table-id ${rtid} --subnet-id ${subnetid})
 
 ###################
 echo "#############################################"
