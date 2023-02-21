@@ -127,7 +127,6 @@ echo "#   - Wait a few minutes for init"
 echo "#   - Public IP: " ${publicip}
 echo "#   - Private IP: " ${privateip}
 echo "#   - ssh key:   " ${bh_keypair}
-echo "#   #ssh ec2-user@ip -i keypairfilename"
-echo "# ssh ec2-user@"${publicip}" -i "${bh_keypair}
+echo "# ssh ec2-user@"${publicip}" -i "${bh_keypair}".pem"
 echo "#############################################"
 exit 0
