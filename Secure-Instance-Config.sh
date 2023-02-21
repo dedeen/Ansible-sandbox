@@ -7,6 +7,8 @@
 bastion_subnet=app1-az1-bastion
 bh_AMI=ami-094125af156557ca2
 bh_type=t2.micro
+bh_keypair=bastion-keypair
+open_sec_group=SG-allow_ipv4
 
 # Get some info from AWS for the target subnet
 subnetid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].SubnetId" --output text)
@@ -24,6 +26,12 @@ aws ec2 create-tags --resources $igwid --tags Key=Name,Value="Bastion-IGW"
 # Attach the bastion IGW to the bastion subnet 
 aws ec2 attach-internet-gateway --internet-gateway-id ${igwid} --vpc-id ${vpcid}
 
+# Get the security group in the target VPC that is wide open for IPv4, named 'SG-allow_ipv4' in this project
+secgroupid=$(aws ec2 describe-security-groups filters Name=group-name,Values=${open_sec_group} Name=vpc-id,Values=${vpcid}
+echo "secgrp:"${secgroupid}
+
+# Launch an EC2 that will be a bastion host into the VPC
+#aws ec2 run-instances --image-id ${bh_AMI} --instance-type ${bh_type} --key-name ${bh_keypair} --security-groups 
 exit 0
 
 
