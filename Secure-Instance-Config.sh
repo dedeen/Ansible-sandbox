@@ -16,7 +16,7 @@ echo "CIDR:"${cidr}
 #Build an IGW so we can access the bastion host from the Internet 
 igwid=$(aws ec2 create-internet-gateway --query InternetGateway.InternetGatewayId --output text)
 "IGW:"${igwid}
-aws ec2 create-tags --resources $igwid --tags 'Key="[Name]",Value=bastion-igw'
+aws ec2 create-tags --resources $igwid --tags Key=Name,Value="bastion-igw"
 
 
 exit 0
