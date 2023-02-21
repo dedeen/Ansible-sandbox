@@ -38,6 +38,15 @@ aws ec2 create-tags --resources $instid --tags Key=Name,Value="Bastion-Host"
 # Get the public IP of the bastion host
 publicip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
 echo "PublicIP:"${publicip}
+
+###################
+echo "#############################################"
+echo "# Bastion host has been deployed"
+echo "#   - Wait a few minutes for init"
+echo "#   - Public IP: " ${publicip}
+echo "#   - ssh key: " ${bh_keypair}
+echo "#   #ssh ec2-user@ip -i keypairfilename"
+echo "#############################################"
 exit 0
 
 
