@@ -31,7 +31,7 @@ secgroupid=$(aws ec2 describe-security-groups --filters Name=group-name,Values=$
 echo "secgrp:"${secgroupid}
 
 # Launch an EC2 that will be a bastion host into the VPC
-instid=$(aws ec2 run-instances --image-id ${bh_AMI} --instance-type ${bh_type} --subnet-id ${subnetid} --key-name ${bh_keypair} --security-group-ids ${secgroupid} --associate-public-ip-address --query "Instances[0].InstanceID" --output text)
+instid=$(aws ec2 run-instances --image-id ${bh_AMI} --instance-type ${bh_type} --subnet-id ${subnetid} --key-name ${bh_keypair} --security-group-ids ${secgroupid} --associate-public-ip-address --query "Instances[*].InstanceID" --output text)
 echo "InstanceID:"${instid}
 exit 0
 
