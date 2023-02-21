@@ -1,21 +1,18 @@
 ### This script will tear down the EC2 bastion host in the App endpoint VPC(s), that was created by the Create-Bastion-Host.sh script in this same repo. 
 
 # Set up some variables (bh == bastion host)
-bastion_subnet=app1-az1-bastion
-bh_AMI=ami-094125af156557ca2
-bh_type=t2.micro
-bh_keypair=bastion-keypair
-bh_rt_name=Bastion-Host-RT
-open_sec_group=SG-allow_ipv4
+instname=Bastion-Host
+igwname=Bastion-IGW
 
 # Terminate the EC2 bastion host
-instname=Bastion-Host
-instid=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${instname} --query "Reservations[*].Instances[*].InstanceId" --output text)
-echo "Terminating ec2 named:"${instname}", InstanceID:"${instid}
-aws ec2 terminate-instances --instance-ids ${instid}
+#-->instid=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${instname} --query "Reservations[*].Instances[*].InstanceId" --output text)
+#-->echo "Terminating ec2 named:"${instname}", InstanceID:"${instid}
+#-->aws ec2 terminate-instances --instance-ids ${instid}
+
+# Delete the IGW for the bastion subnet/VPC
+igwid=$(aws ec2 describe-internet-gateways --filter Name=tag:Name,Values=${igwname} --query InternetGateway.InternetGatewayId --output text)
+echo "Detaching IGW:"${igwid}
 exit 0
-
-
 
 
 secgroupid=$(aws ec2 describe-security-groups 
