@@ -14,7 +14,7 @@ declare -a subnet
 declare -a awsrtassoc
 declare -a awsrtborig
 declare -a awssubnet
-declara -a awsrtnew
+declare -a awsrtnew
 
 originalrt[0]=Sec01-VPC-intra
 targetrt[0]=Secvpc-public-subnets-RT
