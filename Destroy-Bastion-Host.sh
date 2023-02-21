@@ -105,7 +105,7 @@ echo "Deleting Bastion RT:"${rt0}
       fi
       #~~~
 
-rtdel=$(aws ec2 delete-route-table --route-table-id ${rt0{)
+rtdel=$(aws ec2 delete-route-table --route-table-id ${rt0})
 
 # All done now
 exit 0
