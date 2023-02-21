@@ -56,7 +56,6 @@ awsrtnew=$rt1
 
 awsrtcmd="aws ec2 replace-route-table-association --association-id ${rtbassoc} --route-table-id ${awsrtnew} --no-cli-auto-prompt --output text"
 echo "... Sending this AWS CLI cmd:"
-read -p "... " -n1 -s
 echo $awsrtcmd
 exit 0
 result2=$(eval "$awsrtcmd")
