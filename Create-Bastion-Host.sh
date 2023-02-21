@@ -23,7 +23,7 @@ echo "CIDR:"${cidr}
 
       #~~~
       if [ $debug_flag -eq 1 ]
-         then read -p "Paused, enter to proceed"
+         then read -p "___Paused, enter to proceed___"
       fi
       #~~~
 
@@ -37,7 +37,7 @@ aws ec2 attach-internet-gateway --internet-gateway-id ${igwid} --vpc-id ${vpcid}
 
       #~~~
       if [ $debug_flag -eq 1 ]
-         then read -p "Paused, enter to proceed"
+         then read -p "___Paused, enter to proceed___"
       fi
       #~~~
 
@@ -56,7 +56,7 @@ echo "PublicIP:"${publicip}
 
       #~~~
       if [ $debug_flag -eq 1 ]
-         then read -p "Paused, enter to proceed"
+         then read -p "___Paused, enter to proceed___"
       fi
       #~~~
       
@@ -75,7 +75,7 @@ read -p "... " -n1 -s
 
       #~~~
       if [ $debug_flag -eq 1 ]
-         then read -p "Paused, enter to proceed"
+         then read -p "___Paused, enter to proceed___"
       fi
       #~~~
 
@@ -112,7 +112,7 @@ echo $awsrtcmd
 
       #~~~
       if [ $debug_flag -eq 1 ]
-         then read -p "Paused, enter to proceed"
+         then read -p "___Paused, enter to proceed___"
       fi
       #~~~
 
