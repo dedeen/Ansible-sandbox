@@ -25,7 +25,7 @@ igwid=$(aws ec2 create-internet-gateway --query InternetGateway.InternetGatewayI
 echo "IGW:"${igwid}
 aws ec2 create-tags --resources $igwid --tags Key=Name,Value="Bastion-IGW"
 
-# Attach the bastion IGW to the bastion subnet 
+# Attach the bastion IGW to the bastion subnet's VPC 
 aws ec2 attach-internet-gateway --internet-gateway-id ${igwid} --vpc-id ${vpcid}
 read -p "... " -n1 -s
 
