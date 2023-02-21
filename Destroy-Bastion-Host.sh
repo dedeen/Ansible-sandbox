@@ -12,6 +12,7 @@ igwname=Bastion-IGW
 # Delete the IGW for the bastion subnet/VPC
 igwid=$(aws ec2 describe-internet-gateways --filter Name=tag:Name,Values=${igwname} --query "InternetGateways[*].InternetGatewayId" --output text)
 echo "Detaching IGW:"${igwid}
+aws ec2 detach-internet-gateway --internet-gateway-id ${igwid}
 exit 0
 
 
