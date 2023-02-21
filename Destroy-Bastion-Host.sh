@@ -12,6 +12,7 @@ open_sec_group=SG-allow_ipv4
 instname=Bastion-Host
 instid=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${instname} --query "Reservations[*].Instances[*].InstanceId" --output text)
 echo "Terminating ec2 named:"${instname}", InstanceID:"${instid}
+aws ec2 terminate-instances --instance-ids ${instid}
 exit 0
 
 
