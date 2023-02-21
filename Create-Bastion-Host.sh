@@ -73,7 +73,6 @@ aws ec2 create-tags --resources $rtid --tags Key=Name,Value=${bh_rt_name}
 # Add default route
 routesuccess=$(aws ec2 create-route --route-table-id ${rtid} --destination-cidr-block 0.0.0.0/0 --gateway-id ${igwid})
 echo "Successfully created route?:"${routesuccess}
-read -p "... " -n1 -s
 
       #~~~
       if [ $debug_flag -eq 1 ]
