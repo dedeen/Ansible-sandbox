@@ -18,7 +18,6 @@ cidr=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet
 echo "SubnetId:"${subnetid}
 echo "VpcId:"${vpcid}
 echo "CIDR:"${cidr}
-read -p "... " -n1 -s
 
 #Build an IGW so we can access the bastion host from the outside 
 igwid=$(aws ec2 create-internet-gateway --query InternetGateway.InternetGatewayId --output text)
@@ -27,7 +26,6 @@ aws ec2 create-tags --resources $igwid --tags Key=Name,Value="Bastion-IGW"
 
 # Attach the bastion IGW to the bastion subnet's VPC 
 aws ec2 attach-internet-gateway --internet-gateway-id ${igwid} --vpc-id ${vpcid}
-read -p "... " -n1 -s
 
 # Get the security group in the target VPC that is wide open for IPv4, name referenced above
 secgroupid=$(aws ec2 describe-security-groups --filters Name=group-name,Values=${open_sec_group} Name=vpc-id,Values=${vpcid} --query "SecurityGroups[*].GroupId" --output text)
@@ -42,7 +40,6 @@ aws ec2 create-tags --resources $instid --tags Key=Name,Value="Bastion-Host"
 publicip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
 echo "PublicIP:"${publicip}
 
-read -p "... " -n1 -s
 # Create a route table for the bastion subnet with a default route to the new IGW
 #   This couldn't be created when VPC was built as bastion IGW didn't exist yet 
 
@@ -85,7 +82,6 @@ awsrtnew=$rt1
 
 awsrtcmd="aws ec2 replace-route-table-association --association-id ${rtbassoc} --route-table-id ${awsrtnew} --no-cli-auto-prompt --output text"
 echo "... Sending this AWS CLI cmd:"
-read -p "... " -n1 -s
 echo $awsrtcmd
 result2=$(eval "$awsrtcmd")
 echo "... Returned results:"$result2
