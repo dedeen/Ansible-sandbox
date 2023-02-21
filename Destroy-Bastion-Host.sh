@@ -10,7 +10,7 @@ open_sec_group=SG-allow_ipv4
 
 # Terminate the EC2 bastion host
 instname=Bastion-Host
-instid=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${instname})
+instid=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${instname} --query "Reservations[*].Instances[*].InstanceId" --output text)
 echo ${instid}
 exit 0
 
