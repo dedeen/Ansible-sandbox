@@ -1,4 +1,7 @@
-#### This script will build an EC2 bastion host in a preexisting subnet within a VPC. 
+#### This script will build an EC2 bastion host in a preexisting subnet in the App endpoint VPC. 
+#      This will allow us to SSH in from the outside, then ssh to the other EC2s to set up traffic out via the Palo Alto Firewalls. 
+#      This is expected to be a temporary setup, and will use a separate AWS keypair for the bastion EC2. The keypair is in this 
+#        same directory. 
 
 # Set up some variables (bh == bastion host)
 bastion_subnet=app1-az1-bastion
