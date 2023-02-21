@@ -19,16 +19,22 @@ bastion_subnet=app1-az1-bastion
 igwid=$(aws ec2 describe-internet-gateways --filter Name=tag:Name,Values=${igwname} --query "InternetGateways[*].InternetGatewayId" --output text)
 vpcid=$(aws ec2 describe-vpcs --filters Name=tag:Name,Values=${vpcname} --query "Vpcs[*].VpcId" --output text)
 
+echo "Detaching IGW:"${igwid}" from VPC:"${vpcid}
       #~~~
       if [ $debug_flag -eq 1 ]
          then read -p "___Paused, enter to proceed___"
       fi
       #~~~
-
-echo "Detaching IGW:"${igwid}" from VPC:"${vpcid}
-#-->aws ec2 detach-internet-gateway --vpc-id ${vpcid} --internet-gateway-id ${igwid}
+ aws ec2 detach-internet-gateway --vpc-id ${vpcid} --internet-gateway-id ${igwid}
+      
 echo "Deleting IGW:"${igwid}
+      #~~~
+      if [ $debug_flag -eq 1 ]
+         then read -p "___Paused, enter to proceed___"
+      fi
+      #~~~
 aws ec2 delete-internet-gateway --internet-gateway-id ${igwid}
+echo "IGW Deleted"
 
       #~~~
       if [ $debug_flag -eq 1 ]
@@ -72,6 +78,7 @@ awsrtnew=$rt1
 
 awsrtcmd="aws ec2 replace-route-table-association --association-id ${rtbassoc} --route-table-id ${awsrtnew} --no-cli-auto-prompt --output text"
 echo "... Sending this AWS CLI cmd:"
+echo $awsrtcmd
 
       #~~~
       if [ $debug_flag -eq 1 ]
@@ -79,7 +86,6 @@ echo "... Sending this AWS CLI cmd:"
       fi
       #~~~
 
-echo $awsrtcmd
 result2=$(eval "$awsrtcmd")
 echo "... Returned results:"$result2
 
