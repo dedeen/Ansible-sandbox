@@ -19,12 +19,12 @@ echo "VpcId:"${vpcid}
 echo "CIDR:"${cidr}
 
 #Build an IGW so we can access the bastion host from the outside 
-#dje>igwid=$(aws ec2 create-internet-gateway --query InternetGateway.InternetGatewayId --output text)
-#dje>echo "IGW:"${igwid}
-#dje>aws ec2 create-tags --resources $igwid --tags Key=Name,Value="Bastion-IGW"
+igwid=$(aws ec2 create-internet-gateway --query InternetGateway.InternetGatewayId --output text)
+echo "IGW:"${igwid}
+aws ec2 create-tags --resources $igwid --tags Key=Name,Value="Bastion-IGW"
 
 # Attach the bastion IGW to the bastion subnet 
-#dje>aws ec2 attach-internet-gateway --internet-gateway-id ${igwid} --vpc-id ${vpcid}
+aws ec2 attach-internet-gateway --internet-gateway-id ${igwid} --vpc-id ${vpcid}
 
 # Get the security group in the target VPC that is wide open for IPv4, name referenced above
 secgroupid=$(aws ec2 describe-security-groups --filters Name=group-name,Values=${open_sec_group} Name=vpc-id,Values=${vpcid} --query "SecurityGroups[*].GroupId" --output text)
@@ -39,6 +39,14 @@ aws ec2 create-tags --resources $instid --tags Key=Name,Value="Bastion-Host"
 publicip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
 echo "PublicIP:"${publicip}
 
+# Create a route table for the bastion subnet and associate it to the new IGW
+#   This couldn't be created when VPC was built as bastion IGW didn't exist yet 
+
+rtid=$(aws ec2 create-route-table --vpc-id ${vpcid} --query "RouteTable[*].RouteTableID" --output text)
+echo "Route Table for Bastion Subnet:"${rtid}
+
+routesuccess=$(aws ec2 create-route --routetable-id ${rtid} --destination-cidr-block 0.0.0.0/0 --gateway-id ${igwid})
+echo "Successfully created route?:"${routesuccess}
 ###################
 echo "#############################################"
 echo "# Bastion host has been deployed"
