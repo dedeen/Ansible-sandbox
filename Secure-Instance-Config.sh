@@ -19,25 +19,25 @@ echo "VpcId:"${vpcid}
 echo "CIDR:"${cidr}
 
 #Build an IGW so we can access the bastion host from the outside 
-igwid=$(aws ec2 create-internet-gateway --query InternetGateway.InternetGatewayId --output text)
-echo "IGW:"${igwid}
-aws ec2 create-tags --resources $igwid --tags Key=Name,Value="Bastion-IGW"
+#---->igwid=$(aws ec2 create-internet-gateway --query InternetGateway.InternetGatewayId --output text)
+#---->echo "IGW:"${igwid}
+#---->aws ec2 create-tags --resources $igwid --tags Key=Name,Value="Bastion-IGW"
 
 # Attach the bastion IGW to the bastion subnet 
-aws ec2 attach-internet-gateway --internet-gateway-id ${igwid} --vpc-id ${vpcid}
+#---->aws ec2 attach-internet-gateway --internet-gateway-id ${igwid} --vpc-id ${vpcid}
 
 # Get the security group in the target VPC that is wide open for IPv4, name referenced above
-secgroupid=$(aws ec2 describe-security-groups --filters Name=group-name,Values=${open_sec_group} Name=vpc-id,Values=${vpcid} --query "SecurityGroups[*].GroupId" --output text)
-echo "secgrp:"${secgroupid}
+#---->secgroupid=$(aws ec2 describe-security-groups --filters Name=group-name,Values=${open_sec_group} Name=vpc-id,Values=${vpcid} --query "SecurityGroups[*].GroupId" --output text)
+#---->echo "secgrp:"${secgroupid}
 
 # Launch an EC2 that will be a bastion host into the VPC
-instid=$(aws ec2 run-instances --image-id ${bh_AMI} --instance-type ${bh_type} --subnet-id ${subnetid} --key-name ${bh_keypair} --security-group-ids ${secgroupid} --associate-public-ip-address --query "Instances[*].InstanceId" --output text)
-echo "InstanceID:"${instid}
-aws ec2 create-tags --resources $instid --tags Key=Name,Value="Bastion-Host"
+#---->instid=$(aws ec2 run-instances --image-id ${bh_AMI} --instance-type ${bh_type} --subnet-id ${subnetid} --key-name ${bh_keypair} --security-group-ids ${secgroupid} --associate-public-ip-address --query "Instances[*].InstanceId" --output text)
+#---->echo "InstanceID:"${instid}
+#---->aws ec2 create-tags --resources $instid --tags Key=Name,Value="Bastion-Host"
 
 # Get the public IP of the bastion host
-publicip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
-echo "PublicIP:"${publicip}
+#---->publicip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
+#---->echo "PublicIP:"${publicip}
 
 # Create a route table for the bastion subnet with a default route to the new IGW
 #   This couldn't be created when VPC was built as bastion IGW didn't exist yet 
@@ -48,16 +48,46 @@ echo "Route Table for Bastion Subnet:"${rtid}
 aws ec2 create-tags --resources $rtid --tags Key=Name,Value="Bastion-Host-RT"
 
 # Add default route
-routesuccess=$(aws ec2 create-route --route-table-id ${rtid} --destination-cidr-block 0.0.0.0/0 --gateway-id ${igwid})
-echo "Successfully created route?:"${routesuccess}
+#---->routesuccess=$(aws ec2 create-route --route-table-id ${rtid} --destination-cidr-block 0.0.0.0/0 --gateway-id ${igwid})
+#---->echo "Successfully created route?:"${routesuccess}
 
 # Associate to bastion subnet 
-#   First need the RT currently associated to the bastion subnet
-rtinit=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=${orRT}" --query "RouteTables[*].RouteTableId"  --output text)
+# Get RT ID for RT currently associated to the bastion subnet
+orRT=App01-VPC-intra
+targRT=Bastion-Host-RT
+subnet1=$subnetid
 
+rt0=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=${orRT}" --query "RouteTables[*].RouteTableId"  --output text)
+rt1=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=${targRT}" --query "RouteTables[*].RouteTableId"  --output text)
 
-assocrtsn=$(aws ec2 associate-route-table --route-table-id ${rtid} --subnet-id ${subnetid})
+# Get association ID for this route table
+awscmd1="aws ec2 describe-route-tables --route-table-ids ${rt0} --filters \"Name=association.subnet-id,Values=${subnet1}\" --query \"RouteTables[*].Associations[?SubnetId=='${subnet1}']\"  --output text"
+result1=$(eval "$awscmd1")
 
+if [ "$result1" = "" ];
+then
+   # Empty string returned, so no rt association to change for this row
+   result1="Not_Applicable: No_work_to_perform . . . . . "
+   # echo "Empty String Returned"
+ fi 
+    
+echo "AWSCLI Query Results->"${result1}
+# Store the resource IDs from AWS in 4 arrays, parse them and store into the arrays with sync'ed indices
+rtbassoc=$(cut -d " " -f 2 <<<$result1)
+#awsrtassoc[$index]=$rtbassoc
+currrtb=$(cut -d " " -f 3 <<<$result1)
+#awsrtborig[$index]=$currrtb
+currsubnet=$(cut -d " " -f 4 <<<$result1)
+#awssubnet[$index]=$currsubnet
+awsrtnew=$rt1
+
+awsrtcmd="aws ec2 replace-route-table-association --association-id ${rtbassoc} --route-table-id ${awsrtnew} --no-cli-auto-prompt --output text"
+echo "... Sending this AWS CLI cmd:"
+echo $awsrtcmd
+result2=$(eval "$awsrtcmd")
+echo "... Returned results:"$result2
+
+exit 0
 ###################
 echo "#############################################"
 echo "# Bastion host has been deployed"
