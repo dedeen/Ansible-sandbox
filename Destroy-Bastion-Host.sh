@@ -19,8 +19,8 @@ echo "Terminating ec2 named:"${instname}", InstanceID:"${instid}
       #~~~
 term=$(aws ec2 terminate-instances --instance-ids ${instid})
 
-echo "...Sleeping 60s for termination of EC2 so that public IP is released" 
-sleep 60
+echo "...Sleeping 120s for termination of EC2 so that public IP is released" 
+sleep 120
 echo "...Back"
 
 # Delete the IGW for the bastion subnet/VPC
