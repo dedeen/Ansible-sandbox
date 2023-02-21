@@ -17,7 +17,7 @@ echo "Terminating ec2 named:"${instname}", InstanceID:"${instid}
          then read -p "___Paused, enter to proceed___"
       fi
       #~~~
-aws ec2 terminate-instances --instance-ids ${instid}
+term=$(aws ec2 terminate-instances --instance-ids ${instid})
 
 echo "...Sleeping 60s for termination of EC2 so that public IP is released" 
 sleep 60
