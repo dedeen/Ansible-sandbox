@@ -44,6 +44,7 @@ echo "PublicIP:"${publicip}
 
 rtid=$(aws ec2 create-route-table --vpc-id ${vpcid} --query "RouteTable[*].RouteTableID" --output text)
 echo "Route Table for Bastion Subnet:"${rtid}
+aws ec2 create-tags --resources $rtid --tags Key=Name,Value="RT-For-Bastion-Host"
 
 routesuccess=$(aws ec2 create-route --routetable-id ${rtid} --destination-cidr-block 0.0.0.0/0 --gateway-id ${igwid})
 echo "Successfully created route?:"${routesuccess}
