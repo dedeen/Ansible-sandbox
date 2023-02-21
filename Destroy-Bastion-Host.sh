@@ -97,6 +97,15 @@ echo $awsrtcmd
 
 result2=$(eval "$awsrtcmd")
 echo "... Returned results:"$result2
+#
+echo "Deleting Bastion RT:"${rt0}
+      #~~~
+      if [ $debug_flag -eq 1 ]
+         then read -p "___Paused, enter to proceed___"
+      fi
+      #~~~
+
+rtdel=$(aws ec2 delete-route-table --route-table-id ${rt0{)
 
 # All done now
 exit 0
