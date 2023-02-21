@@ -3,6 +3,7 @@
 # Set up some variables (bh == bastion host)
 instname=Bastion-Host
 igwname=Bastion-IGW
+vpcname=App01-VPC
 
 # Terminate the EC2 bastion host
 #-->instid=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${instname} --query "Reservations[*].Instances[*].InstanceId" --output text)
@@ -11,7 +12,7 @@ igwname=Bastion-IGW
 
 # Delete the IGW for the bastion subnet/VPC
 igwid=$(aws ec2 describe-internet-gateways --filter Name=tag:Name,Values=${igwname} --query "InternetGateways[*].InternetGatewayId" --output text)
-vpcid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].VpcId" --output text)
+vpcid=$(aws ec2 describe-vpcs --filters Name=tag:Name,Values=${vpcname} --query "Vpcs[*].VpcId" --output text)
 echo "Detaching IGW:"${igwid}" from VPC:"${vpcid}
 
 #aws ec2 detach-internet-gateway --internet-gateway-id ${igwid} --vpc-id ${vpcid}
