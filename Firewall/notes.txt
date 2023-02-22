@@ -1,8 +1,14 @@
 Build the PA-VMs from the main .tf files after switching to AMI and instance type for Palo FW. 
 After launch get the public IPs - 
-  Samples:  10.100.0.10    54.190.115.247
+  Samples:  10.100.0.10    54.190.115.247    <== this int is the mgmt int on PAVM
             10.100.1.10     - 
             10.100.2.10   52.12.216.139
             
-ssh to public IP with keypair 
+ssh to public IP with keypair used for instance
+ssh admin@54.190.115.247 -i terraform-key-pair.da11.pem
 
+configure
+set mgt-config users admin password 
+commit
+  (used std Ed..11)
+Now you can use webui on the same external IP address. 
