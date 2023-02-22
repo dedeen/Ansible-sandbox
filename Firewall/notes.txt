@@ -11,4 +11,4 @@ configure
 set mgt-config users admin password 
 commit
   (used std Ed..11)
-Now you can use webui on the same external IP address. 
+Now you can use webui on the same external IP address.  
