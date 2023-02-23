@@ -57,15 +57,11 @@ targetrt[9]=App2-instances-RT
 subnet[9]=app2-az2-inst
 #
 originalrt[10]=Mgmt-VPC-intra
-#targetrt[10]=Mgmt-instances-RT
 targetrt[10]=Mgmt-private-subnets-RT
-#subnet[10]=mgmt-az1-inst
 subnet[10]=mgmt-az1-int
 #
 originalrt[11]=Mgmt-VPC-intra
-#targetrt[11]=Mgmt-instances-RT
 targetrt[11]=Mgmt-private-subnets-RT
-#subnet[11]=mgmt-az2-inst
 subnet[11]=mgmt-az2-int
 #
 #(12,13 are new)
@@ -76,6 +72,16 @@ subnet[12]=mgmt-az1-pub
 originalrt[13]=Mgmt-VPC-intra
 targetrt[13]=Mgmt-public-subnets-RT
 subnet[13]=mgmt-az2-pub
+
+#(14, 15) are temporary for interim non-GWLB arch
+originalrt[14]=Sec01-VPC-intra
+targetrt[14]=devonly_secvpc_tgwatt-az1-subnet
+subnet[14]=sec-az1-TGW_Att
+#
+originalrt[15]=Sec01-VPC-intra
+targetrt[15]=devonly_secvpc_tgwatt-az2-subnet
+subnet[15]=sec-az2-TGW_Att
+#
 
 #count is number of entries in static array above
 count="${#originalrt[@]}"   # number of elements in arrays
