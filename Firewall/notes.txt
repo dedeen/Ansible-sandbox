@@ -17,13 +17,14 @@ Admin pwd in the saved configs is Temp....!
 
 I loaded the base config.xml from my ESXi system: 
   PANOS-running-config-1.xml
-  On the PA-VN this is named PANOS-running-config-v1.xml. 
+  On the PA-VM this is named PANOS-running-config-v1.xml. 
 I added a lot of config from the PAN guide, not working yet. This is saved here as 
   running-config-inprogress-v2.xml
   
 I continue to debug the environment. 
+works: app1-az1 ping private PAVM-1 int (10.100.1.10) - adding 'devonly-allow-ping' fixed this issue. 
+works: dns resolves for app1-az1
 
-app1-az1 couldn't ping private PAVM-1 int (10.100.1.10) - adding 'devonly-allow-ping' fixed this issue. 
     
 
   
