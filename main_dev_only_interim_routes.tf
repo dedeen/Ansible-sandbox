@@ -8,11 +8,11 @@ resource "aws_route_table" "devonly_secvpc_tgwatt-az1-subnet" {
     network_interface_id  = aws_network_interface.eth1.id     #this is the 2nd (eth1) int on 1nd firewall (PA-VM-1), 10.100.1.10
   }
   route {                                                      
-    cidr_block          = "10.104.0.0/24"                       
+    cidr_block          = "10.104.0.0/16"                       #App01-VPC                     
     transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
   }
   route {                                                      
-    cidr_block          = "10.105.0.0/24"                       
+    cidr_block          = "10.105.0.0/16"                       #App02-VPC
     transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
   }
     
@@ -33,11 +33,11 @@ resource "aws_route_table" "devonly_secvpc_tgwatt-az2-subnet" {
     network_interface_id  = aws_network_interface.eth3.id     #this is the 2nd (eth1) int on 2nd firewall (PA-VM-2), 10.100.65.10
   }
   route {                                                      
-    cidr_block          = "10.104.0.0/24"                       
+    cidr_block          = "10.104.0.0/16"                       #App01-VPC                                            
     transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
   }
   route {                                                      
-    cidr_block          = "10.105.0.0/24"                       
+    cidr_block          = "10.105.0.0/16"                       #App02-VPC                                           
     transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
   }
     
