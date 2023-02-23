@@ -30,16 +30,17 @@ works: PAVM-1 ping to app1-az1
   
 Config notes: 
 [Security Policies]
-Health Check: (production)
-  internal zone -> internal zone
-  source addresses specified
+Health_Check_SecPol: (production)
+  internal zone -> internal zone, source addresses (subnets) specified
   app is ssl (allowed)
+  
 outbound-internet - dan add notes 
 App01-to-App02 - dan add notes 
 defaults - need to override - I think - dan add notes 
 
 [NAT policies]
-outbound-internet
+NAT_Outbound_Internet: (production)
+DEVONLY_NAT_Outbound_Internet (private (e1/1) zone) to outside 
 
 [Interface Mgmt Profiles]
 Health_Checks_IMP - allow HTTPS 
