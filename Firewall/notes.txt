@@ -28,6 +28,12 @@ works: dns resolves for app1-az1
 works: PAVM-1 ping to app1-az1 
   >> routes between app1-az1 and awc-az1-int are good
   
+Config notes: 
+PAVM-1 has RT: Inbound-Routes-PAVM1 (10.100.1.1 next hop). For PAVM-2, need different RT 
+  Name it Inbound-Routes-PAVM2
+  Next hop 10.100.65.1 
+  Assign to eth1/1, eth1/1.1, eth1/2 
+  
 
 not work: ping outside addresses (dns does resolve)
 
