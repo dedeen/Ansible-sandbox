@@ -22,8 +22,14 @@ I added a lot of config from the PAN guide, not working yet. This is saved here 
   running-config-inprogress-v2.xml
   
 I continue to debug the environment. 
-works: app1-az1 ping private PAVM-1 int (10.100.1.10) - adding 'devonly-allow-ping' fixed this issue. 
+works: app1-az1 ping private PAVM-1 int (10.100.1.10) - adding 'devonly-allow-ping' fixed this issue.
+works: app1-az1 ping public PAVM-1 int (10.100.2.10) - adding 'devonly-allow-ping' fixed this issue.
 works: dns resolves for app1-az1
+works: PAVM-1 ping to app1-az1 
+  >> routes between app1-az1 and awc-az1-int are good
+  
+
+not work: ping outside addresses (dns does resolve)
 
     
 
