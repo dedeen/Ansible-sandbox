@@ -23,7 +23,7 @@ resource "aws_route_table" "devonly_secvpc_tgwatt-az1-subnet" {
 }  
 # Need to associate this RT to the two private subnets in the security VPC
 #   This is done via bash script due to terraform bug with RT association changes 
-#     subnet_id         = module.vpc["secvpc"].intra_subnets[3] 
+#     subnet_id         = module.vpc["secvpc"].intra_subnets[3]                -> subnet name is sec-az2-TGW_Att
 #     route_table_id    = devonly_secvpc-rt-secvpc_tgwatt_az1-subnet.id
 #
 resource "aws_route_table" "devonly_secvpc_tgwatt-az2-subnet" {
@@ -48,6 +48,6 @@ resource "aws_route_table" "devonly_secvpc_tgwatt-az2-subnet" {
 }  
 # Need to associate this RT to the two private subnets in the security VPC
 #   This is done via bash script due to terraform bug with RT association changes 
-#     subnet_id         = module.vpc["secvpc"].intra_subnets[9] 
+#     subnet_id         = module.vpc["secvpc"].intra_subnets[9]                 -> subnet name is sec-az2-TGW_Att
 #     route_table_id    = devonly_secvpc-rt-secvpc_tgwatt_az1-subnet.id
 #
