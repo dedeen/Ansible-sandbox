@@ -30,9 +30,12 @@ works: PAVM-1 ping to app1-az1
   
 Config notes: 
 [Security Policies]
-Health_Check_SecPol: (production)
-  internal zone -> internal zone, source addresses (subnets) specified
-  app is ssl (allowed)
+Health_Check_SecPol: (production), ssl allowed
+Outbound_Internet_SecPol: (production), but this version allows everything 
+DEVONLY_Outbound_Internet_SecPol - allow everything, but from zone=private
+East_West_App01_to_App02_Secpol - as per
+East_West_App02_to_App01_Secpol - as per
+~~ Also override default intrazone-default Sec Pol to deny 
   
 outbound-internet - dan add notes 
 App01-to-App02 - dan add notes 
@@ -45,6 +48,18 @@ DEVONLY_NAT_Outbound_Internet (private (e1/1) zone) to outside
 [Interface Mgmt Profiles]
 Health_Checks_IMP - allow HTTPS 
 DEVONLY_Allow_Ping_IMP = allow pings for debugging AWS internal configs 
+
+[Addresses]
+App01_VPC_EC2s - as per
+App02_VPC_EC2s - as per
+
+[Address Groups]
+App01_VPC_AddrGrp  - as per 
+App02_VPC_AddrGrp  - as per 
+
+
+[Address Groups]
+
 
 [Route Tables]
 VR_Inbound_Routes_PAVM1 
