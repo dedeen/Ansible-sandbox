@@ -29,11 +29,32 @@ works: PAVM-1 ping to app1-az1
   >> routes between app1-az1 and awc-az1-int are good
   
 Config notes: 
-PAVM-1 has RT: Inbound-Routes-PAVM1 (10.100.1.1 next hop). For PAVM-2, need different RT 
-  Name it Inbound-Routes-PAVM2
-  Next hop 10.100.65.1 
-  Assign to eth1/1, eth1/1.1, eth1/2 
-  
+[Security Policies]
+Health Check: (production)
+  internal zone -> internal zone
+  source addresses specified
+  app is ssl (allowed)
+outbound-internet - dan add notes 
+App01-to-App02 - dan add notes 
+defaults - need to override - I think - dan add notes 
+
+[NAT policies]
+outbound-internet
+
+[Interface Mgmt Profiles]
+Health_Checks_IMP - allow HTTPS 
+DEVONLY_Allow_Ping_IMP = allow pings for debugging AWS internal configs 
+
+[Route Tables]
+VR_Inbound_Routes_PAVM1 
+      (10.100.1.1 next hop). 
+      Assign to eth1/1, eth1/1.1, eth1/2 
+    For PAVM-2, need different RT, name it VR_Inbound_Routes_PAVM2
+       Next hop 10.100.65.1 
+ 
+
+[NAT
+
 
 not work: ping outside addresses (dns does resolve)
 
