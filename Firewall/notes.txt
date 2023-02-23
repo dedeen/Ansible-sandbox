@@ -21,5 +21,9 @@ I loaded the base config.xml from my ESXi system:
 I added a lot of config from the PAN guide, not working yet. This is saved here as 
   running-config-inprogress-v2.xml
   
-  
+I continue to debug the environment. 
+
+app1-az1 couldn't ping private PAVM-1 int (10.100.1.10) - adding 'devonly-allow-ping' fixed this issue. 
+    
+
   
