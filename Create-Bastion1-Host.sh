@@ -4,7 +4,7 @@
 #        same directory. 
 
 # Set up some variables (bh == bastion host)
-debug_flag=0   #0: run straight through script, 1: pause and prompt during script run
+debug_flag=1   #0: run straight through script, 1: pause and prompt during script run
 
 #Common vars 
 bh_AMI=ami-094125af156557ca2
@@ -38,7 +38,8 @@ echo "CIDR:"${cidr}
 #Build an IGW so we can access the bastion host from the outside 
 igwid=$(aws ec2 create-internet-gateway --query InternetGateway.InternetGatewayId --output text)
 echo "IGW:"${igwid}
-aws ec2 create-tags --resources $igwid --tags Key=Name,Value="Bastion-IGW"
+#aws ec2 create-tags --resources $igwid --tags Key=Name,Value="Bastion-IGW"
+aws ec2 create-tags --resources $igwid --tags Key=Name,Value=${bh_igw_name}
 
 # Attach the bastion IGW to the bastion subnet's VPC 
 aws ec2 attach-internet-gateway --internet-gateway-id ${igwid} --vpc-id ${vpcid}
