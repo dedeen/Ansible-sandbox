@@ -6,6 +6,7 @@
 # Set up some variables (bh == bastion host)
 debug_flag=0   #0: run straight through script, 1: pause and prompt during script run
 
+# Var for bastion 1 (App01-VPC)
 bastion_subnet=app1-az1-bastion
 bh_AMI=ami-094125af156557ca2
 bh_type=t2.micro
