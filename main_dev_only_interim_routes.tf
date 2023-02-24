@@ -29,17 +29,17 @@ resource "aws_route_table" "devonly_secvpc_tgwatt-az1-subnet" {
 resource "aws_route_table" "devonly_secvpc_tgwatt-az2-subnet" {
   vpc_id                = module.vpc["secvpc"].vpc_id 
   route {                                                      
-    cidr_block            = "0.0.0.0/0"
+    cidr_block            = "0.0.0.0/0"               # !!!!! this will only work with the PAVM-2 running (eth3), to test with PAVM-1 need .eth1 in next line
     network_interface_id  = aws_network_interface.eth3.id     #this is the 2nd (eth1) int on 2nd firewall (PA-VM-2), 10.100.65.10
   }
-  route {                                                      
+  /*route {                                                      
     cidr_block          = "10.104.0.0/16"                       #App01-VPC                                            
     transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
   }
   route {                                                      
     cidr_block          = "10.105.0.0/16"                       #App02-VPC                                           
     transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
-  }
+  } */
     
   tags = {
     Owner = "dan-via-terraform"
