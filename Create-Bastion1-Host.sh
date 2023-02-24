@@ -6,13 +6,20 @@
 # Set up some variables (bh == bastion host)
 debug_flag=0   #0: run straight through script, 1: pause and prompt during script run
 
-# Var for bastion 1 (App01-VPC)
-bastion_subnet=app1-az1-bastion
+#Common vars 
 bh_AMI=ami-094125af156557ca2
 bh_type=t2.micro
 bh_keypair=bastion-keypair
 bh_rt_name=Bastion-Host-RT
 open_sec_group=SG-allow_ipv4
+
+# Var for bastion 1 (App01-VPC)
+bastion_subnet=app1-az1-bastion
+bh_igw_name=Bastion1-IGW
+
+# Var for bastion 2 (App02-VPC)
+#bastion_subnet=app2-az1-bastion
+#bh_igw_name=Bastion2-IGW
 
 # Get some info from AWS for the target subnet
 subnetid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].SubnetId" --output text)
