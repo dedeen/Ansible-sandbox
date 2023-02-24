@@ -7,14 +7,14 @@ resource "aws_route_table" "devonly_secvpc_tgwatt-az1-subnet" {
     cidr_block            = "0.0.0.0/0"
     network_interface_id  = aws_network_interface.eth1.id     #this is the 2nd (eth1) int on 1nd firewall (PA-VM-1), 10.100.1.10
   }
-  route {                                                      
+  /*route {                                                      
     cidr_block          = "10.104.0.0/16"                       #App01-VPC                     
     transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
   }
   route {                                                      
     cidr_block          = "10.105.0.0/16"                       #App02-VPC
     transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
-  }
+  }*/
     
   tags = {
     Owner = "dan-via-terraform"
