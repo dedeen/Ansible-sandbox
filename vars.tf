@@ -50,6 +50,15 @@ variable "app_vpcs" {
 			subnet_names	= 		["sec-az1-mgt","sec-az1-int","sec-az1-pub","sec-az1-TGW_Att","sec-az1-GWLB_EndPt","sec-az1-GWLB","sec-az2-mgt","sec-az2-int","sec-az2-pub","sec-az2-TGW_Att","sec-az2-GWLB_EndPt","sec-az2-GWLB"]
 		
 		}
+		websrvvpc = {		
+			map_key			= 	"websrvvpc"
+			region_dc		= 	"WebSrv-VPC"
+			cidr			= 	"10.110.0.0/16"
+			az_list			= 	["us-west-2a","us-west-2a","us-west-2a","us-west-2b","us-west-2b","us-west-2b"]
+			vpc_subnets		= 	["10.110.0.0/24","10.110.1.0/24","10.110.2.0/24","10.110.128.0/24","10.110.129.0/24","10.110.130.0/24"]
+			subnet_names	= 		["websrv-az1-inst","websrv-az1-resv1","websrv-az1-resv2","websrv-az2-inst","websrv-az2-resv1","websrv-az2-resv2"]
+		
+		}
 	}   
 }
 ##
