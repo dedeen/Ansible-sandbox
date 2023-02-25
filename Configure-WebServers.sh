@@ -71,13 +71,7 @@ cidr=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${ws_subnet}" --
 echo "SubnetId:"${subnetid}
 echo "VpcId:"${vpcid}
 echo "CIDR:"${cidr}
-
-      #~~~
-      if [ $debug_flag -eq 1 ]
-         then read -p "___Paused, enter to proceed___"
-      fi
-      #~~~
-
+ 
 #Build an IGW so we can access the web server from the outside -  just for initial configuration
 igwid=$(aws ec2 create-internet-gateway --query InternetGateway.InternetGatewayId --output text)
 aws ec2 create-tags --resources $igwid --tags Key=Name,Value=${igw_name}
