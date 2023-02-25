@@ -92,7 +92,7 @@ echo "EIP Created:"${eipid}
 associd=$(aws ec2 associate-address --instance-id ${instid} --allocation-id ${eipid} --query AssociationId --output text)
 echo "EIP::EC2 association created:"${associd}
 
-exit 0
+read -p "Check for clean or kill - Enter to Proceed"
 ###############################################################################################
 
 echo "Pausing to check results before deleting"
