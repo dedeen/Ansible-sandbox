@@ -62,12 +62,11 @@ echo "CIDR:"${cidr}
 
 #Build an IGW so we can access the web server from the outside -  just for initial configuration
 igwid=$(aws ec2 create-internet-gateway --query InternetGateway.InternetGatewayId --output text)
-echo "IGW:"${igwid}
 aws ec2 create-tags --resources $igwid --tags Key=Name,Value=${igw_name}
 
 # Attach the IGW to the web server's subnet's VPC 
 aws ec2 attach-internet-gateway --internet-gateway-id ${igwid} --vpc-id ${vpcid}
-
+echo "Created IGW:"${igwid}" and attached to VPC:"${vpcid}
       #~~~
       if [ $debug_flag -eq 1 ]
          then read -p "___Paused, enter to proceed___"
@@ -95,8 +94,7 @@ echo "EIP::EC2 association created:"${associd}
 read -p "Check for clean or kill - Enter to Proceed"
 ###############################################################################################
 
-echo "Pausing to check results before deleting"
-read -p "Enter to Proceed"
+read -p "Pausing to check results before deleting, Enter to proceed"
 
 # Disassociate EIP from Instance 
 echo "Disassociating EIP:"${eipid}" from instance:"${instid}" with existing association:"${associd}
