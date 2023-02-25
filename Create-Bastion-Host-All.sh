@@ -4,7 +4,9 @@
 #        same directory. 
 
 # Set up some variables (bh == bastion host)
-debug_flag=1   #0: run straight through script, 1: pause and prompt during script run
+debug_flag=1                  #0: run straight through script, 1: pause and prompt during script run
+which_bastion_host=1          # 1: build bastion 1 with the local vars listed just below
+#which_bastion_host=2         # 2: build bastion 2 with the local vars listed just below
 
 #Common vars 
 bh_AMI=ami-094125af156557ca2
@@ -12,21 +14,29 @@ bh_type=t2.micro
 bh_keypair=bastion-keypair
 open_sec_group=SG-allow_ipv4
 
-# Var for bastion 1 (App01-VPC)
-bastion_subnet=app1-az1-bastion
-bh_igw_name=Bastion1-IGW
-bh_rt_name=Bastion-Host1-RT
-bh_ec2_name=Bastion-Host1
-bh_vpc_name=App01-VPC-intra         # Actually name of default RT built by terraform
-bh_vpc=App01-VPC                    # Name of the VPC that the bastion host will be created in
+if [ $which_bastion_host -eq 1 ]
+   then 
+      echo "  --> Setting up to build Bastion host 1"
+      # Var for bastion 1 (App01-VPC)
+      bastion_subnet=app1-az1-bastion
+      bh_igw_name=Bastion1-IGW
+      bh_rt_name=Bastion-Host1-RT
+      bh_ec2_name=Bastion-Host1
+      bh_vpc_name=App01-VPC-intra         # Actually name of default RT built by terraform
+      bh_vpc=App01-VPC                    # Name of the VPC that the bastion host will be created in
+  fi
 
-# Var for bastion 2 (App02-VPC)
-#bastion_subnet=app2-az1-bastion
-#bh_igw_name=Bastion2-IGW
-#bh_rt_name=Bastion-Host2-RT
-#bh_ec2_name=Bastion-Host2
-#bh_vpc_name=App02-VPC-intra        # Actually name of default RT built by terraform
-#bh_vpc=App02-VPC                   # Name of the VPC that the bastion host will be created in
+if [ $which_bastion_host -eq 2 ]
+   then 
+      echo "  --> Setting up to build Bastion host 2"
+      # Var for bastion 2 (App02-VPC)
+      bastion_subnet=app2-az1-bastion
+      bh_igw_name=Bastion2-IGW
+      bh_rt_name=Bastion-Host2-RT
+      bh_ec2_name=Bastion-Host2
+      bh_vpc_name=App02-VPC-intra        # Actually name of default RT built by terraform
+      bh_vpc=App02-VPC                   # Name of the VPC that the bastion host will be created in
+  fi 
 
 # Get some info from AWS for the target subnet
 subnetid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].SubnetId" --output text)
@@ -35,6 +45,9 @@ cidr=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet
 echo "SubnetId:"${subnetid}
 echo "VpcId:"${vpcid}
 echo "CIDR:"${cidr}
+
+
+exit 0 
 
       #~~~
       if [ $debug_flag -eq 1 ]
