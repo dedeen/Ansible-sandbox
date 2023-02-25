@@ -20,7 +20,7 @@ resource "aws_instance" "WebSrv1-az2" {
   instance_type                       = "t2.micro"
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = false
-  private_ip                          = "10.110.0.30"
+  private_ip                          = "10.110.128.30"
   subnet_id                           = module.vpc["websrvvpc"].intra_subnets[3]
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["websrvvpc"].id]  
   source_dest_check                   = true
