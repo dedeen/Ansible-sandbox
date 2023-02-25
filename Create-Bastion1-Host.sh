@@ -10,7 +10,6 @@ debug_flag=1   #0: run straight through script, 1: pause and prompt during scrip
 bh_AMI=ami-094125af156557ca2
 bh_type=t2.micro
 bh_keypair=bastion-keypair
-bh_rt_name=Bastion-Host-RT
 open_sec_group=SG-allow_ipv4
 
 # Var for bastion 1 (App01-VPC)
@@ -18,12 +17,14 @@ bastion_subnet=app1-az1-bastion
 bh_igw_name=Bastion1-IGW
 bh_rt_name=Bastion-Host1-RT
 bh_ec2_name=Bastion-Host1
+bh_vpc_name=App01-VPC-intra
 
 # Var for bastion 2 (App02-VPC)
 #bastion_subnet=app2-az1-bastion
 #bh_igw_name=Bastion2-IGW
 #bh_rt_name=Bastion-Host2-RT
 #bh_ec2_name=Bastion-Host2
+#bh_vpc_name=App02-VPC-intra
 
 # Get some info from AWS for the target subnet
 subnetid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].SubnetId" --output text)
@@ -61,7 +62,7 @@ echo "secgrp:"${secgroupid}
 # Launch an EC2 that will be a bastion host into the VPC
 instid=$(aws ec2 run-instances --image-id ${bh_AMI} --instance-type ${bh_type} --subnet-id ${subnetid} --key-name ${bh_keypair} --security-group-ids ${secgroupid} --associate-public-ip-address --query "Instances[*].InstanceId" --output text)
 echo "InstanceID:"${instid}
-aws ec2 create-tags --resources $instid --tags Key=Name,Value="Bastion-Host"
+aws ec2 create-tags --resources $instid --tags Key=Name,Value=${bh_ec2_name}
 
 # Get the public & private IPs of the bastion host
 publicip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
