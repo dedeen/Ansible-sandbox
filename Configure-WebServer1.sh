@@ -32,41 +32,22 @@
 # Set up some variables (ws == webserver host)
 debug_flag=1                  #0: run straight through script, 1: pause and prompt during script run
 
-ws_keypair=temp-replace
+ws_keypair=temp-replace-before-running-script
+ws_inst_name=WebSrv1-az1
+ws_subnet=websrv-az1-inst
+ws_subnet_private_ip="10.110.0.30"
+ws_loginid=ec2-user
+
 #Common vars 
 bh_AMI=ami-094125af156557ca2
 bh_type=t2.micro
 bh_keypair=bastion-keypair
 open_sec_group=SG-allow_ipv4
 
-if [ $which_bastion_host -eq 1 ]
-   then 
-      echo "  --> Setting up to build Bastion host 1"
-      # Var for bastion 1 (App01-VPC)
-      bastion_subnet=app1-az1-bastion
-      bh_igw_name=Bastion1-IGW
-      bh_rt_name=Bastion-Host1-RT
-      bh_ec2_name=Bastion-Host1
-      bh_vpc_name=App01-VPC-intra         # Actually name of default RT built by terraform
-      bh_vpc=App01-VPC                    # Name of the VPC that the bastion host will be created in
-  fi
-
-if [ $which_bastion_host -eq 2 ]
-   then 
-      echo "  --> Setting up to build Bastion host 2"
-      # Var for bastion 2 (App02-VPC)
-      bastion_subnet=app2-az1-bastion
-      bh_igw_name=Bastion2-IGW
-      bh_rt_name=Bastion-Host2-RT
-      bh_ec2_name=Bastion-Host2
-      bh_vpc_name=App02-VPC-intra        # Actually name of default RT built by terraform
-      bh_vpc=App02-VPC                   # Name of the VPC that the bastion host will be created in
-  fi 
-
-# Get some info from AWS for the target subnet
-subnetid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].SubnetId" --output text)
-vpcid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].VpcId" --output text)
-cidr=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].CidrBlock" --output text)
+# Get some info from AWS for the target webserver
+subnetid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${ws_subnet}" --query "Subnets[*].SubnetId" --output text)
+vpcid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${ws_subnet}" --query "Subnets[*].VpcId" --output text)
+cidr=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${ws_subnet}" --query "Subnets[*].CidrBlock" --output text)
 echo "SubnetId:"${subnetid}
 echo "VpcId:"${vpcid}
 echo "CIDR:"${cidr}
@@ -76,6 +57,9 @@ echo "CIDR:"${cidr}
          then read -p "___Paused, enter to proceed___"
       fi
       #~~~
+
+
+exit 0 
 
 #Build an IGW so we can access the bastion host from the outside 
 igwid=$(aws ec2 create-internet-gateway --query InternetGateway.InternetGatewayId --output text)
