@@ -46,9 +46,6 @@ echo "SubnetId:"${subnetid}
 echo "VpcId:"${vpcid}
 echo "CIDR:"${cidr}
 
-
-exit 0 
-
       #~~~
       if [ $debug_flag -eq 1 ]
          then read -p "___Paused, enter to proceed___"
