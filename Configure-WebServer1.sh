@@ -80,7 +80,7 @@ echo "Web Server identified:"${ws_inst_name}", InstanceID:"${instid}
 
 # Create a network interface in the webserver's subnet with a public IP - to associate with the IGW
 #eni=$(aws ec2 create-network-interface --description "Temp public IP to configure web server" --subnet-id ${subnetid} --query "NetworkInterface[*].NetworkInterfaceId" --output text)
-eniid=$(aws ec2 create-network-interface --description "Temp public IP to configure web server" --subnet-id ${subnetid} --query "NetworkInterface[*].AvailabilityZone" --output text)
+eniid=$(aws ec2 create-network-interface --description "Temp public IP to configure web server" --subnet-id ${subnetid} --query "Attachment[*].AttachmentId" --output text)
 echo "ENI Created:"${eniid}
 exit 0 
 
