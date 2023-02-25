@@ -111,6 +111,20 @@ echo "|     Normal RT:      "${ws_normal_rt}
 echo "|     Temp RT  :      "${ws_temp_rt}
 echo " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
+# Now that the instrastructure setup is built and configured, we need to change the route table 
+#    for the webserver instance to use the IGW for 0.0.0.0/0. This will allow this script to 
+#    connect to the instance and configure it. Once complete, we change the route table back to 
+#    the original setup. 
+
+# Create RT 
+rtid=$(aws ec2 create-route-table --vpc-id ${vpcid} --query "RouteTable.RouteTableId" --output text)
+aws ec2 create-tags --resources $rtid --tags Key=Name,Value=${ws_temp_rt}
+echo "Created temp route table:"${ws_temp_rt}" ==> "${rtid}
+
+# Add default route
+routesuccess=$(aws ec2 create-route --route-table-id ${rtid} --destination-cidr-block 0.0.0.0/0 --gateway-id ${igwid})
+echo "Successfully created route?:"${routesuccess}
+
 ###############################################################################################
 read -p "Pausing to check results before deleting, Enter to proceed"
 ###############################################################################################
