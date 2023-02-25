@@ -17,14 +17,16 @@ bastion_subnet=app1-az1-bastion
 bh_igw_name=Bastion1-IGW
 bh_rt_name=Bastion-Host1-RT
 bh_ec2_name=Bastion-Host1
-bh_vpc_name=App01-VPC-intra
+bh_vpc_name=App01-VPC-intra         # Actually name of default RT built by terraform
+bh_vpc=App01-VPC                    # Name of the VPC that the bastion host will be created in
 
 # Var for bastion 2 (App02-VPC)
 #bastion_subnet=app2-az1-bastion
 #bh_igw_name=Bastion2-IGW
 #bh_rt_name=Bastion-Host2-RT
 #bh_ec2_name=Bastion-Host2
-#bh_vpc_name=App02-VPC-intra
+#bh_vpc_name=App02-VPC-intra        # Actually name of default RT built by terraform
+#bh_vpc=App02-VPC                   # Name of the VPC that the bastion host will be created in
 
 # Get some info from AWS for the target subnet
 subnetid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].SubnetId" --output text)
