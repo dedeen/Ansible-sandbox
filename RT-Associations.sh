@@ -4,6 +4,8 @@
 # Here we set up a list of the subnet associations that will need to be changed after all of the terraform scripts have been run. 
 #       Using 4 arrays here that are matched in order on index
 
+# Note - subnet <> RT associations for the bastion subnets are created and destroyed by the utility scripts (.sh) that create the instances. 
+
 # 3 arrays of input items (subnets and route tables)
 declare -a originalrt
 declare -a targetrt
