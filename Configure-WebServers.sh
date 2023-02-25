@@ -81,13 +81,7 @@ aws ec2 create-tags --resources $igwid --tags Key=Name,Value=${igw_name}
 # Attach the IGW to the web server's subnet's VPC 
 aws ec2 attach-internet-gateway --internet-gateway-id ${igwid} --vpc-id ${vpcid}
 echo "Created IGW:"${igwid}" and attached to VPC:"${vpcid}
-      #~~~
-      if [ $debug_flag -eq 1 ]
-         then read -p "___Paused, enter to proceed___"
-      fi
-      #~~~
-
-
+      
 # Get the handle for the web server EC2 - filter on running to avoid picking up previously terminated instances with same name
 instid=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${ws_inst_name} "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].InstanceId" --output text)
 echo "Web Server identified:"${ws_inst_name}", InstanceID:"${instid}
