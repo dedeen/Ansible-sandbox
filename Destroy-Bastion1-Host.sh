@@ -13,6 +13,7 @@ open_sec_group=SG-allow_ipv4
 bastion_subnet=app1-az1-bastion
 bh_igw_name=Bastion1-IGW
 bh_rt_name=Bastion-Host1-RT
+bh_ec2_name=Bastion-Host1
 bh_vpc_name=App01-VPC-intra         # Actually name of default RT built by terraform
 bh_vpc=App01-VPC                    # Name of the VPC that the bastion host will be created in
 
