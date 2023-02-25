@@ -59,9 +59,6 @@ echo "CIDR:"${cidr}
       fi
       #~~~
 
-
-exit 0 
-
 #Build an IGW so we can access the web server from the outside -  just for initial configuration
 igwid=$(aws ec2 create-internet-gateway --query InternetGateway.InternetGatewayId --output text)
 echo "IGW:"${igwid}
@@ -76,6 +73,8 @@ aws ec2 attach-internet-gateway --internet-gateway-id ${igwid} --vpc-id ${vpcid}
          then read -p "___Paused, enter to proceed___"
       fi
       #~~~
+
+exit 0 
 
 # Get the security group in the target VPC that is wide open for IPv4, name referenced above
 secgroupid=$(aws ec2 describe-security-groups --filters Name=group-name,Values=${open_sec_group} Name=vpc-id,Values=${vpcid} --query "SecurityGroups[*].GroupId" --output text)
