@@ -77,6 +77,9 @@ echo "CIDR:"${cidr}
 # Get the handle for the web server EC2 - filter on running to avoid picking up previously terminated instances with same name
 instid=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${ws_inst_name} "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].InstanceId" --output text)
 echo "Web Server identified:"${ws_inst_name}", InstanceID:"${instid}
+
+# Create a network interface in the webserver's subnet with a public IP - to associate with the IGW
+aws ec2 create-network-interface --description "Temp public IP to configure web server" --subnet-id ${subnetid}
 exit 0 
 
 # Get the security group in the target VPC that is wide open for IPv4, name referenced above
