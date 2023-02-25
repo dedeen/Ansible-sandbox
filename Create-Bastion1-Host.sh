@@ -96,7 +96,7 @@ echo "Successfully created route?:"${routesuccess}
 
 # Associate to bastion subnet 
 # Get RT ID for RT currently associated to the bastion subnet
-orRT=App01-VPC-intra
+orRT=$bh_vpc_name
 targRT=$bh_rt_name
 subnet1=$subnetid
 
