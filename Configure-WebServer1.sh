@@ -91,31 +91,31 @@ echo "EIP Created:"${eipid}
 associd=$(aws ec2 associate-address --instance-id ${instid} --allocation-id ${eipid} --query AssociationId --output text)
 echo "EIP::EC2 association created:"${associd}
 
-read -p "Check for clean or kill - Enter to Proceed"
 ###############################################################################################
-
 read -p "Pausing to check results before deleting, Enter to proceed"
+###############################################################################################
 
 # Disassociate EIP from Instance 
 echo "Disassociating EIP:"${eipid}" from instance:"${instid}" with existing association:"${associd}
 result=$(aws ec2 disassociate-address --association-id ${associd})
-read -p "Check, then Enter to Proceed"
 
 # Release EIP from Account
 echo "Releasing EIP:"${eipid}
 result=$(aws ec2 release-address --allocation-id ${eipid})
-read -p "Check, then Enter to Proceed"
+ #~~~
+      if [ $debug_flag -eq 1 ]
+         then read -p "___Paused, enter to proceed___"
+      fi
+      #~~~
 
 # Detach IGW from VPC
 echo "Detaching IGW:"${igwid}" from VPC:"${vpcid}
 result=$(aws ec2 detach-internet-gateway --internet-gateway-id ${igwid} --vpc-id ${vpcid})
-read -p "Check, then Enter to Proceed"
 
 # Delete IGW
 echo "Deleting IGW:"${igwid}
 result=$(aws ec2 delete-internet-gateway --internet-gateway-id ${igwid})
-echo "Resource cleanup complete"
-read -p "Check, then Enter to Proceed"
+read -p "Resource cleanup complete, ENTER to exit script"
 
 exit 0
 
