@@ -49,8 +49,8 @@ if [ $which_web_server -eq 1 ]
       ws_inst_name=WebSrv1-az1
       ws_subnet=websrv-az1-inst
       ws_subnet_private_ip="10.110.0.30"
-      ws_normal_rt="WebSrv-subnets-RT"
-      ws_temp_rt="Temp-RT-WebSrv-subnets"
+      ws_normal_rt=WebSrv-subnets-RT
+      ws_temp_rt=Temp-RT-WebSrv-subnets
  fi 
 
 if [ $which_web_server -eq 2 ]
@@ -60,6 +60,8 @@ if [ $which_web_server -eq 2 ]
       ws_inst_name=WebSrv1-az2
       ws_subnet=websrv-az2-inst
       ws_subnet_private_ip="10.110.128.30"
+      ws_normal_rt=WebSrv-subnets-RT
+      ws_temp_rt=Temp-RT-WebSrv-subnets
  fi 
 
 
@@ -112,7 +114,7 @@ echo "|     EC2's PublicIP :"${publicip}
 echo "|     EC2's PrivateIP:"${privateip}
 echo "|     Subnet:"${ws_subnet}" ==> "${subnetid}
 echo "|     Normal RT:      "${ws_normal_rt}
-echo "|     Temp RT  :      "{ws_temp_rt}
+echo "|     Temp RT  :      "${ws_temp_rt}
 echo " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
 ###############################################################################################
