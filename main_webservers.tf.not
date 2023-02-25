@@ -1,0 +1,31 @@
+#  Terraform to create a EC2s that will serve as webservers to the outside world
+
+resource "aws_instance" "WebSrv1-az1" {
+  ami                                 = "ami-094125af156557ca2"
+  instance_type                       = "t2.micro"
+  key_name                            = "${aws_key_pair.generated_key.key_name}"
+  associate_public_ip_address         = false
+  private_ip                          = "10.110.0.30"
+  subnet_id                           = module.vpc["websrvvpc"].intra_subnets[0]
+  vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["websrvvpc"].id]  
+  source_dest_check                   = true
+  tags = {
+          Owner = "dan-via-terraform"
+          Name  = "WebSrv1-az1"
+    }
+}
+
+resource "aws_instance" "WebSrv1-az2" {
+  ami                                 = "ami-094125af156557ca2"
+  instance_type                       = "t2.micro"
+  key_name                            = "${aws_key_pair.generated_key.key_name}"
+  associate_public_ip_address         = false
+  private_ip                          = "10.110.0.30"
+  subnet_id                           = module.vpc["websrvvpc"].intra_subnets[3]
+  vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["websrvvpc"].id]  
+  source_dest_check                   = true
+  tags = {
+          Owner = "dan-via-terraform"
+          Name  = "WebSrv1-az2"
+    }
+}
