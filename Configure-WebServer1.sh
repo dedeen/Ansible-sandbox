@@ -38,7 +38,7 @@ ws_inst_name=WebSrv1-az1
 ws_subnet=websrv-az1-inst
 ws_subnet_private_ip="10.110.0.30"
 ws_loginid=ec2-user
-igw_name=temp-igw
+igw_name=temp-webserver-igw
 
 #Common vars 
 bh_AMI=ami-094125af156557ca2
@@ -88,9 +88,11 @@ eipid=$(aws ec2 allocate-address --domain vpc --query 'AllocationId' --output te
 echo "EIP Created:"${eipid}
 
 # Associate the EIP with the webserver EC2
-associd=$(aws ec2 associate-address --instance-id ${instid} --allocation-id ${eipid})
+#associd=$(aws ec2 associate-address --instance-id ${instid} --allocation-id ${eipid})
+associd=$(aws ec2 associate-address --instance-id ${instid} --allocation-id ${eipid} --query AssociationId --output text)
+echo "EIP::EC2 association created:"${associd}
 
-
+exit 0
 ###############################################################################################
 
 echo "Pausing to check results before deleting"
