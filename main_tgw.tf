@@ -328,10 +328,7 @@ resource "aws_route_table" "secvpc-rt-private-subnets" {
 #     subnet_id = module.vpc["secvpc"].intra_subnets[1] to TGW (subnet name is sec-az1-int)
 #     subnet_id = module.vpc["secvpc"].intra_subnets[7] to TGW (subnet name is sec-az2-int)
 #     Bash cmds to make these associations are as follows: 
-#dje
-#
-#
-  
+ 
   
 /* dje - uncomment these 2 RTs and add GWLB-eps after building the resources: 
 resource "aws_route_table" "secvpc-rt-tgw-az1" {
@@ -382,4 +379,20 @@ resource "aws_route_table_association" "sec-gwlbe-tgw-assoc" {
   route_table_id      = aws_route_table.secvpc-rt-gwlbe-tgw.id
 } 
 >>> end of commented out association  */
-  
+    
+# Create RT for websrvvpc instances
+resource "aws_route_table" "webaz1and2-inst-rt" {
+  vpc_id                = module.vpc["websrvvpc"].vpc_id 
+  route {                                                       # local route to the VPC is added to RT automatically 
+    cidr_block          = "0.0.0.0/0"
+    transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
+  }
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "WebSrv-subnets-RT"
+  }  
+}
+# Need to associate this RT to the two instance subnets in the webserver VPC
+#   This is done via bash script due to terraform bug with RT association changes 
+#     subnet_id = module.vpc["websrvvpc"].intra_subnets[0] to TGW (subnet name is websrv-az1-inst)
+#     subnet_id = module.vpc["websrvvpc"].intra_subnets[3] to TGW (subnet name is websrv-az2-inst)  
