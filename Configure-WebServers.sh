@@ -51,6 +51,14 @@ if [ $which_web_server -eq 1 ]
       ws_subnet_private_ip="10.110.0.30"
  fi 
 
+if [ $which_web_server -eq 2 ]
+   then 
+      echo "  --> Setting up to build Web Server #2"
+      #Webserver1 specific vars
+      ws_inst_name=WebSrv1-az2
+      ws_subnet=websrv-az2-inst
+      ws_subnet_private_ip="10.110.128.30"
+ fi 
 
 
 
