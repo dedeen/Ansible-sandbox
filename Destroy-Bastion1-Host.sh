@@ -1,7 +1,25 @@
 ### This script will tear down the EC2 bastion host in the App endpoint VPC(s), that was created by the Create-Bastion-Host.sh script in this same repo. 
 
 # Set up some variables (bh == bastion host)
-debug_flag=0   #0: run straight through script, 1: pause and prompt during script run
+debug_flag=1   #0: run straight through script, 1: pause and prompt during script run
+
+#Common vars 
+bh_AMI=ami-094125af156557ca2
+bh_type=t2.micro
+bh_keypair=bastion-keypair
+open_sec_group=SG-allow_ipv4
+
+# Var for bastion 1 (App01-VPC)
+bastion_subnet=app1-az1-bastion
+bh_igw_name=Bastion1-IGW
+bh_rt_name=Bastion-Host1-RT
+bh_ec2_name=Bastion-Host1
+
+# Var for bastion 2 (App02-VPC)
+#bastion_subnet=app2-az1-bastion
+#bh_igw_name=Bastion2-IGW
+#bh_rt_name=Bastion-Host2-RT
+#bh_ec2_name=Bastion-Host2
 
 instname=Bastion-Host
 igwname=Bastion-IGW
