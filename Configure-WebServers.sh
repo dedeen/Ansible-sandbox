@@ -31,7 +31,7 @@
 
 # Set up some variables (ws == webserver host)
 debug_flag=1                  #0: run straight through script, 1: pause and prompt during script run
-which_web_server=1            #set up for 1 or 2
+which_web_server=2            #set up for 1 or 2
 
 #Common vars 
 bh_AMI=ami-094125af156557ca2
@@ -110,11 +110,11 @@ echo "EIP::EC2 association created:"${associd}
 # Verify that the public IP (EIP) is attached to the web server NIC
 publicip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
 privateip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].PrivateIpAddress" --output text)
-echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+echo "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "|   WebServer #" ${which_web_server} "Remapped to IGW for sw install"
 echo "|     EC2's PublicIP:"${publicip}
 echo "|     EC2's PrivateIP:"${privateip}
-echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+echo "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
 ###############################################################################################
 read -p "Pausing to check results before deleting, Enter to proceed"
