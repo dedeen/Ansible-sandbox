@@ -33,20 +33,26 @@
 debug_flag=1                  #0: run straight through script, 1: pause and prompt during script run
 which_web_server=1            #set up for 1 or 2
 
-#Webserver specific vars
-ws_keypair=temp-replace-before-running-script
-ws_inst_name=WebSrv1-az1
-ws_subnet=websrv-az1-inst
-ws_subnet_private_ip="10.110.0.30"
-
-
 #Common vars 
 bh_AMI=ami-094125af156557ca2
 bh_type=t2.micro
-bh_keypair=bastion-keypair
+ws_keypair=temp-replace-before-running-script
 open_sec_group=SG-allow_ipv4
 ws_loginid=ec2-user
 igw_name=temp-webserver-igw
+
+
+if [ $which_web_server -eq 1 ]
+   then 
+      echo "  --> Setting up to build Web Server #1"
+      #Webserver1 specific vars
+      ws_inst_name=WebSrv1-az1
+      ws_subnet=websrv-az1-inst
+      ws_subnet_private_ip="10.110.0.30"
+ fi 
+
+
+
 
 # Get some info from AWS for the target webserver
 subnetid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${ws_subnet}" --query "Subnets[*].SubnetId" --output text)
