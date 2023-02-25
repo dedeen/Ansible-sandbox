@@ -65,3 +65,16 @@ resource "aws_network_acl" "NACL-allow_ipv4" {
     network_acl_id   = aws_network_acl.NACL-allow_ipv4["mgmtvpc"].id
     subnet_id        = module.vpc["mgmtvpc"].intra_subnets[4]
   }
+
+ #  Assoc to the 2 Web Server instance subnets 
+  resource "aws_network_acl_association" "vpc-subnet-NACL-websrv-az1-inst" {
+     network_acl_id   = aws_network_acl.NACL-allow_ipv4["websrvvpc"].id
+     subnet_id        = module.vpc["websrvvpc"].intra_subnets[0]
+  }
+  resource "aws_network_acl_association" "vpc-subnet-NACL-websrv-az2-inst" {
+     network_acl_id   = aws_network_acl.NACL-allow_ipv4["websrvvpc"].id
+     subnet_id        = module.vpc["websrvvpc"].intra_subnets[3]
+  }
+    
+  
+    
