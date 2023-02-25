@@ -14,18 +14,20 @@ bastion_subnet=app1-az1-bastion
 bh_igw_name=Bastion1-IGW
 bh_rt_name=Bastion-Host1-RT
 bh_ec2_name=Bastion-Host1
+bh_vpc_name=App01-VPC-intra
 
 # Var for bastion 2 (App02-VPC)
 #bastion_subnet=app2-az1-bastion
 #bh_igw_name=Bastion2-IGW
 #bh_rt_name=Bastion-Host2-RT
 #bh_ec2_name=Bastion-Host2
+#bh_vpc_name=App02-VPC-intra
 
-instname=Bastion-Host
-igwname=Bastion-IGW
-vpcname=App01-VPC
-bh_rt_name=Bastion-Host-RT
-bastion_subnet=app1-az1-bastion
+>>instname=Bastion-Host
+>>igwname=Bastion-IGW
+>>vpcname=App01-VPC
+>>bh_rt_name=Bastion-Host-RT
+>>bastion_subnet=app1-az1-bastion
 
 # Terminate the EC2 bastion host
 instid=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${instname} --query "Reservations[*].Instances[*].InstanceId" --output text)
