@@ -32,7 +32,7 @@ bh_vpc=App01-VPC                    # Name of the VPC that the bastion host will
 #>>bastion_subnet=app1-az1-bastion
 
 # Terminate the EC2 bastion host
-instid=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${bh_ec2_name}, Name=instance-state-name,Values=running --query "Reservations[*].Instances[*].InstanceId" --output text)
+instid=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${bh_ec2_name},"Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].InstanceId" --output text)
 echo "Terminating ec2 named:"${bh_ec2_name}", InstanceID:"${instid}
       #~~~
       if [ $debug_flag -eq 1 ]
