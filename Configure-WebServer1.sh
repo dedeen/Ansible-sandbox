@@ -80,8 +80,11 @@ echo "Web Server identified:"${ws_inst_name}", InstanceID:"${instid}
 
 # Create a network interface in the webserver's subnet with a public IP - to associate with the IGW
 eniid=$(aws ec2 create-network-interface --description "Temp public IP to configure web server" --subnet-id ${subnetid} 2>/dev/null | jq -r '.NetworkInterface.NetworkInterfaceId')
-
 echo "ENI Created:"${eniid}
+
+# Attach this new ENI to the webserver
+dje
+aws ec2 attach-network-interface --profile KJPROD --region $REGION --network-interface-id $NEWIFID --instance-id $INSTANCEID
 exit 0 
 
 # Get the security group in the target VPC that is wide open for IPv4, name referenced above
