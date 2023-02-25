@@ -46,7 +46,7 @@ echo "...Back"
 
 # Delete the IGW for the bastion subnet/VPC
 igwid=$(aws ec2 describe-internet-gateways --filter Name=tag:Name,Values=${bh_igw_name} --query "InternetGateways[*].InternetGatewayId" --output text)
-vpcid=$(aws ec2 describe-vpcs --filters Name=tag:Name,Values=${bh_vpc_name} --query "Vpcs[*].VpcId" --output text)
+vpcid=$(aws ec2 describe-vpcs --filters Name=tag:Name,Values=${bh_vpc} --query "Vpcs[*].VpcId" --output text)
 
 echo "Detaching IGW:"${igwid}" from VPC:"${vpcid}
       #~~~
