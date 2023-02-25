@@ -125,6 +125,13 @@ echo "Created temp route table:"${ws_temp_rt}" ==> "${rtid}
 routesuccess=$(aws ec2 create-route --route-table-id ${rtid} --destination-cidr-block 0.0.0.0/0 --gateway-id ${igwid})
 echo "Successfully created route?:"${routesuccess}
 
+# Set up to change the subnet <-> route table association temporarily 
+rt_normal_tag=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=${ws_normal_rt}" --query "RouteTables[*].RouteTableId"  --output text)
+rt_temp_tag=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=${ws_temp_rt}" --query "RouteTables[*].RouteTableId"  --output text)
+
+echo "Here are the RT handles retrieved from AWS, normal:"${rt_normal_tag}" temp:"${rt_temp_tag}
+
+
 ###############################################################################################
 read -p "Pausing to check results before deleting, Enter to proceed"
 ###############################################################################################
