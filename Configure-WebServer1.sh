@@ -105,7 +105,7 @@ read -p "Check, then Enter to Proceed"
 
 # Release EIP from Account
 echo "Releasing EIP:"${eipid}
-result=$(aws ec2 release-address --${eipid})
+result=$(aws ec2 release-address --allocation-id ${eipid})
 read -p "Check, then Enter to Proceed"
 
 # Detach IGW from VPC
