@@ -85,13 +85,13 @@ targetrt[15]=devonly_secvpc_tgwatt-az2-subnet
 subnet[15]=sec-az2-TGW_Att
 #
 #(16,17) are for the web servers for inbound traffic through the firewall
-#originalrt[16]=WebSrv-VPC-intra
-#targetrt[16]=WebSrv-subnets-RT
-#subnet[16]=websrv-az1-inst
+originalrt[16]=WebSrv-VPC-intra
+targetrt[16]=WebSrv-subnets-RT
+subnet[16]=websrv-az1-inst
 #
-#originalrt[17]=WebSrv-VPC-intra
-#targetrt[17]=WebSrv-subnets-RT
-#subnet[17]=websrv-az2-inst
+originalrt[17]=WebSrv-VPC-intra
+targetrt[17]=WebSrv-subnets-RT
+subnet[17]=websrv-az2-inst
 
 #count is number of entries in static array above
 count="${#originalrt[@]}"   # number of elements in arrays
