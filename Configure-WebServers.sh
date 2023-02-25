@@ -112,9 +112,9 @@ publicip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservat
 privateip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].PrivateIpAddress" --output text)
 echo " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "|   WebServer #" ${which_web_server} "Remapped to IGW for sw install"
-echo "|     EC2's PublicIP: "${publicip}
+echo "|     EC2's PublicIP :"${publicip}
 echo "|     EC2's PrivateIP:"${privateip}
-echo "|     Subnet:         "${ws_subnet}":"${subnetid}
+echo "|     Subnet   :  "${ws_subnet}" ==> "${subnetid}
 echo "|     Normal RT:      " 
 echo "|     Temp RT:        "
 echo " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
