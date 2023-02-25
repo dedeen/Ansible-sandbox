@@ -32,6 +32,7 @@
 # Set up some variables (ws == webserver host)
 debug_flag=1                  #0: run straight through script, 1: pause and prompt during script run
 
+#Webserver specific vars
 ws_keypair=temp-replace-before-running-script
 ws_inst_name=WebSrv1-az1
 ws_subnet=websrv-az1-inst
@@ -64,7 +65,7 @@ igwid=$(aws ec2 create-internet-gateway --query InternetGateway.InternetGatewayI
 echo "IGW:"${igwid}
 aws ec2 create-tags --resources $igwid --tags Key=Name,Value=${igw_name}
 
-# Attach the bastion IGW to the bastion subnet's VPC 
+# Attach the IGW to the web server's subnet's VPC 
 aws ec2 attach-internet-gateway --internet-gateway-id ${igwid} --vpc-id ${vpcid}
 
       #~~~
@@ -79,8 +80,8 @@ instid=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${ws_inst_nam
 echo "Web Server identified:"${ws_inst_name}", InstanceID:"${instid}
 
 # Create a network interface in the webserver's subnet with a public IP - to associate with the IGW
-eniid=$(aws ec2 create-network-interface --description "Temp ENI  to config web server" --subnet-id ${subnetid} 2>/dev/null | jq -r '.NetworkInterface.NetworkInterfaceId')
-echo "ENI Created:"${eniid}
+#eniid=$(aws ec2 create-network-interface --description "Temp ENI  to config web server" --subnet-id ${subnetid} 2>/dev/null | jq -r '.NetworkInterface.NetworkInterfaceId')
+#echo "ENI Created:"${eniid}
 
 # Allocate a public IP address from AWS
 eipid=$(aws ec2 allocate-address --domain vpc --query 'AllocationId' --output text)
@@ -88,33 +89,37 @@ echo "EIP Created:"${eipid}
 
 # Associate the EIP with the webserver EC2
 associd=$(aws ec2 associate-address --instance-id ${instid} --allocation-id ${eipid})
-exit 0 
-# Attach this new ENI to the webserver
 
-#aws ec2 attach-network-interface --profile KJPROD --region $REGION --network-interface-id $NEWIFID --instance-id $INSTANCEID
-#exit 0 
 
-# Get the security group in the target VPC that is wide open for IPv4, name referenced above
-secgroupid=$(aws ec2 describe-security-groups --filters Name=group-name,Values=${open_sec_group} Name=vpc-id,Values=${vpcid} --query "SecurityGroups[*].GroupId" --output text)
-echo "secgrp:"${secgroupid}
+###############################################################################################
 
-# Launch an EC2 that will be a bastion host into the VPC
-instid=$(aws ec2 run-instances --image-id ${bh_AMI} --instance-type ${bh_type} --subnet-id ${subnetid} --key-name ${bh_keypair} --security-group-ids ${secgroupid} --associate-public-ip-address --query "Instances[*].InstanceId" --output text)
-echo "InstanceID:"${instid}
-aws ec2 create-tags --resources $instid --tags Key=Name,Value=${bh_ec2_name}
+echo "Pausing to check results before deleting"
+read -p "Enter to Proceed"
 
-# Get the public & private IPs of the bastion host
-publicip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
-echo "PublicIP:"${publicip}
-privateip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].PrivateIpAddress" --output text)
-echo "PrivateIP:"${privateip}
+# Disassociate EIP from Instance 
+echo "Disassociating EIP:"${eipid}" from instance:"${instid}" with existing association:"${associd}
+result=$(aws ec2 disassociate-address --association-id ${associd})
+read -p "Check, then Enter to Proceed"
 
-      #~~~
-      if [ $debug_flag -eq 1 ]
-         then read -p "___Paused, enter to proceed___"
-      fi
-      #~~~
-      
+# Release EIP from Account
+echo "Releasing EIP:"${eipid}
+result=$(aws ec2 release-address --${eipid})
+read -p "Check, then Enter to Proceed"
+
+# Detach IGW from VPC
+echo "Detaching IGW:"${igwid}" from VPC:"${vpcid}
+result=$(aws ec2 detach-internet-gateway --internet-gateway-id ${igwid} --vpc-id ${vpcid})
+read -p "Check, then Enter to Proceed"
+
+# Delete IGW
+echo "Deleting IGW:"${igwid}
+result=$(aws ec2 delete-internet-gateway --internet-gateway-id ${igwid})
+echo "Resource cleanup complete"
+read -p "Check, then Enter to Proceed"
+
+exit 0
+
+
 # Create a route table for the bastion subnet with a default route to the new IGW
 #   This couldn't be created when VPC was built as bastion IGW didn't exist yet 
 
