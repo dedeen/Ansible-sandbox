@@ -37,6 +37,7 @@ ws_inst_name=WebSrv1-az1
 ws_subnet=websrv-az1-inst
 ws_subnet_private_ip="10.110.0.30"
 ws_loginid=ec2-user
+igw_name=temp-igw
 
 #Common vars 
 bh_AMI=ami-094125af156557ca2
@@ -61,11 +62,11 @@ echo "CIDR:"${cidr}
 
 exit 0 
 
-#Build an IGW so we can access the bastion host from the outside 
+#Build an IGW so we can access the web server from the outside -  just for initial configuration
 igwid=$(aws ec2 create-internet-gateway --query InternetGateway.InternetGatewayId --output text)
 echo "IGW:"${igwid}
 #aws ec2 create-tags --resources $igwid --tags Key=Name,Value="Bastion-IGW"
-aws ec2 create-tags --resources $igwid --tags Key=Name,Value=${bh_igw_name}
+aws ec2 create-tags --resources $igwid --tags Key=Name,Value=${igw_name}
 
 # Attach the bastion IGW to the bastion subnet's VPC 
 aws ec2 attach-internet-gateway --internet-gateway-id ${igwid} --vpc-id ${vpcid}
