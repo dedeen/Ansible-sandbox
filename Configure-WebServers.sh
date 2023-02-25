@@ -110,11 +110,14 @@ echo "EIP::EC2 association created:"${associd}
 # Verify that the public IP (EIP) is attached to the web server NIC
 publicip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
 privateip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].PrivateIpAddress" --output text)
-echo "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+echo " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "|   WebServer #" ${which_web_server} "Remapped to IGW for sw install"
-echo "|     EC2's PublicIP:"${publicip}
+echo "|     EC2's PublicIP: "${publicip}
 echo "|     EC2's PrivateIP:"${privateip}
-echo "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+echo "|     Subnet:         "${ws_subnet}":"${subnetid}
+echo "|     Normal RT:      " 
+echo "|     Temp RT:        "
+echo " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
 ###############################################################################################
 read -p "Pausing to check results before deleting, Enter to proceed"
