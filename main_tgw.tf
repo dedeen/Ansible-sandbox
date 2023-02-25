@@ -91,6 +91,21 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "secvpc-att" {
     Name  = "TGW-secvpc-att"
   }  
 }
+    
+#  WebSrv VPC - placeholder until inbound traffic arch determined 
+resource "aws_ec2_transit_gateway_vpc_attachment" "websrvvpc-dummy" {
+  subnet_ids              = [module.vpc["websrvvpc"].intra_subnets[1],module.vpc["websrvvpc"].intra_subnets[4]]
+  transit_gateway_id      = aws_ec2_transit_gateway.TGW-PAN.id
+  vpc_id                  = module.vpc["websrvvpc"].vpc_id
+  appliance_mode_support  = "enable"                            # prevents asymm flows between consumer VPC and security VPC
+  dns_support             = "enable"
+  transit_gateway_default_route_table_association = false
+  transit_gateway_default_route_table_propagation = false
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "TGW-websrvvpc-DUMMY-att"
+  }  
+}
 
 #  Associate spokes route table with app1vpc TGW attachment
  resource "aws_ec2_transit_gateway_route_table_association" "spoke-to-app1vpc" {
