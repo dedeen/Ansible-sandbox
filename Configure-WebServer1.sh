@@ -86,6 +86,8 @@ echo "ENI Created:"${eniid}
 eipid=$(aws ec2 allocate-address --domain vpc --query 'AllocationId' --output text)
 echo "EIP Created:"${eipid}
 
+# Associate the EIP with the webserver EC2
+associd=$(aws ec2 associate-address --instance-id ${instid} --allocation-id ${eipid})
 exit 0 
 # Attach this new ENI to the webserver
 
