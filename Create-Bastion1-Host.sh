@@ -16,10 +16,14 @@ open_sec_group=SG-allow_ipv4
 # Var for bastion 1 (App01-VPC)
 bastion_subnet=app1-az1-bastion
 bh_igw_name=Bastion1-IGW
+bh_rt_name=Bastion-Host1-RT
+bh_ec2_name=Bastion-Host1
 
 # Var for bastion 2 (App02-VPC)
 #bastion_subnet=app2-az1-bastion
 #bh_igw_name=Bastion2-IGW
+#bh_rt_name=Bastion-Host2-RT
+#bh_ec2_name=Bastion-Host2
 
 # Get some info from AWS for the target subnet
 subnetid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${bastion_subnet}" --query "Subnets[*].SubnetId" --output text)
