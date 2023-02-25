@@ -28,16 +28,11 @@
 
 
 #################
-#### This script will build an EC2 bastion host in a preexisting subnet in the App endpoint VPC. 
-#      This will allow us to SSH in from the outside, then ssh to the other EC2s to set up traffic out via the Palo Alto Firewalls. 
-#      This is expected to be a temporary setup, and will use a separate AWS keypair for the bastion EC2. The keypair is in this 
-#        same directory. 
 
-# Set up some variables (bh == bastion host)
+# Set up some variables (ws == webserver host)
 debug_flag=1                  #0: run straight through script, 1: pause and prompt during script run
-which_bastion_host=1          # 1: build bastion 1 with the local vars listed just below
-#which_bastion_host=2         # 2: build bastion 2 with the local vars listed just below
 
+ws_keypair=temp-replace
 #Common vars 
 bh_AMI=ami-094125af156557ca2
 bh_type=t2.micro
