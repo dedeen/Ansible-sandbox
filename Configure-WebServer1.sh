@@ -79,11 +79,16 @@ instid=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${ws_inst_nam
 echo "Web Server identified:"${ws_inst_name}", InstanceID:"${instid}
 
 # Create a network interface in the webserver's subnet with a public IP - to associate with the IGW
-eniid=$(aws ec2 create-network-interface --description "Temp public IP to configure web server" --subnet-id ${subnetid} 2>/dev/null | jq -r '.NetworkInterface.NetworkInterfaceId')
+eniid=$(aws ec2 create-network-interface --description "Temp ENI  to config web server" --subnet-id ${subnetid} 2>/dev/null | jq -r '.NetworkInterface.NetworkInterfaceId')
 echo "ENI Created:"${eniid}
 
+# Allocate a public IP address from AWS
+eipid=$(aws ec2 allocate-address --domain vpc --query 'AllocationId' --output text)
+echo "EIP Created:"${eipid}
+
+exit 0 
 # Attach this new ENI to the webserver
-dje
+
 aws ec2 attach-network-interface --profile KJPROD --region $REGION --network-interface-id $NEWIFID --instance-id $INSTANCEID
 exit 0 
 
