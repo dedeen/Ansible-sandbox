@@ -111,9 +111,9 @@ echo "EIP::EC2 association created:"${associd}
 publicip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
 privateip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].PrivateIpAddress" --output text)
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-echo "| WebServer #" ${which_web_server} "Remapped to IGW for sw install, IGW and EIP connected"
-echo "EC2's PublicIP:"${publicip}
-echo "EC2's PrivateIP:"${privateip}
+echo "|   WebServer #" ${which_web_server} "Remapped to IGW for sw install"
+echo "|     EC2's PublicIP:"${publicip}
+echo "|     EC2's PrivateIP:"${privateip}
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
 ###############################################################################################
