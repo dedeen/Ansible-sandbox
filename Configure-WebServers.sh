@@ -147,7 +147,7 @@ resultun=$(eval "$awscmdun")
 rt_assoc_tagun=$(cut -d " " -f 2 <<<$resultun)
 
 
-undocmd="aws ec2 replace-route-table-association --association-id ${rt_assoc_tag_un} --route-table-id ${rt_normal_tag} --no-cli-auto-prompt --output text"
+undocmd="aws ec2 replace-route-table-association --association-id ${rt_assoc_tagun} --route-table-id ${rt_normal_tag} --no-cli-auto-prompt --output text"
 echo $undocmd
 echo "... Sending this AWS CLI cmd:"
 
