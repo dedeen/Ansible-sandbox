@@ -177,9 +177,8 @@ result=$(aws ec2 delete-internet-gateway --internet-gateway-id ${igwid})
 
 # Delete temp route table
 echo "Deleting Temp RT :"${rtid}
-read -p "..."
 result=$(aws ec2 delete-route-table --route-table-id ${rtid})
 
-read -p "Resource cleanup complete, ENTER to exit script"
+echo "Resource cleanup complete, public IP and IGW released, routes back to normal."
 
 exit 0
