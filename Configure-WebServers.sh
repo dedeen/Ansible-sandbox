@@ -144,6 +144,9 @@ echo "... Returned results:"$result2
 ###############################################################################################
 read -p "Pausing to check results before deleting, Enter to proceed"
 ###############################################################################################
+# Going to configure web server now
+# put in config here
+
 # Undo the RT <-> subnet association change, to restore the production route table for the web server subnet
 #   First, need to get the new route table association tag as it changed above 
 awscmdun="aws ec2 describe-route-tables --route-table-ids ${rt_temp_tag} --filters \"Name=association.subnet-id,Values=${subnetid}\" --query \"RouteTables[*].Associations[?SubnetId=='${subnetid}']\"  --output text"
