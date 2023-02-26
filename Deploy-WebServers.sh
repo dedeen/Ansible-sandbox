@@ -1,3 +1,5 @@
+# Companion script to Configure-WebServers, puts the infrastructure back to production ready. 
+
 #########################################################################
 #### This script provisions the web servers that are inside the webserver subnets. The only access to these hosts 
 #       is either through the Palo Alto Firewall in the Security VPC, or locally from within the VPC. 
