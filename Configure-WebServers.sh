@@ -128,9 +128,18 @@ echo "Successfully created route?:"${routesuccess}
 # Set up to change the subnet <-> route table association temporarily 
 rt_normal_tag=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=${ws_normal_rt}" --query "RouteTables[*].RouteTableId"  --output text)
 rt_temp_tag=$(aws ec2 describe-route-tables --filters "Name=tag:Name,Values=${ws_temp_rt}" --query "RouteTables[*].RouteTableId"  --output text)
-
 echo "Here are the RT handles retrieved from AWS, normal:"${rt_normal_tag}" temp:"${rt_temp_tag}
 
+# Get association ID for the original (normal) route table
+awscmd1="aws ec2 describe-route-tables --route-table-ids ${rt_normal_tag} --filters \"Name=association.subnet-id,Values=${subnetid}\" --query \"RouteTables[*].Associations[?SubnetId=='${subnetid}']\"  --output text"
+result1=$(eval "$awscmd1")
+rt_assoc_tag=$(cut -d " " -f 2 <<<$result1)
+
+awsrtcmd="aws ec2 replace-route-table-association --association-id ${rt_assoc_tag} --route-table-id ${rt_temp_tag} --no-cli-auto-prompt --output text"
+echo "... Sending this AWS CLI cmd:"
+echo $awsrtcmd
+#result2=$(eval "$awsrtcmd")
+#echo "... Returned results:"$result2
 
 ###############################################################################################
 read -p "Pausing to check results before deleting, Enter to proceed"
