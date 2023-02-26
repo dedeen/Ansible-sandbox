@@ -139,8 +139,8 @@ awsrtcmd="aws ec2 replace-route-table-association --association-id ${rt_assoc_ta
 echo $awsrtcmd
 echo "... Sending this AWS CLI cmd:"
 
-#result2=$(eval "$awsrtcmd")
-#echo "... Returned results:"$result2
+result2=$(eval "$awsrtcmd")
+echo "... Returned results:"$result2
 
 ###############################################################################################
 read -p "Pausing to check results before deleting, Enter to proceed"
@@ -150,8 +150,8 @@ undocmd="aws ec2 replace-route-table-association --association-id ${rt_assoc_tag
 echo $undocmd
 echo "... Sending this AWS CLI cmd:"
 
-#resultsundo=$(eval "$undocmd")
-#echo "... Returned results:"$resultundo
+resultsundo=$(eval "$undocmd")
+echo "... Returned results:"$resultundo
 
 # Disassociate EIP from Instance 
 echo "Disassociating EIP:"${eipid}" from instance:"${instid}" with existing association:"${associd}
