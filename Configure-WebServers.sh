@@ -136,14 +136,22 @@ result1=$(eval "$awscmd1")
 rt_assoc_tag=$(cut -d " " -f 2 <<<$result1)
 
 awsrtcmd="aws ec2 replace-route-table-association --association-id ${rt_assoc_tag} --route-table-id ${rt_temp_tag} --no-cli-auto-prompt --output text"
-echo "... Sending this AWS CLI cmd:"
 echo $awsrtcmd
+echo "... Sending this AWS CLI cmd:"
+
 #result2=$(eval "$awsrtcmd")
 #echo "... Returned results:"$result2
 
 ###############################################################################################
 read -p "Pausing to check results before deleting, Enter to proceed"
 ###############################################################################################
+# Undo the RT <-> subnet association change, to restore the production route table for the web server subnet
+undocmd="aws ec2 replace-route-table-association --association-id ${rt_assoc_tag} --route-table-id ${rt_normal_tag} --no-cli-auto-prompt --output text"
+echo $undocmd
+echo "... Sending this AWS CLI cmd:"
+
+#resultsundo=$(eval "$undocmd")
+#echo "... Returned results:"$resultundo
 
 # Disassociate EIP from Instance 
 echo "Disassociating EIP:"${eipid}" from instance:"${instid}" with existing association:"${associd}
