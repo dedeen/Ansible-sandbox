@@ -36,7 +36,7 @@ which_web_server=2            #set up for 1 or 2
 #Common vars 
 bh_AMI=ami-094125af156557ca2
 bh_type=t2.micro
-ws_keypair=temp-replace-before-running-script
+ws_keypair=temp-script-will-update-from-instance
 open_sec_group=SG-allow_ipv4
 ws_loginid=ec2-user
 igw_name=temp-webserver-igw
@@ -85,6 +85,10 @@ echo "Created IGW:"${igwid}" and attached to VPC:"${vpcid}
 # Get the handle for the web server EC2 - filter on running to avoid picking up previously terminated instances with same name
 instid=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${ws_inst_name} "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].InstanceId" --output text)
 echo "Web Server identified:"${ws_inst_name}", InstanceID:"${instid}
+
+# Get the keypair name as we will use in config script to connect via ssh
+ws_keypair=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].KeyName" --output text)
+echo "Instance KeyPair:"${ws_keypair}
 
 # Allocate a public IP address from AWS
 eipid=$(aws ec2 allocate-address --domain vpc --query 'AllocationId' --output text)
