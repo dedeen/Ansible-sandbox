@@ -87,8 +87,8 @@ instid=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${ws_inst_nam
 echo "Web Server identified:"${ws_inst_name}", InstanceID:"${instid}
 
 # Get the keypair name as we will use in config script to connect via ssh
-ws_keypair=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].KeyName" --output text)
-echo "Instance KeyPair:"${ws_keypair}
+#ws_keypair=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].KeyName" --output text)
+#echo "Instance KeyPair:"${ws_keypair}
 
 # Allocate a public IP address from AWS
 eipid=$(aws ec2 allocate-address --domain vpc --query 'AllocationId' --output text)
