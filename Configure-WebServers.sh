@@ -86,16 +86,11 @@ echo "Created IGW:"${igwid}" and attached to VPC:"${vpcid}
 instid=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${ws_inst_name} "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].InstanceId" --output text)
 echo "Web Server identified:"${ws_inst_name}", InstanceID:"${instid}
 
-# Create a network interface in the webserver's subnet with a public IP - to associate with the IGW
-#eniid=$(aws ec2 create-network-interface --description "Temp ENI  to config web server" --subnet-id ${subnetid} 2>/dev/null | jq -r '.NetworkInterface.NetworkInterfaceId')
-#echo "ENI Created:"${eniid}
-
 # Allocate a public IP address from AWS
 eipid=$(aws ec2 allocate-address --domain vpc --query 'AllocationId' --output text)
 echo "EIP Created:"${eipid}
 
 # Associate the EIP with the webserver EC2
-#associd=$(aws ec2 associate-address --instance-id ${instid} --allocation-id ${eipid})
 associd=$(aws ec2 associate-address --instance-id ${instid} --allocation-id ${eipid} --query AssociationId --output text)
 echo "EIP::EC2 association created:"${associd}
 
@@ -146,7 +141,13 @@ echo "... Returned results:"$result2
 read -p "Pausing to check results before deleting, Enter to proceed"
 ###############################################################################################
 # Undo the RT <-> subnet association change, to restore the production route table for the web server subnet
-undocmd="aws ec2 replace-route-table-association --association-id ${rt_assoc_tag} --route-table-id ${rt_normal_tag} --no-cli-auto-prompt --output text"
+#   First, need to get the new route table association tag as it changed above 
+awscmdun="aws ec2 describe-route-tables --route-table-ids ${rt_temp_tag} --filters \"Name=association.subnet-id,Values=${subnetid}\" --query \"RouteTables[*].Associations[?SubnetId=='${subnetid}']\"  --output text"
+resultun=$(eval "$awscmdun")
+rt_assoc_tagun=$(cut -d " " -f 2 <<<$resultun)
+
+
+undocmd="aws ec2 replace-route-table-association --association-id ${rt_assoc_tag_un} --route-table-id ${rt_normal_tag} --no-cli-auto-prompt --output text"
 echo $undocmd
 echo "... Sending this AWS CLI cmd:"
 
