@@ -165,6 +165,14 @@ resource "aws_route_table" "secvpc-rt-private-subnets" {
     cidr_block          = "10.105.0.0/24"                       
     transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
   }
+  route {                                                      
+    cidr_block          = "10.104.128.0/24"                       
+    transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
+  }
+  route {                                                      
+    cidr_block          = "10.105.128.0/24"                       
+    transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
+  }
   tags = {
     Owner = "dan-via-terraform"
     Name  = "Secvpc-private-subnets-RT"
