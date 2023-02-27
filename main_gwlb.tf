@@ -3,7 +3,7 @@
 resource "aws_lb" "PAVMGWLB2" {
   name                                = "PAVMGWLB2"
   load_balancer_type                  = "gateway"
-  internal                            = true
+  #internal                            = true
   enable_cross_zone_load_balancing    = true
   ip_address_type                     = "ipv4"
   
