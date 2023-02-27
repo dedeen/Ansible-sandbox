@@ -15,7 +15,7 @@ locals {        # declared in other .tf module
 resource "aws_instance" "PA-VM-2" {
   ami                                 = local.panos_ami
   #ami                                = local.aws_linux_ami
-  instance_type                       = local.panos_linux_inst_type
+  instance_type                       = local.panos_inst_type
   #instance_type                       = local.aws_linux_inst_type
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = false
