@@ -98,4 +98,13 @@ aws ec2 describe-images --filters "Name=product-code,Values=6njl1pau431dv1qxipg6
 6njl1pau431dv1qxipg63mvah
 
 
+SDF Username:  danedeen
+SDF Password:  Leln35shbwscGA
+
+ Linux or UNIX use:  ssh danedeen@tty.sdf.org
+ MacOS: use Terminal.App and follow the method above
+ Windows: use putty.exe and enter the Host Name "tty.sdf.org"
+ Mobile: Find an SSH app for your device
+
+
 
