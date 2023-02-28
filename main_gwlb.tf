@@ -107,7 +107,7 @@ resource "aws_vpc_endpoint" "PAVM_VPCe_az2" {
 
 # TGW Attachment to GWLB Endpoint in az1
       # Need to associate to subnet 'sec-az1-TGW_Att' indexed at [3] in vars.tf 
-      # This is done out-of-band in RT-Associations.sh 
+      # {Note1} These association are made out-of-band in RT-Associations.sh
 resource "aws_route_table" "TGW-Att-GWLBe-az1-RT" {          
   vpc_id                = module.vpc["secvpc"].vpc_id 
   route {                                                      
@@ -120,7 +120,7 @@ resource "aws_route_table" "TGW-Att-GWLBe-az1-RT" {
   }
 }    
  # TGW Attachment to GWLB Endpoint in az2
-      # Need to associate to subnet 'sec-az1-TGW_Att' indexed at [3] in vars.tf 
+      # Need to associate to subnet 'sec-az2-TGW_Att' indexed at [9] in vars.tf {Note1}
 resource "aws_route_table" "TGW-Att-GWLBe-az2-RT" {          
   vpc_id                = module.vpc["secvpc"].vpc_id 
   route {                                                      
@@ -133,5 +133,31 @@ resource "aws_route_table" "TGW-Att-GWLBe-az2-RT" {
   }
 }
 
-    
+# GWLB Endpoint to TGW in az1
+      # Need to associate to subnet 'sec-az1-GWLB_EndPt' indexed at [4] in vars.tf {Note1}
+resource "aws_route_table" "GWLBe-TGW-Att-az1-RT" {          
+  vpc_id                = module.vpc["secvpc"].vpc_id 
+  route {                                                      
+    cidr_block            = "10.0.0.0/0"
+    transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
+  }
+ tags = {
+    Owner = "dan-via-terraform"
+    Name  = "GWLBe-TGW-Att-az1-RT"
+  }
+}
+
+# GWLB Endpoint to TGW in az2
+      # Need to associate to subnet 'sec-az2-GWLB_EndPt' indexed at [10] in vars.tf {Note1}
+resource "aws_route_table" "GWLBe-TGW-Att-az2-RT" {          
+  vpc_id                = module.vpc["secvpc"].vpc_id 
+  route {                                                      
+    cidr_block            = "10.0.0.0/0"
+    transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
+  }
+ tags = {
+    Owner = "dan-via-terraform"
+    Name  = "GWLBe-TGW-Att-az2-RT"
+  }
+}
  
