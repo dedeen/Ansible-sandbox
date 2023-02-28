@@ -1,13 +1,5 @@
 #  Terraform to create Gateway Load Balancer for Palo Alto middlebox project
 #
-#terraform {
-#  required_providers {
-#    aws = {
-#      source  = "hashicorp/aws"
-#      version = "~> 4.0"
-#    }
-#  }
-#}
 resource "aws_lb" "PAVMGWLB2" {
   #source                              = "hashicorp/awb" 
   name                                = "PAVMGWLB2"
@@ -27,7 +19,7 @@ resource "aws_lb" "PAVMGWLB2" {
   }
 }    
 #
-resource "awb_lb_target_group" "PAVMTargetGroup2" {
+resource "aws_lb_target_group" "PAVMTargetGroup2" {
   name                   = "PAVMTargetGroup2"
   port                   = 6081
   protocol               = "GENEVE"
