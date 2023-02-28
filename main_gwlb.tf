@@ -49,7 +49,7 @@ resource "aws_lb_listener" "lb_listener1" {
   #port                = "6081"
   #protocol            = "GENEVE"
   default_action {
-    target_group_arn  = aws_lb_target_group.PAVMTargetGroup2.id
+    target_group_arn  = [aws_lb_target_group.PAVMTargetGroup2.id]
     type              = "forward"
   }
 }
