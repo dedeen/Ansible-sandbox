@@ -135,7 +135,29 @@ SDF Password:  Leln35shbwscGA
     ]
 }
 ########################
-
+[cloudshell-user@ip-10-4-52-189 ~]$ aws elbv2 describe-listeners --load-balancer-arn arn:aws:elasticloadbalancing:us-west-2:500112433998:loadbalancer/gwy/PAVMGWLB/6c3e95937c472f00                                                                                                                     
+{
+    "Listeners": [
+        {
+            "ListenerArn": "arn:aws:elasticloadbalancing:us-west-2:500112433998:listener/gwy/PAVMGWLB/6c3e95937c472f00/9de59a1ff11cadb1",
+            "LoadBalancerArn": "arn:aws:elasticloadbalancing:us-west-2:500112433998:loadbalancer/gwy/PAVMGWLB/6c3e95937c472f00",
+            "DefaultActions": [
+                {
+                    "Type": "forward",
+                    "TargetGroupArn": "arn:aws:elasticloadbalancing:us-west-2:500112433998:targetgroup/PAVMFirewalls/00177f4f6fb416c45b",
+                    "ForwardConfig": {
+                        "TargetGroups": [
+                            {
+                                "TargetGroupArn": "arn:aws:elasticloadbalancing:us-west-2:500112433998:targetgroup/PAVMFirewalls/00177f4f6fb416c45b"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
+[cloudshell-user@ip-10-4-52-189 ~]$ 
 
 
 
