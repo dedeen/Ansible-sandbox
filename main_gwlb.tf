@@ -1,9 +1,9 @@
 #  Terraform to create Gateway Load Balancer for Palo Alto middlebox project
 #
 # create the load balancer
-resource "aws_lb" "PAVM_GWLB" {
+resource "aws_lb" "PAVM-GWLB" {
   #source                              = "hashicorp/awb" 
-  name                                = "PAVM_GWLB"
+  name                                = "PAVM-GWLB"
   load_balancer_type                  = "gateway"
   enable_cross_zone_load_balancing    = true
   ip_address_type                     = "ipv4"
@@ -16,7 +16,7 @@ resource "aws_lb" "PAVM_GWLB" {
   }
   tags = {
     Owner = "dan-via-terraform"
-    Name  = "PAVM_GWLB"
+    Name  = "PAVM-GWLB"
   }
 }    
 # create the LB target group
@@ -39,13 +39,13 @@ resource "aws_lb_target_group" "PAVMTargetGroup" {
     
   tags = {
     Owner = "dan-via-terraform"
-    Name  = "PAVM_GWLB_TG2"
+    Name  = "PAVMTargetGroup"
   }
 }
 
 # create an LB listener, connecting the LB and target group
 resource "aws_lb_listener" "lb_listener1" {   
-  load_balancer_arn   = aws_lb.PAVM_GWLB.id   #example is com.amazonaws.vpce.us-west-2.vpce-svc-0f68bde741e93d0c6
+  load_balancer_arn   = aws_lb.PAVM-GWLB.id   #example is com.amazonaws.vpce.us-west-2.vpce-svc-0f68bde741e93d0c6
   #port                = "6081"
   #protocol            = "GENEVE"
   default_action {
@@ -71,7 +71,7 @@ resource "aws_lb_target_group_attachment" "reg_ip2" {
 # create VPC endpoint service (uses AWS PrivateLink)
 resource "aws_vpc_endpoint_service" "vpc_ep_svc" {
   acceptance_required        = false 
-  gateway_load_balancer_arns = [aws_lb.PAVM_GWLB.id]
+  gateway_load_balancer_arns = [aws_lb.PAVM-GWLB.id]
    
   tags = {
     Owner = "dan-via-terraform"
