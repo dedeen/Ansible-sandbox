@@ -21,7 +21,7 @@ resource "aws_lb" "PAVMGWLB2" {
 #
 resource "aws_lb_target_group" "PAVMTargetGroup2" {
   name                    = "PAVMTargetGroup2"
-  port                    = 6081
+  #port                    = 6081
   protocol                = "GENEVE"
   target_type             = "ip"
   vpc_id                  = module.vpc["secvpc"].vpc_id
