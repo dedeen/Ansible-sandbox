@@ -3,11 +3,10 @@
 resource "aws_lb" "PAVMGWLB2" {
   name                                = "PAVMGWLB2"
   load_balancer_type                  = "gateway"
-  #internal                            = true
   enable_cross_zone_load_balancing    = true
   ip_address_type                     = "ipv4"
   
-  subnet_mapping  {
+  subnet_mapping  {                         #VPC inferred from subnets
     subnet_id                         = module.vpc["secvpc"].intra_subnets[5]
   }
   subnet_mapping  {
@@ -15,7 +14,7 @@ resource "aws_lb" "PAVMGWLB2" {
   }
   tags = {
     Owner = "dan-via-terraform"
-    Name  = "PAVMGWLB2"
+    Name  = "PAVM_GWLB2"
   }
 }    
 #
