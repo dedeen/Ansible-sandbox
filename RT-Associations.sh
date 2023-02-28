@@ -76,22 +76,32 @@ targetrt[13]=Mgmt-public-subnets-RT
 subnet[13]=mgmt-az2-pub
 
 #(14, 15) are temporary for interim non-GWLB arch
-originalrt[14]=Sec01-VPC-intra
-targetrt[14]=devonly_secvpc_tgwatt-az1-subnet
-subnet[14]=sec-az1-TGW_Att
+#originalrt[14]=Sec01-VPC-intra
+#targetrt[14]=devonly_secvpc_tgwatt-az1-subnet
+#subnet[14]=sec-az1-TGW_Att
 #
-originalrt[15]=Sec01-VPC-intra
-targetrt[15]=devonly_secvpc_tgwatt-az2-subnet
-subnet[15]=sec-az2-TGW_Att
+#originalrt[15]=Sec01-VPC-intra
+#targetrt[15]=devonly_secvpc_tgwatt-az2-subnet
+#subnet[15]=sec-az2-TGW_Att
 #
-#(16,17) are for the web servers for inbound traffic through the firewall
-originalrt[16]=WebSrv-VPC-intra
-targetrt[16]=WebSrv-subnets-RT
-subnet[16]=websrv-az1-inst
+# Next two are for the web servers for inbound traffic through the firewall
+originalrt[14]=WebSrv-VPC-intra
+targetrt[14]=WebSrv-subnets-RT
+subnet[14]=websrv-az1-inst
 #
-originalrt[17]=WebSrv-VPC-intra
-targetrt[17]=WebSrv-subnets-RT
-subnet[17]=websrv-az2-inst
+originalrt[15]=WebSrv-VPC-intra
+targetrt[15]=WebSrv-subnets-RT
+subnet[15]=websrv-az2-inst
+#
+# Next two are subnets hosting TGW attachments in security vcp
+#originalrt[16]=Sec01-VPC-intra
+#targetrt[16]=TGW-Att-GWLBe-az1-RT
+#subnet[16]=sec-az1-TGW_Att
+#
+#originalrt[17]=Sec01-VPC-intra
+#targetrt[17]=TGW-Att-GWLBe-az2-RT
+#subnet[17]=sec-az2-TGW_Att
+
 
 #count is number of entries in static array above
 count="${#originalrt[@]}"   # number of elements in arrays
