@@ -27,7 +27,7 @@ resource "aws_lb_target_group" "PAVMTargetGroup2" {
   vpc_id                  = module.vpc["secvpc"].vpc_id
  
   health_check {
-    path                  = "php/login.php"
+    path                  = "/php/login.php"
     port                  = 443
     protocol              = "HTTPS"
     timeout               = 5
