@@ -58,6 +58,11 @@ resource "aws_lb_listener" "lb_listener1" {
   resource "aws_vpc_endpoint_service" "vpc_ep_svc" {
     acceptance_required   = false 
     gateway_load_balancer_arns = [aws_lb.PAVMGWLB2.id]
+   
+    tags = {
+      Owner = "dan-via-terraform"
+      Name  = "PAVM2_EndPt_Service"
+    }
   }
     
     
