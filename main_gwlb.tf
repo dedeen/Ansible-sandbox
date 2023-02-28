@@ -7,10 +7,10 @@ resource "aws_lb" "PAVMGWLB2" {
   ip_address_type                     = "ipv4"
   
   subnet_mapping  {                         #VPC inferred from subnets
-    subnet_id                         = module.vpc["secvpc"].intra_subnets[5]
+    subnet_id             = module.vpc["secvpc"].intra_subnets[5]
   }
   subnet_mapping  {
-    subnet_id                         = module.vpc["secvpc"].intra_subnets[11]
+    subnet_id            = module.vpc["secvpc"].intra_subnets[11]
   }
   tags = {
     Owner = "dan-via-terraform"
@@ -18,3 +18,16 @@ resource "aws_lb" "PAVMGWLB2" {
   }
 }    
 #
+resource "awb_lb_target_group" "PAVMTargetGroup2" {
+  name                   = "PAVMTargetGroup2"
+  port                   = 6081
+  protocol               = "GENEVE"
+  target_type            = "ip"
+  vpc_id                 = module.vpc["secvpc"].vpc_id
+ 
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "PAVM_GWLB_TG2"
+  }
+}
+  
