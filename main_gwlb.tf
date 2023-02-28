@@ -162,13 +162,23 @@ resource "aws_route_table" "GWLBe-TGW-Att-az2-RT" {
 }
  
 # GWLB subnet in az1
-      # Need to associate to subnet 'sec-az2-GWLB_EndPt' indexed at [10] in vars.tf {Note1}
+      # Need to associate to subnet 'sec-az1-GWLB' indexed at [5] in vars.tf {Note1}
 resource "aws_route_table" "GWLB-az1-RT" {          
   vpc_id                = module.vpc["secvpc"].vpc_id 
-  route = []
-  
- tags = {
+  route = []        # Null route, resulting RT will have only the local route to the VPC
+  tags = {
     Owner = "dan-via-terraform"
     Name  = "GWLB-az1-RT"
+  }
+}
+  
+# GWLB subnet in az2
+      # Need to associate to subnet 'sec-az2-GWLB' indexed at [11] in vars.tf {Note1}
+resource "aws_route_table" "GWLB-az2-RT" {          
+  vpc_id                = module.vpc["secvpc"].vpc_id 
+  route = []        # Null route, resulting RT will have only the local route to the VPC
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "GWLB-az2-RT"
   }
 }
