@@ -2,7 +2,6 @@
 #
 # create the load balancer
 resource "aws_lb" "PAVM-GWLB" {
-  #source                              = "hashicorp/awb" 
   name                                = "PAVM-GWLB"
   load_balancer_type                  = "gateway"
   enable_cross_zone_load_balancing    = true
