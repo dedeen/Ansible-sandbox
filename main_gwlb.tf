@@ -138,7 +138,7 @@ resource "aws_route_table" "TGW-Att-GWLBe-az2-RT" {
 resource "aws_route_table" "GWLBe-TGW-Att-az1-RT" {          
   vpc_id                = module.vpc["secvpc"].vpc_id 
   route {                                                      
-    cidr_block            = "10.0.0.0/0"
+    cidr_block            = "10.0.0.0/16"
     transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
   }
  tags = {
@@ -152,7 +152,7 @@ resource "aws_route_table" "GWLBe-TGW-Att-az1-RT" {
 resource "aws_route_table" "GWLBe-TGW-Att-az2-RT" {          
   vpc_id                = module.vpc["secvpc"].vpc_id 
   route {                                                      
-    cidr_block            = "10.0.0.0/0"
+    cidr_block            = "10.0.0.0/16"
     transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
   }
  tags = {
