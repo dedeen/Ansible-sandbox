@@ -20,8 +20,8 @@ resource "aws_lb" "PAVM_GWLB" {
   }
 }    
 # create the LB target group
-resource "aws_lb_target_group" "PAVMTargetGroup2" {
-  name                    = "PAVMTargetGroup2"
+resource "aws_lb_target_group" "PAVMTargetGroup" {
+  name                    = "PAVMTargetGroup"
   port                    = 6081
   protocol                = "GENEVE"
   target_type             = "ip"
@@ -49,20 +49,20 @@ resource "aws_lb_listener" "lb_listener1" {
   #port                = "6081"
   #protocol            = "GENEVE"
   default_action {
-    target_group_arn  = aws_lb_target_group.PAVMTargetGroup2.id
+    target_group_arn  = aws_lb_target_group.PAVMTargetGroup.id
     type              = "forward"
   }
 }
 
 # register IP addresses of Palo Alto firewalls to the GWLB target group
 resource "aws_lb_target_group_attachment" "reg_ip1" {
-  target_group_arn    = aws_lb_target_group.PAVMTargetGroup2.arn
+  target_group_arn    = aws_lb_target_group.PAVMTargetGroup.arn
   target_id           = "10.100.1.10"
   port                = 6081
 }
   
 resource "aws_lb_target_group_attachment" "reg_ip2" {
-  target_group_arn    = aws_lb_target_group.PAVMTargetGroup2.arn
+  target_group_arn    = aws_lb_target_group.PAVMTargetGroup.arn
   target_id           = "10.100.65.10"
   port                = 6081
 }
