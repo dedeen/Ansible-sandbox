@@ -161,3 +161,14 @@ resource "aws_route_table" "GWLBe-TGW-Att-az2-RT" {
   }
 }
  
+# GWLB subnet in az1
+      # Need to associate to subnet 'sec-az2-GWLB_EndPt' indexed at [10] in vars.tf {Note1}
+resource "aws_route_table" "GWLB-az1-RT" {          
+  vpc_id                = module.vpc["secvpc"].vpc_id 
+  route = []
+  }
+ tags = {
+    Owner = "dan-via-terraform"
+    Name  = "GWLB-az1-RT"
+  }
+}
