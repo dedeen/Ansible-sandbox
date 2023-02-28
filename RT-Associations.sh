@@ -93,7 +93,7 @@ originalrt[15]=WebSrv-VPC-intra
 targetrt[15]=WebSrv-subnets-RT
 subnet[15]=websrv-az2-inst
 #
-# Next two are subnets hosting TGW attachments in security vcp
+# Next two are subnets hosting TGW attachments in security VPC
 #originalrt[16]=Sec01-VPC-intra
 #targetrt[16]=TGW-Att-GWLBe-az1-RT
 #subnet[16]=sec-az1-TGW_Att
@@ -101,6 +101,17 @@ subnet[15]=websrv-az2-inst
 #originalrt[17]=Sec01-VPC-intra
 #targetrt[17]=TGW-Att-GWLBe-az2-RT
 #subnet[17]=sec-az2-TGW_Att
+#
+# Next two are subnets hosting GWLB Endpoints in the security VPC
+#originalrt[18]=Sec01-VPC-intra
+#targetrt[18]=GWLBe-TGW-Att-az1-RT
+#subnet[18]= sec-az1-GWLB_EndPt
+#
+#originalrt[19]=Sec01-VPC-intra
+#targetrt[19]=GWLBe-TGW-Att-az2-RT
+#subnet[19]= sec-az2-GWLB_EndPt
+#
+
 
 
 #count is number of entries in static array above
