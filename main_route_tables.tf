@@ -212,17 +212,17 @@ resource "aws_route_table" "secvpc-rt-tgw-az2" {
 }
 # and associate here to subnet sec-az2-TGW_Att
 */  
-resource "aws_route_table" "secvpc-rt-gwlbe-tgw" {
-  vpc_id                = module.vpc["secvpc"].vpc_id 
-  route {                                                      
-    cidr_block          = "0.0.0.0/0"                         
-    transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
-  }
-  tags = {
-    Owner = "dan-via-terraform"
-    Name  = "Secvpc-GWLBe-az1andaz2-to-TGW-RT"
-  }  
-}
+#resource "aws_route_table" "secvpc-rt-gwlbe-tgw" {
+#  vpc_id                = module.vpc["secvpc"].vpc_id 
+#  route {                                                      
+#    cidr_block          = "0.0.0.0/0"                         
+#    transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
+#  }
+#  tags = {
+#    Owner = "dan-via-terraform"
+#    Name  = "Secvpc-GWLBe-az1andaz2-to-TGW-RT"
+#  }  
+#}
 # associate with GWLB-EP subnets (both)
 /* >>> This commented out due to terraform bug, will add to cleanup bash script 
 resource "aws_route_table_association" "sec-gwlbe-tgw-assoc" {
