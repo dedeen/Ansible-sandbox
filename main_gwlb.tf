@@ -21,7 +21,7 @@ resource "aws_lb" "PAVMGWLB2" {
 #
 resource "aws_lb_target_group" "PAVMTargetGroup2" {
   name                    = "PAVMTargetGroup2"
-  #port                    = 6081
+  port                    = 6081
   protocol                = "GENEVE"
   target_type             = "ip"
   vpc_id                  = module.vpc["secvpc"].vpc_id
@@ -44,8 +44,8 @@ resource "aws_lb_target_group" "PAVMTargetGroup2" {
  
 resource "aws_lb_listener" "lb_listener1" {
   load_balancer_arn   = aws_lb.PAVMGWLB2.id
-  port                = "6081"
-  protocol            = "GENEVE"
+  #port                = "6081"
+  #protocol            = "GENEVE"
   default_action {
     target_group_arn  = aws_lb_target_group.PAVMTargetGroup2.id
     type              = "forward"
