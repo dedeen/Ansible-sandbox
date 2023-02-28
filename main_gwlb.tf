@@ -166,7 +166,7 @@ resource "aws_route_table" "GWLBe-TGW-Att-az2-RT" {
 resource "aws_route_table" "GWLB-az1-RT" {          
   vpc_id                = module.vpc["secvpc"].vpc_id 
   route = []
-  }
+  
  tags = {
     Owner = "dan-via-terraform"
     Name  = "GWLB-az1-RT"
