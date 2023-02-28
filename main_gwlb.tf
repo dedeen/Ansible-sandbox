@@ -9,7 +9,7 @@
 #  }
 #}
 resource "aws_lb" "PAVMGWLB2" {
-  #source = 
+  source                              = "hashicorp/aws" 
   name                                = "PAVMGWLB2"
   load_balancer_type                  = "gateway"
   enable_cross_zone_load_balancing    = true
