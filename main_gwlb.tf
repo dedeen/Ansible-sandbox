@@ -44,8 +44,8 @@ resource "aws_lb_target_group" "PAVMTargetGroup2" {
 }
 
 # create an LB listener, connecting the LB and target group
-resource "aws_lb_listener" "lb_listener1" {   #this returns service_name that will be used ..
-  load_balancer_arn   = aws_lb.PAVMGWLB2.id   #    later, example is com.amazonaws.vpce.us-west-2.vpce-svc-0f68bde741e93d0c6
+resource "aws_lb_listener" "lb_listener1" {   
+  load_balancer_arn   = aws_lb.PAVMGWLB2.id   #example is com.amazonaws.vpce.us-west-2.vpce-svc-0f68bde741e93d0c6
   #port                = "6081"
   #protocol            = "GENEVE"
   default_action {
@@ -54,17 +54,38 @@ resource "aws_lb_listener" "lb_listener1" {   #this returns service_name that wi
   }
 }
 
-  # create VPC endpoint service (uses AWS PrivateLink)
-  resource "aws_vpc_endpoint_service" "vpc_ep_svc" {
-    acceptance_required   = false 
-    gateway_load_balancer_arns = [aws_lb.PAVMGWLB2.id]
+# create VPC endpoint service (uses AWS PrivateLink)
+resource "aws_vpc_endpoint_service" "vpc_ep_svc" {
+  acceptance_required   = false 
+  gateway_load_balancer_arns = [aws_lb.PAVMGWLB2.id]
    
-    tags = {
-      Owner = "dan-via-terraform"
-      Name  = "PAVM2_EndPt_Service"
-    }
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "PAVM2_EndPt_Service"
   }
+}
+  
+# create two VPC endpoints for the GWLB
+resource "aws_vpc_endpoint" "PAVM_VPCe_az1" {
+  service_name          = aws_vpc_endpoint_service.vpc_ep_svc.service_name  #sample: com.amazonaws.vpce.us-west-2.vpce-svc-0f68bde741e93d0c6
+  subnet_ids            = [module.vpc["secvpc"].intra_subnets[4]]  
+  vpc_endpoint_type     = aws_vpc_endpoint_service.vpc_ep_svc.service_type
+  vpc_id                = module.vpc["secvpc"].vpc_id
     
-  dje - next add endpoints and use the service name on the endpoint services resource 
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "PAVM_VPCe_az1"
+  }
+}
+
+resource "aws_vpc_endpoint" "PAVM_VPCe_az2" {
+  service_name          = aws_vpc_endpoint_service.vpc_ep_svc.service_name  #sample: com.amazonaws.vpce.us-west-2.vpce-svc-0f68bde741e93d0c6
+  subnet_ids            = [module.vpc["secvpc"].intra_subnets[10]]  
+  vpc_endpoint_type     = aws_vpc_endpoint_service.vpc_ep_svc.service_type
+  vpc_id                = module.vpc["secvpc"].vpc_id
     
-    
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "PAVM_VPCe_az2"
+  }
+}    
