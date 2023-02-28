@@ -20,12 +20,22 @@ resource "aws_lb" "PAVMGWLB2" {
 }    
 #
 resource "aws_lb_target_group" "PAVMTargetGroup2" {
-  name                   = "PAVMTargetGroup2"
-  port                   = 6081
-  protocol               = "GENEVE"
-  target_type            = "ip"
-  vpc_id                 = module.vpc["secvpc"].vpc_id
+  name                    = "PAVMTargetGroup2"
+  port                    = 6081
+  protocol                = "GENEVE"
+  target_type             = "ip"
+  vpc_id                  = module.vpc["secvpc"].vpc_id
  
+  health_check {
+    path                  = "php/login.php"
+    port                  = 443
+    protocol              = "HTTPS"
+    timeout               = 5
+    healthy_threshold     = 5
+    unhealthy_threshold   = 2
+    interval              = 10 
+  }
+    
   tags = {
     Owner = "dan-via-terraform"
     Name  = "PAVM_GWLB_TG2"
