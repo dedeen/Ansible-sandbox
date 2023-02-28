@@ -49,7 +49,7 @@ resource "aws_lb_listener" "lb_listener1" {
   #port                = "6081"
   #protocol            = "GENEVE"
   default_action {
-    target_group_arn  = [aws_lb_target_group.PAVMTargetGroup2.id]
+    target_group_arn  = aws_lb_target_group.PAVMTargetGroup2.id
     type              = "forward"
   }
 }
@@ -57,7 +57,7 @@ resource "aws_lb_listener" "lb_listener1" {
   # create VPC endpoint service (uses AWS PrivateLink)
   resource "aws_vpc_endpoint_service" "vpc_ep_svc" {
     acceptance_required   = false 
-    gateway_load_balancer_arns = aws_lb.PAVMGWLB2.id
+    gateway_load_balancer_arns = [aws_lb.PAVMGWLB2.id]
   }
     
     
