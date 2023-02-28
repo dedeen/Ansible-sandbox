@@ -75,7 +75,7 @@ originalrt[13]=Mgmt-VPC-intra
 targetrt[13]=Mgmt-public-subnets-RT
 subnet[13]=mgmt-az2-pub
 
-#(14, 15) are temporary for interim non-GWLB arch
+#Next two are temporary for interim non-GWLB arch
 #originalrt[14]=Sec01-VPC-intra
 #targetrt[14]=devonly_secvpc_tgwatt-az1-subnet
 #subnet[14]=sec-az1-TGW_Att
@@ -94,25 +94,32 @@ targetrt[15]=WebSrv-subnets-RT
 subnet[15]=websrv-az2-inst
 #
 # Next two are subnets hosting TGW attachments in security VPC
-#originalrt[16]=Sec01-VPC-intra
-#targetrt[16]=TGW-Att-GWLBe-az1-RT
-#subnet[16]=sec-az1-TGW_Att
+originalrt[16]=Sec01-VPC-intra
+targetrt[16]=TGW-Att-GWLBe-az1-RT
+subnet[16]=sec-az1-TGW_Att
 #
-#originalrt[17]=Sec01-VPC-intra
-#targetrt[17]=TGW-Att-GWLBe-az2-RT
-#subnet[17]=sec-az2-TGW_Att
+originalrt[17]=Sec01-VPC-intra
+targetrt[17]=TGW-Att-GWLBe-az2-RT
+subnet[17]=sec-az2-TGW_Att
 #
 # Next two are subnets hosting GWLB Endpoints in the security VPC
-#originalrt[18]=Sec01-VPC-intra
-#targetrt[18]=GWLBe-TGW-Att-az1-RT
-#subnet[18]= sec-az1-GWLB_EndPt
+originalrt[18]=Sec01-VPC-intra
+targetrt[18]=GWLBe-TGW-Att-az1-RT
+subnet[18]=sec-az1-GWLB_EndPt
 #
-#originalrt[19]=Sec01-VPC-intra
-#targetrt[19]=GWLBe-TGW-Att-az2-RT
-#subnet[19]= sec-az2-GWLB_EndPt
+originalrt[19]=Sec01-VPC-intra
+targetrt[19]=GWLBe-TGW-Att-az2-RT
+subnet[19]=sec-az2-GWLB_EndPt
 #
-
-
+# Next two are subnets where the GWLB attaches to the VPC+AZ
+originalrt[20]=Sec01-VPC-intra
+targetrt[20]=GWLB-az1-RT
+subnet[20]=sec-az1-GWLB
+#
+originalrt[21]=Sec01-VPC-intra
+targetrt[21]=GWLB-az2-RT
+subnet[21]=sec-az2-GWLB
+#
 
 #count is number of entries in static array above
 count="${#originalrt[@]}"   # number of elements in arrays
