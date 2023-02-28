@@ -102,3 +102,35 @@ resource "aws_vpc_endpoint" "PAVM_VPCe_az2" {
     Name  = "PAVM_VPCe_az2"
   }
 }    
+    
+# Add the routes specific to the GWLB in this architecture 
+
+# TGW Attachment to GWLB Endpoint in az1
+      # Need to associate to subnet 'sec-az1-TGW_Att' indexed at [3] in vars.tf 
+      # This is done out-of-band in RT-Associations.sh 
+resource "aws_route_table" "TGW-Att-GWLBe-az1-RT" {          
+  vpc_id                = module.vpc["secvpc"].vpc_id 
+  route {                                                      
+    cidr_block            = "0.0.0.0/0"
+    vpc_endpoint_id  = aws_vpc_endpoint.PAVM_VPCe_az1.id
+  }
+ tags = {
+    Owner = "dan-via-terraform"
+    Name  = "TGW-Att-GWLBe-az1-RT"
+  }
+    
+ # TGW Attachment to GWLB Endpoint in az2
+      # Need to associate to subnet 'sec-az1-TGW_Att' indexed at [3] in vars.tf 
+resource "aws_route_table" "TGW-Att-GWLBe-az2-RT" {          
+  vpc_id                = module.vpc["secvpc"].vpc_id 
+  route {                                                      
+    cidr_block            = "0.0.0.0/0"
+    vpc_endpoint_id  = aws_vpc_endpoint.PAVM_VPCe_az2.id
+  }
+ tags = {
+    Owner = "dan-via-terraform"
+    Name  = "TGW-Att-GWLBe-az2-RT"
+  }
+
+    
+ 
