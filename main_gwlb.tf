@@ -75,7 +75,7 @@ resource "aws_vpc_endpoint_service" "vpc_ep_svc" {
    
   tags = {
     Owner = "dan-via-terraform"
-    Name  = "PAVM2_EndPt_Service"
+    Name  = "PAVM_EndPt_Service"
   }
 }
   
