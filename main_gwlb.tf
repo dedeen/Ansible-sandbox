@@ -1,5 +1,12 @@
 #  Terraform to create Gateway Load Balancer for Palo Alto middlebox project
 #
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/awb"
+    }
+  }
+}
 resource "aws_lb" "PAVMGWLB2" {
   name                                = "PAVMGWLB2"
   load_balancer_type                  = "gateway"
