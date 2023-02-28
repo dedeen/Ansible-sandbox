@@ -54,9 +54,23 @@ resource "aws_lb_listener" "lb_listener1" {
   }
 }
 
+# register IP addresses of Palo Alto firewalls to the GWLB target group
+resource "aws_lb_target_group_attachment" "reg_ip1" {
+  target_group_arn    = aws_lb_target_group.PAVMTargetGroup2.arn
+  target_id           = "10.100.1.10"
+  port                = 6081
+}
+  
+resource "aws_lb_target_group_attachment" "reg_ip2" {
+  target_group_arn    = aws_lb_target_group.PAVMTargetGroup2.arn
+  target_id           = "10.100.65.10"
+  port                = 6081
+}
+  
+  
 # create VPC endpoint service (uses AWS PrivateLink)
 resource "aws_vpc_endpoint_service" "vpc_ep_svc" {
-  acceptance_required   = false 
+  acceptance_required        = false 
   gateway_load_balancer_arns = [aws_lb.PAVMGWLB2.id]
    
   tags = {
