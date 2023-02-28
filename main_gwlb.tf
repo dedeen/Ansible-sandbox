@@ -44,8 +44,8 @@ resource "aws_lb_target_group" "PAVMTargetGroup2" {
 }
 
 # create an LB listener, connecting the LB and target group
-resource "aws_lb_listener" "lb_listener1" {
-  load_balancer_arn   = aws_lb.PAVMGWLB2.id
+resource "aws_lb_listener" "lb_listener1" {   #this returns service_name that will be used ..
+  load_balancer_arn   = aws_lb.PAVMGWLB2.id   #    later, example is com.amazonaws.vpce.us-west-2.vpce-svc-0f68bde741e93d0c6
   #port                = "6081"
   #protocol            = "GENEVE"
   default_action {
@@ -65,5 +65,6 @@ resource "aws_lb_listener" "lb_listener1" {
     }
   }
     
+  dje - next add endpoints and use the service name on the endpoint services resource 
     
     
