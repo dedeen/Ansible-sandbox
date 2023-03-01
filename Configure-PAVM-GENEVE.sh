@@ -48,7 +48,7 @@ echo "run request plugins vm_series aws gwlb associate vpc-endpoint "${VPCe_2}" 
 echo "run show plugins vm_series aws gwlb"
 
 echo "~~~~~~~ Configure Firewall 2 ~~~~~~~~~~~~~~~"
-echo "ssh admin@"${PAVM1_publicip}
+echo "ssh admin@"${PAVM2_publicip}
 echo "configure"
 echo "run request plugins vm_series aws gwlb overlay-routing enable yes"
 echo "run request plugins vm_series aws gwlb inspect enable yes"
