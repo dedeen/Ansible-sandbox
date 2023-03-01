@@ -11,10 +11,21 @@ PAVM2name=PA-VM-2
 
 # Get the handles for the firewalls - filter on running to avoid picking up previously terminated instances with same name
 instid1=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${PAVM1name} "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].InstanceId" --output text)
-echo "Firewall 1:"${PAVM1name}", InstanceID:"${instid1}
-
 instid2=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${PAVM2name} "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].InstanceId" --output text)
-echo "Firewall 1:"${PAVM2name}", InstanceID:"${instid2}
+
+# Get the public IPs of the firewalls
+PAVM1publicip=$(aws ec2 describe-instances --instance-ids ${instid1} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
+PAVM2publicip=$(aws ec2 describe-instances --instance-ids ${instid2} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
+
+echo "Firewall # 1  ->"${PAVM1name}" : " ${instid1}" : "${PAVM1publicip}
+echo "Firewall # 2  ->"${PAVM2name}" : " ${instid2}" : "${PAVM2publicip}
+
+exit 0 
+
+echo "Firewall 1:"${PAVM1name}", InstanceID:"${instid1}
+echo "    -> PublicIP:
+instid2=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${PAVM2name} "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].InstanceId" --output text)
+echo "Firewall 2:"${PAVM2name}", InstanceID:"${instid2}
 
 exit 0
 
@@ -23,7 +34,7 @@ PAVM1publicip=$(aws ec2 describe-instances --instance-ids ${PAVM1name} --query "
 echo "PA-VM-1 PublicIP:"${PAVM1publicip}
 
 PAVM1publicip=$(aws ec2 describe-instances --instance-ids ${PAVM1name} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
-echo "PA-VM-1 PublicIP:"${PAVM1publicip}
+echo "PA-VM-2 PublicIP:"${PAVM1publicip}
 
 exit 0 
 
