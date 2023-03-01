@@ -44,7 +44,8 @@ echo "ssh admin@"${PAVM1_publicip}
 echo "configure"
 echo "run request plugins vm_series aws gwlb overlay-routing enable yes"
 echo "run request plugins vm_series aws gwlb inspect enable yes"
-echo "run request plugins vm_series aws gwlb associate vpc-endpoint"
+echo "run request plugins vm_series aws gwlb associate vpc-endpoint "${VPCe_1}
+echo "run request plugins vm_series aws gwlb associate vpc-endpoint "${VPCe_2}  ->dje need to add eth1/1.1
 
 
 exit 0 
