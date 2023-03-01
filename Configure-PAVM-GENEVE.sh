@@ -31,7 +31,10 @@ echo " "
 
 # Get the VPCe IDs"
 VPCe_1=$(aws ec2 describe-vpc-endpoints --filters Name=tag:Name,Values=${VPCe1_id} --query "VpcEndpoints[*].VpcEndpointId" --output text)
-echo ${VPCe_1}
+VPCe_2=$(aws ec2 describe-vpc-endpoints --filters Name=tag:Name,Values=${VPCe2_id} --query "VpcEndpoints[*].VpcEndpointId" --output text)
+
+echo "GWLB VPC Endpoint 1:"${VPCe_1}
+echo "GWLB VPC Endpoint 2:"${VPCe_2}
 
 exit 0
 
