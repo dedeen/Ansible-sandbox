@@ -8,6 +8,9 @@
 # Set up some variables
 PAVM1name=PA-VM-1
 PAVM2name=PA-VM-2
+VPCe1_id=PAVM_VPCe_az1
+VPCe2_id=PAVM_VPCe_az2
+
 
 # Get the handles for the firewalls - filter on running to avoid picking up previously terminated instances with same name
 inst_id1=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${PAVM1name} "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].InstanceId" --output text)
@@ -25,6 +28,15 @@ echo " "
 echo "Firewall # 1  ->"${PAVM1name}" : " ${inst_id1}" : "${PAVM1_publicip}" : key:"${PAVM1_keypair}
 echo "Firewall # 2  ->"${PAVM2name}" : " ${inst_id2}" : "${PAVM2_publicip}" : key:"${PAVM2_keypair}
 echo " "
+
+# Get the VPCe IDs"
+VPCe_1=$(aws ec2 describe-vpc-endpoints --filters Name=tag:Name,Values=${VPCe1_id} --query "VpcEndpoints[*].VpcEndpointId" --output text)
+echo ${VPCe_1}
+
+exit 0
+
+secgroupid=$(aws ec2 describe-security-groups --filters Name=group-name,Values=${open_sec_group} Name=vpc-id,Values=${vpcid} --query "SecurityGroups[*].GroupId" --output text)
+echo "secgrp:"${secgroupid}
 
 exit 0 
 
