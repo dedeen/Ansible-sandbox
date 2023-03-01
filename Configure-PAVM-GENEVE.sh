@@ -22,8 +22,8 @@ PAVM1_keypair=$(aws ec2 describe-instances --instance-ids ${inst_id1} --query "R
 PAVM2_keypair=$(aws ec2 describe-instances --instance-ids ${inst_id2} --query "Reservations[*].Instances[*].KeyName" --output text)
 
 echo " "
-echo "Firewall # 1  ->"${PAVM1name}" : " ${instid1}" : "${PAVM1publicip}" : key:"${PAVM1_keypair}
-echo "Firewall # 2  ->"${PAVM2name}" : " ${instid2}" : "${PAVM2publicip}" : key:"${PAVM2_keypair}
+echo "Firewall # 1  ->"${PAVM1name}" : " ${inst_id1}" : "${PAVM1_publicip}" : key:"${PAVM1_keypair}
+echo "Firewall # 2  ->"${PAVM2name}" : " ${inst_id2}" : "${PAVM2_publicip}" : key:"${PAVM2_keypair}
 echo " "
 
 exit 0 
