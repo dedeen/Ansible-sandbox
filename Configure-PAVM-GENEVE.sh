@@ -1,4 +1,31 @@
-#### This script will build an EC2 bastion host in a preexisting subnet in the App endpoint VPC. 
+#### This script will retrieve the VPCe endpoint identifiers from AWS, then ssh to the PA-VMs and configure the following: 
+#       - overlay-routing
+#       - GENEVE inspection
+#       - associate the subinterface ethernet1/1.1 with both VPCe
+#       - retrieve and verify the aws gwlb configuration of the PA-VM AWS plugin
+#
+
+# Set up some variables
+PAVM1name=PA-VM-1
+PAVM2name=PA-VM-2
+
+# Get the public IPs of the firewalls
+PAVM1publicip=$(aws ec2 describe-instances --instance-ids ${PAVM1name} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
+echo "PA-VM-1 PublicIP:"${PAVM1publicip}
+
+PAVM1publicip=$(aws ec2 describe-instances --instance-ids ${PAVM1name} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
+echo "PA-VM-1 PublicIP:"${PAVM1publicip}
+
+exit 0 
+
+
+privateip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].PrivateIpAddress" --output text)
+echo "PrivateIP:"${privateip}
+
+# Get info for the Palo Alto Firewalls (PA-VMs)
+
+
+build an EC2 bastion host in a preexisting subnet in the App endpoint VPC. 
 #      This will allow us to SSH in from the outside, then ssh to the other EC2s to set up traffic out via the Palo Alto Firewalls. 
 #      This is expected to be a temporary setup, and will use a separate AWS keypair for the bastion EC2. The keypair is in this 
 #        same directory. 
