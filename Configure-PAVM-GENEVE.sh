@@ -36,10 +36,16 @@ VPCe_2=$(aws ec2 describe-vpc-endpoints --filters Name=tag:Name,Values=${VPCe2_i
 echo "GWLB VPC Endpoint 1:"${VPCe_1}
 echo "GWLB VPC Endpoint 2:"${VPCe_2}
 
-exit 0
+# Configure the firewalls for GWLB Enpoints, GENEVE, Overlay Routing 
+echo " "
+echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+echo "~~~~~~~ Firewall 1: ~~~~~~~~~~~~~"
+echo "ssh admin@"${PAVM1_publicip}
+echo "configure"
+echo "run request plugins vm_series aws gwlb overlay-routing enable yes"
+echo "run request plugins vm_series aws gwlb inspect enable yes"
+echo "run request plugins vm_series aws gwlb associate vpc-endpoint"
 
-secgroupid=$(aws ec2 describe-security-groups --filters Name=group-name,Values=${open_sec_group} Name=vpc-id,Values=${vpcid} --query "SecurityGroups[*].GroupId" --output text)
-echo "secgrp:"${secgroupid}
 
 exit 0 
 
