@@ -10,15 +10,21 @@ PAVM1name=PA-VM-1
 PAVM2name=PA-VM-2
 
 # Get the handles for the firewalls - filter on running to avoid picking up previously terminated instances with same name
-instid1=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${PAVM1name} "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].InstanceId" --output text)
-instid2=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${PAVM2name} "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].InstanceId" --output text)
+inst_id1=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${PAVM1name} "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].InstanceId" --output text)
+inst_id2=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${PAVM2name} "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].InstanceId" --output text)
 
 # Get the public IPs of the firewalls
-PAVM1publicip=$(aws ec2 describe-instances --instance-ids ${instid1} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
-PAVM2publicip=$(aws ec2 describe-instances --instance-ids ${instid2} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
+PAVM1_publicip=$(aws ec2 describe-instances --instance-ids ${inst_id1} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
+PAVM2_publicip=$(aws ec2 describe-instances --instance-ids ${inst_id2} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
 
-echo "Firewall # 1  ->"${PAVM1name}" : " ${instid1}" : "${PAVM1publicip}
-echo "Firewall # 2  ->"${PAVM2name}" : " ${instid2}" : "${PAVM2publicip}
+# Get the keypair names used when launching the EC2s
+PAVM1_keypair=$(aws ec2 describe-instances --instance-ids ${inst_id1} --query "Reservations[*].Instances[*].KeyName" --output text)
+PAVM2_keypair=$(aws ec2 describe-instances --instance-ids ${inst_id2} --query "Reservations[*].Instances[*].KeyName" --output text)
+
+echo " "
+echo "Firewall # 1  ->"${PAVM1name}" : " ${instid1}" : "${PAVM1publicip}" : key:"${PAVM1_keypair}
+echo "Firewall # 2  ->"${PAVM2name}" : " ${instid2}" : "${PAVM2publicip}" : key:"${PAVM2_keypair}
+echo " "
 
 exit 0 
 
