@@ -38,8 +38,7 @@ echo "GWLB VPC Endpoint 2:"${VPCe_2}
 
 # Configure the firewalls for GWLB Enpoints, GENEVE, Overlay Routing 
 echo " "
-echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-echo "~~~~~~~ Firewall 1: ~~~~~~~~~~~~~"
+echo "~~~~~~~ Configure Firewall 1 ~~~~~~~~~~~~~~~"
 echo "ssh admin@"${PAVM1_publicip}
 echo "configure"
 echo "run request plugins vm_series aws gwlb overlay-routing enable yes"
@@ -48,7 +47,7 @@ echo "run request plugins vm_series aws gwlb associate vpc-endpoint "${VPCe_1}"@
 echo "run request plugins vm_series aws gwlb associate vpc-endpoint "${VPCe_2}"@ethernet1/1.1"
 echo "run show plugins vm_series aws gwlb"
 
-echo "~~~~~~~ Firewall 1: ~~~~~~~~~~~~~"
+echo "~~~~~~~ Configure Firewall 2 ~~~~~~~~~~~~~~~"
 echo "ssh admin@"${PAVM1_publicip}
 echo "configure"
 echo "run request plugins vm_series aws gwlb overlay-routing enable yes"
