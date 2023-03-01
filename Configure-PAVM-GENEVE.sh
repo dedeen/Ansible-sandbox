@@ -43,8 +43,8 @@ echo "ssh admin@"${PAVM1_publicip}
 echo "configure"
 echo "run request plugins vm_series aws gwlb overlay-routing enable yes"
 echo "run request plugins vm_series aws gwlb inspect enable yes"
-echo "run request plugins vm_series aws gwlb associate vpc-endpoint "${VPCe_1}"@ethernet1/1.1"
-echo "run request plugins vm_series aws gwlb associate vpc-endpoint "${VPCe_2}"@ethernet1/1.1"
+echo "run request plugins vm_series aws gwlb associate vpc-endpoint "${VPCe_1}" interface ethernet1/1.1"
+echo "run request plugins vm_series aws gwlb associate vpc-endpoint "${VPCe_2}" interface ethernet1/1.1"
 echo "run show plugins vm_series aws gwlb"
 
 echo "~~~~~~~ Configure Firewall 2 ~~~~~~~~~~~~~~~"
@@ -52,8 +52,8 @@ echo "ssh admin@"${PAVM1_publicip}
 echo "configure"
 echo "run request plugins vm_series aws gwlb overlay-routing enable yes"
 echo "run request plugins vm_series aws gwlb inspect enable yes"
-echo "run request plugins vm_series aws gwlb associate vpc-endpoint "${VPCe_1}"@ethernet1/1.1"
-echo "run request plugins vm_series aws gwlb associate vpc-endpoint "${VPCe_2}"@ethernet1/1.1"
+echo "run request plugins vm_series aws gwlb associate vpc-endpoint "${VPCe_1}" interface ethernet1/1.1"
+echo "run request plugins vm_series aws gwlb associate vpc-endpoint "${VPCe_2}" interface ethernet1/1.1"
 echo "run show plugins vm_series aws gwlb"
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
