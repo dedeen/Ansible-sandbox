@@ -9,6 +9,12 @@
 PAVM1name=PA-VM-1
 PAVM2name=PA-VM-2
 
+# Get the handles for the firewalls - filter on running to avoid picking up previously terminated instances with same name
+instid1=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${PAVM1name} "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].InstanceId" --output text)
+echo "Firewall 1:"${PAVM1name}", InstanceID:"${instid1}
+
+exit 0
+
 # Get the public IPs of the firewalls
 PAVM1publicip=$(aws ec2 describe-instances --instance-ids ${PAVM1name} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
 echo "PA-VM-1 PublicIP:"${PAVM1publicip}
