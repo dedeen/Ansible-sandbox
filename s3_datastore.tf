@@ -16,7 +16,7 @@ resource "aws_s3_bucket_acl" "s3_acl_PAVM_S3_DS1" {
  }
 
 ## Copy bootstrap files to the S3 bucket, firewalls will load from there
-resource "aws_s3_object" "init_cfg"
+resource "aws_s3_object" "init_cfg" {
   bucket                  = aws_s3_bucket.PAVM_S3_DS1.id
     for_each                = var.pavm_firewalls 
       key                   = each.value.init_file_key
@@ -27,7 +27,7 @@ resource "aws_s3_object" "init_cfg"
     }
 }
 
-resource "aws_s3_object" "bootstrap_xml"
+resource "aws_s3_object" "bootstrap_xml" {
   bucket                  = aws_s3_bucket.PAVM_S3_DS1.id
     for_each                = var.pavm_firewalls 
       key                   = each.value.bootstrap_file_key
