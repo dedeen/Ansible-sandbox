@@ -29,21 +29,21 @@ resource "aws_s3_object" "init_config" {
 resource "aws_s3_object" "init_content" {
   bucket                  = aws_s3_bucket.pavm-s3-ds.id
     for_each                = var.pavm_firewalls 
-      key                   = "${var.fw_name}/${each.value.content_dir}"
+      key                   = "${each.value.fw_name}/${each.value.content_dir}"
       content               = "application/x-directory"
 }
 
 resource "aws_s3_object" "init_license" {
   bucket                  = aws_s3_bucket.pavm-s3-ds.id
     for_each                = var.pavm_firewalls 
-      key                   = "${var.fw_name}/${each.value.license_dir}"
+      key                   = "${each.value.fw_name}/${each.value.license_dir}"
       content               = "application/x-directory"
 }
 
 resource "aws_s3_object" "init_software" {
   bucket                  = aws_s3_bucket.pavm-s3-ds.id
     for_each                = var.pavm_firewalls 
-      key                   = "${var.fw_name}/${each.value.software_dir}"
+      key                   = "${each.value.fw_name}/${each.value.software_dir}"
       content               = "application/x-directory"
 }
 
