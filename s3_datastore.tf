@@ -22,7 +22,7 @@ resource "aws_s3_object" "init_config" {
   bucket                  = aws_s3_bucket.pavm-s3-ds.id
     for_each                = var.pavm_firewalls 
       #key                   = "${each.value.fw_name}${pan_config_dir}"
-      key                   = "${each.value.fw_name}xxx"
+      key                   = "${each.value.fw_name}${each.value.init_file_key}"
       content               = "application/x-directory"
 }
 
