@@ -71,7 +71,7 @@ variable "pan_content_dir" {
 }
 variable "pan_license_dir" {
   default = "license"
-
+}
 variable "pan_software_dir" {
   default = "software"
 }
