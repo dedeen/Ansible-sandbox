@@ -63,10 +63,10 @@ variable "app_vpcs" {
 }
 
 #Palo Alto Firewall Bootstrap Directories - required subdirs 
-variable pan_config_dir      			= "config"
-variable pan_content_dir     			= "content"
-variable pan_license_dir     			= "license"
-variable pan_software_dir    			= "software"
+variable "pan_config_dir"      			= "config"
+variable "pan_content_dir"     			= "content"
+variable "pan_license_dir"     			= "license"
+variable "pan_software_dir"    			= "software"
 
 variable "pavm_firewalls" {
 	description = "Firewall Parameters"
