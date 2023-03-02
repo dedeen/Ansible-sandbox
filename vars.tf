@@ -75,10 +75,10 @@ variable "pavm_firewalls" {
 			init_file		= 	"./Firewall/PAVM1/init-cfg.txt"
 			bootstrap_file_key	= 	"bootstrap.xml"
 			bootstrap_file		= 	"./Firewall/PAVM1/bootstrap.xml"
-			config_dir		= 	"config"
-			content_dir		= 	"content"
-			license_dir		= 	"license"
-			software_dir		= 	"software"
+			config_dir		= 	"config/"
+			content_dir		= 	"content/"
+			license_dir		= 	"license/"
+			software_dir		= 	"software/"
 		},
 		firewall2 = {
 			map_key			= 	"firewall2"	# Easy way to dereference map elements, must match var name to work
@@ -87,10 +87,10 @@ variable "pavm_firewalls" {
 			init_file		= 	"./Firewall/PAVM2/init-cfg.txt"
 			bootstrap_file_key	= 	"bootstrap.xml"
 			bootstrap_file		= 	"./Firewall/PAVM2/bootstrap.xml"
-			config_dir		= 	"config"
-			content_dir		= 	"content"
-			license_dir		= 	"license"
-			software_dir		= 	"software"
+			config_dir		= 	"config/"
+			content_dir		= 	"content/"
+			license_dir		= 	"license/"
+			software_dir		= 	"software/"
 		}
 	}
 }
