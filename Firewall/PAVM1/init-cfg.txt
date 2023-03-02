@@ -1,2 +1,2 @@
 type=dhcp-client
-hostname=PA-VM1
+hostname=PA-VM-1
