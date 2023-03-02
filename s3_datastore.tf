@@ -1,50 +1,45 @@
-# Terraform script to build an S3 bucket and store index files for the Apache to be installed on my web servers. 
-#    to create a multi-subnet VPC with PAN firewall between outside and the internal subnets. Will also create IAM 
-#    to allow the instances to retrieve these file(s). 
-#    	Key insights from https://gmusumeci.medium.com/how-to-upload-files-to-private-or-public-aws-ec2-instances-using-terraform-e62d3c4dd3a6  
-#         -- Dan Edeen, dan@dsblue.net, 2022  --   
-#
+# Terraform script to build an S3 bucket and store configuration files for the Palo Alto firewalls. 
 
 #  Creating an S3 bucket for files to be retrieved by instances
-resource "aws_s3_bucket" "terraform-filestore" {
-  bucket = "terraform-filestore"
+resource "aws_s3_bucket" "PAVM_S3_DS1" {
+  bucket = "PAVM_S3_Datastore"
   
     tags = {
-    Name = "S3-filestore"
+    Name = "PAVM_S3_DS1"
     Owner = "dan-via-terraform"
   }
 }
 
-resource "aws_s3_bucket_acl" "terraform-filestore" {
-  bucket = aws_s3_bucket.terraform-filestore.id
+resource "aws_s3_bucket_acl" "s3_acl_PAVM_S3_DS1" {
+  bucket = aws_s3_bucket.s3_acl_PAVM_S3_DS1.id
   acl    = "private"
  }
 
-locals {
-  index_file      = "source_files/index.html"
-  launch_script   = "source_files/launch_script.sh"
+## Copy bootstrap files to the S3 bucket, firewalls will load from there
+resource "aws_s3_object" "init_cfg"
+  bucket                  = aws_s3_bucket.PAVM_S3_DS1.id
+    for_each                = var.pavm_firewalls 
+      key                   = each.value.init_file_key
+      source                = each.value.init_file
+      source_hash           = filemd5(each.value.init_file)
+      etag                  = filemd5(each.value.init_file) # checked on each tf apply and will replace file if changed
+      force_destroy         = true     
+    }
 }
 
-#  Copy the files to the bucket created above
-resource "aws_s3_object" "file1" {
-  bucket                  = aws_s3_bucket.terraform-filestore.id
-  key                     = "index.html"
-  source                  = local.index_file
-  source_hash             = filemd5(local.index_file)
-  etag                    = filemd5(local.index_file)   # checked on each tf apply and will replace file if changed
-  force_destroy           = true 
-}
- 
-#  Copy the files to the bucket created above
-resource "aws_s3_object" "file2" {
-  bucket                  = aws_s3_bucket.terraform-filestore.id
-  key                     = "launch_script.sh"
-  source                  = local.launch_script
-  source_hash             = filemd5(local.launch_script)
-  etag                    = filemd5(local.launch_script)    # " " " 
-  force_destroy           = true 
+resource "aws_s3_object" "bootstrap_xml"
+  bucket                  = aws_s3_bucket.PAVM_S3_DS1.id
+    for_each                = var.pavm_firewalls 
+      key                   = each.value.bootstrap_file_key
+      source                = each.value.bootstrap_file
+      source_hash           = filemd5(each.value.bootstrap_file)
+      etag                  = filemd5(each.value.bootstrap_file) # checked on each tf apply and will replace file if changed
+      force_destroy         = true     
+    }
 }
 
+
+/#
 #  IAM policy & role for the EC2 instances to access files on the datastore 
 data "aws_iam_policy_document" "ec2_assume_role" { 
   statement {
