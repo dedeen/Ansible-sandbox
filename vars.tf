@@ -61,4 +61,26 @@ variable "app_vpcs" {
 		}
 	}   
 }
+
 ##
+variable "pavm_firewalls" {
+	description = "Firewall Parameters"
+	type		= map(any)
+
+	default = {
+		firewall1 = {
+			map_key			= 	"firewall1"	# Easy way to dereference map elements, must match var name to work
+			fw_name			= 	"PA-VM-1"
+			bootstrap_path		= 	"./Firewall/PAVM1"
+			init_file		= 	"init-cfg.txt"
+			bootstrap_file		= 	"bootstrap.xml"
+		},
+		firewall2 = {
+			map_key			= 	"firewall2"	# Easy way to dereference map elements, must match var name to work
+			fw_name			= 	"PA-VM-2"
+			bootstrap_path		= 	"./Firewall/PAVM2"
+			init_file		= 	"init-cfg.txt"
+			bootstrap_file		= 	"bootstrap.xml"
+		}
+	}
+}
