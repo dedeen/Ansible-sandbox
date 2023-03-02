@@ -2,7 +2,7 @@
 
 #  Creating an S3 bucket for files to be retrieved by instances
 resource "aws_s3_bucket" "pavm-s3-ds" {
-  bucket = "pavm-sd-ds"
+  bucket = "pavm-s3-ds"
   
     tags = {
     Name = "pavm-s3-ds"
