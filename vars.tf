@@ -71,16 +71,18 @@ variable "pavm_firewalls" {
 		firewall1 = {
 			map_key			= 	"firewall1"	# Easy way to dereference map elements, must match var name to work
 			fw_name			= 	"PA-VM-1"
-			bootstrap_path		= 	"./Firewall/PAVM1"
-			init_file		= 	"init-cfg.txt"
-			bootstrap_file		= 	"bootstrap.xml"
+			init_file_key		= 	"init-cfg.txt"
+			init_file		= 	"./Firewall/PAVM1/init-cfg.txt"
+			bootstrap_file_key	= 	"bootstrap.xml"
+			bootstrap_file		= 	"./Firewall/PAVM1/bootstrap.xml"
 		},
 		firewall2 = {
 			map_key			= 	"firewall2"	# Easy way to dereference map elements, must match var name to work
 			fw_name			= 	"PA-VM-2"
-			bootstrap_path		= 	"./Firewall/PAVM2"
-			init_file		= 	"init-cfg.txt"
-			bootstrap_file		= 	"bootstrap.xml"
+			init_file_key		= 	"init-cfg.txt"
+			init_file		= 	"./Firewall/PAVM2/init-cfg.txt"
+			bootstrap_file_key	= 	"bootstrap.xml"
+			bootstrap_file		= 	"./Firewall/PAVM2/bootstrap.xml"
 		}
 	}
 }
