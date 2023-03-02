@@ -1,23 +1,23 @@
 # Terraform script to build an S3 bucket and store configuration files for the Palo Alto firewalls. 
 
 #  Creating an S3 bucket for files to be retrieved by instances
-resource "aws_s3_bucket" "PAVM_S3_DS1" {
+resource "aws_s3_bucket" "pavm-s3-ds" {
   bucket = "PAVM_S3_Datastore"
   
     tags = {
-    Name = "PAVM_S3_DS1"
+    Name = "pavm-s3-ds"
     Owner = "dan-via-terraform"
   }
 }
 
-resource "aws_s3_bucket_acl" "s3_acl_PAVM_S3_DS1" {
-  bucket = aws_s3_bucket.s3_acl_PAVM_S3_DS1.id
+resource "aws_s3_bucket_acl" "acl-pavm-s3-ds" {
+  bucket = aws_s3_bucket.pavm-s3-ds.id
   acl    = "private"
  }
 
 ## Copy bootstrap files to the S3 bucket, firewalls will load from there
 resource "aws_s3_object" "init_cfg" {
-  bucket                  = aws_s3_bucket.PAVM_S3_DS1.id
+  bucket                  = aws_s3_bucket.pavm-s3-ds.id
     for_each                = var.pavm_firewalls 
       key                   = each.value.init_file_key
       source                = each.value.init_file
@@ -27,7 +27,7 @@ resource "aws_s3_object" "init_cfg" {
 }
 
 resource "aws_s3_object" "bootstrap_xml" {
-  bucket                  = aws_s3_bucket.PAVM_S3_DS1.id
+  bucket                  = aws_s3_bucket.pavm-s3-ds.id
     for_each                = var.pavm_firewalls 
       key                   = each.value.bootstrap_file_key
       source                = each.value.bootstrap_file
