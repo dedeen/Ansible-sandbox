@@ -39,7 +39,7 @@ resource "aws_s3_object" "bootstrap_xml"
 }
 
 
-/#
+/*
 #  IAM policy & role for the EC2 instances to access files on the datastore 
 data "aws_iam_policy_document" "ec2_assume_role" { 
   statement {
