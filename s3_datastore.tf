@@ -18,28 +18,28 @@ resource "aws_s3_bucket_acl" "acl-pavm-s3-ds" {
 ## Copy bootstrap files to the S3 bucket, firewalls will load from there
 
 # Set up required bootstrap directory structure 
-resource "aws_s3_object" "init_cfg" {
+resource "aws_s3_object" "init_config" {
   bucket                  = aws_s3_bucket.pavm-s3-ds.id
     for_each                = var.pavm_firewalls 
       key                   = "${var.fw_name}/${pan_config_dir}"
       content               = "application/x-directory"
 }
 
-resource "aws_s3_object" "init_cfg" {
+resource "aws_s3_object" "init_content" {
   bucket                  = aws_s3_bucket.pavm-s3-ds.id
     for_each                = var.pavm_firewalls 
       key                   = "${var.fw_name}/${pan_content_dir}"
       content               = "application/x-directory"
 }
 
-resource "aws_s3_object" "init_cfg" {
+resource "aws_s3_object" "init_license" {
   bucket                  = aws_s3_bucket.pavm-s3-ds.id
     for_each                = var.pavm_firewalls 
       key                   = "${var.fw_name}/${pan_license_dir}"
       content               = "application/x-directory"
 }
 
-resource "aws_s3_object" "init_cfg" {
+resource "aws_s3_object" "init_software" {
   bucket                  = aws_s3_bucket.pavm-s3-ds.id
     for_each                = var.pavm_firewalls 
       key                   = "${var.fw_name}/${pan_software_dir}"
