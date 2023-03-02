@@ -24,7 +24,6 @@ resource "aws_s3_object" "init_cfg" {
       source_hash           = filemd5(each.value.init_file)
       etag                  = filemd5(each.value.init_file) # checked on each tf apply and will replace file if changed
       force_destroy         = true     
-    }
 }
 
 resource "aws_s3_object" "bootstrap_xml" {
@@ -35,7 +34,6 @@ resource "aws_s3_object" "bootstrap_xml" {
       source_hash           = filemd5(each.value.bootstrap_file)
       etag                  = filemd5(each.value.bootstrap_file) # checked on each tf apply and will replace file if changed
       force_destroy         = true     
-    }
 }
 
 
