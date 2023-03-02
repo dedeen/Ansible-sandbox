@@ -63,20 +63,6 @@ variable "app_vpcs" {
 }
 
 #Palo Alto Firewall Bootstrap Directories - required subdirs 
-variable "pan_config_dir" {
-  default = "config"
-}
-variable "pan_content_dir" {
-  default = "content"
-}
-variable "pan_license_dir" {
-  default = "license"
-}
-variable "pan_software_dir" {
-  default = "software"
-}
-	
-
 variable "pavm_firewalls" {
 	description = "Firewall Parameters"
 	type		= map(any)
@@ -89,6 +75,10 @@ variable "pavm_firewalls" {
 			init_file		= 	"./Firewall/PAVM1/init-cfg.txt"
 			bootstrap_file_key	= 	"bootstrap.xml"
 			bootstrap_file		= 	"./Firewall/PAVM1/bootstrap.xml"
+			config_dir		= 	"config"
+			content_dir		= 	"content"
+			license_dir		= 	"license"
+			software_dir		= 	"software"
 		},
 		firewall2 = {
 			map_key			= 	"firewall2"	# Easy way to dereference map elements, must match var name to work
@@ -97,6 +87,10 @@ variable "pavm_firewalls" {
 			init_file		= 	"./Firewall/PAVM2/init-cfg.txt"
 			bootstrap_file_key	= 	"bootstrap.xml"
 			bootstrap_file		= 	"./Firewall/PAVM2/bootstrap.xml"
+			config_dir		= 	"config"
+			content_dir		= 	"content"
+			license_dir		= 	"license"
+			software_dir		= 	"software"
 		}
 	}
 }
