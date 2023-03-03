@@ -26,7 +26,7 @@ resource "aws_instance" "PA-VM-1" {
   iam_instance_profile                = aws_iam_instance_profile.ec2_profile.id   # Allow this firewall to get bootstrap config from S3 bucket
   user_data = <<EOF
 vmseries-bootstrap-aws-s3bucket=pavm-s3-ds/PA-VM-1
-run request plugins vm_series aws gwlb overlay-routing enable yes
+plugin-op-commands=aws-gwlb-inspect:enable
 EOF
   tags = {
           Owner = "dan-via-terraform"
