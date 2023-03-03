@@ -23,6 +23,10 @@ resource "aws_instance" "PA-VM-2" {
   subnet_id                           = module.vpc["secvpc"].intra_subnets[6]           #PA-VM mgmt submet
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["secvpc"].id]  
   source_dest_check                   = false
+  iam_instance_profile                = aws_iam_instance_profile.ec2_profile.id   # Allow this firewall to get bootstrap config from S3 bucket
+  user_data = <<EOF
+vmseries-bootstrap-aws-s3bucket=pavm-s3-ds/PA-VM-2
+EOF
   tags = {
           Owner = "dan-via-terraform"
           Name  = "PA-VM-2"
