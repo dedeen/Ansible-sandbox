@@ -18,7 +18,7 @@ resource "aws_eip" "PA1-vpn-int" {
 }
 
 # Associate new IP to Firewall ENI
-resource "aws_eip_association" "pa1-pub-assoc" {
+resource "aws_eip_association" "pa1-vpn-assoc" {
   allocation_id         = aws_eip.PA1-vpn-int.id
   network_interface_id  = aws_network_interface.eth-PA-VM1-vpn.id
 }
