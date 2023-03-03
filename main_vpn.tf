@@ -1,16 +1,4 @@
-#  Terraform to create EC2s as Palo Alto VM-NGFWs
-#    To test all the routes in this environment, run the main_pa-vms_awslinux.tf script. 
-#    To build the PAN-OS version for actual firewalls, run this version (main_pa-vms_panos.tf). 
-#      The main difference is the AMI used to build the EC2 instances. 
-#          Generic AWS linux: "ami-094125af156557ca2"
-#          Palo Alto PA-VM firewall: ami-081f4bfe293d7f414
-
-locals {
-  panos_ami           = "ami-081f4bfe293d7f414"
-  aws_linux_ami       = "ami-094125af156557ca2"
-  panos_inst_type     = "m5.2xlarge"               # PAN min recommendation
-  aws_linux_inst_type = "t2.small"                 # max 4 NICs
-  }
+#  Terraform to add infrastructure configuration to 1 or more Palo Alto VM-NGFWs already deployed from other .tf scripts in this repo. 
 
 resource "aws_instance" "PA-VM-1" {
   ami                                 = local.panos_ami
@@ -34,23 +22,10 @@ EOF
     }
 }
   
-# Add two more NICs to the PA-VM instance 
-resource "aws_network_interface" "eth1" {
-  subnet_id             = module.vpc["secvpc"].intra_subnets[1]                   #internal (app-vpc side) subnet
+resource "aws_network_interface" "eth-PA-VM1-vpn" {
+  subnet_id             = module.vpc["secvpc"].intra_subnets[2]                 #public subnet side of PA-VM-1(az1), if PA-VM-2 needed, index is [8]
   security_groups       = [aws_security_group.SG-allow_ipv4["secvpc"].id]
-  private_ips           = ["10.100.1.10"]   
-  source_dest_check     = false                                                 #need this for firewall interfaces
-    
-  attachment  {
-    instance            = aws_instance.PA-VM-1.id
-    device_index        = 1
-  }
-}
-
-resource "aws_network_interface" "eth2" {
-  subnet_id             = module.vpc["secvpc"].intra_subnets[2]             #public subnet
-  security_groups       = [aws_security_group.SG-allow_ipv4["secvpc"].id]
-  private_ips           = ["10.100.2.10"]  
+  private_ips           = ["10.100.2.11"]  
   source_dest_check     = false                                                 #need this for firewall interfaces
     
   attachment  {
