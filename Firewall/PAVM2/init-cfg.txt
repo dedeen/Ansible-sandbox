@@ -1,3 +1,2 @@
 type=dhcp-client
 hostname=PA-VM-2
-plugin-op-commands=aws-gwlb-inspect:enable,aws-gwlb-overlay-routing:enable
