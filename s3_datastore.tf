@@ -50,20 +50,16 @@ resource "aws_s3_object" "init_cfg_txt" {
     for_each                = var.pavm_firewalls 
       key                   = "/${each.value.fw_name}/${each.value.config_dir}${each.value.init_file_key}"
       source                = "${each.value.init_file}"
-#      source_hash           = filemd5(each.value.init_file)
-#      etag                  = filemd5(each.value.init_file) # checked on each tf apply and will replace file if changed
-#      force_destroy         = true     
+      force_destroy         = true     
 }
 
-#resource "aws_s3_object" "bootstrap_xml" {
-#  bucket                  = aws_s3_bucket.pavm-s3-ds.id
-#    for_each                = var.pavm_firewalls 
-#      key                   = each.value.bootstrap_file_key
-#      source                = each.value.bootstrap_file
-#      source_hash           = filemd5(each.value.bootstrap_file)
-#      etag                  = filemd5(each.value.bootstrap_file) # checked on each tf apply and will replace file if changed
-#      force_destroy         = true     
-#}
+resource "aws_s3_object" "bootstrap_xml" {
+  bucket                  = aws_s3_bucket.pavm-s3-ds.id
+    for_each                = var.pavm_firewalls 
+      key                   = "/${each.value.fw_name}/${each.value.config_dir}${each.value.bootstrap_file_key}"
+      source                = "${each.value.bootstrap_file}"
+      force_destroy         = true     
+}
 
 
 
