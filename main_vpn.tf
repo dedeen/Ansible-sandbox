@@ -1,7 +1,7 @@
 #  Terraform to add infrastructure configuration to the more Palo Alto VM-NGFWs already deployed from other .tf scripts in this repo. 
 
 resource "aws_network_interface" "eth-PA-VM1-vpn" {
-  subnet_id             = module.vpc["secvpc"].intra_subnets[13]                 # index=13 for az1, 14 for az2
+  subnet_id             = module.vpc["secvpc"].intra_subnets[12]                 # index=12 for az1, 13 for az2
   security_groups       = [aws_security_group.SG-allow_ipv4["secvpc"].id]
   private_ips           = ["10.100.6.10"]  
   source_dest_check     = false                                                 # promiscuous mode
@@ -24,7 +24,7 @@ resource "aws_eip_association" "pa1-vpn-assoc" {
 }
 ###################################################################
 resource "aws_network_interface" "eth-PA-VM2-vpn" {
-  subnet_id             = module.vpc["secvpc"].intra_subnets[14]                 # index=13 for az1, 14 for az2
+  subnet_id             = module.vpc["secvpc"].intra_subnets[13]                 # index=12 for az1, 13 for az2
   security_groups       = [aws_security_group.SG-allow_ipv4["secvpc"].id]
   private_ips           = ["10.100.70.10"]  
   source_dest_check     = false                                                 # promiscuous mode
