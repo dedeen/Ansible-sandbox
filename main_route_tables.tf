@@ -252,8 +252,6 @@ resource "aws_route_table" "webaz1and2-inst-rt" {
 #     subnet_id = module.vpc["websrvvpc"].intra_subnets[0] to TGW (subnet name is websrv-az1-inst)
 #     subnet_id = module.vpc["websrvvpc"].intra_subnets[3] to TGW (subnet name is websrv-az2-inst)  
   
-  
-  ##dje
 # Create RT for vpn subnet of Palo Alto firewall PA-VM1
 resource "aws_route_table" "secvpc-rt-vpn-az1-subnets" {
   vpc_id                = module.vpc["secvpc"].vpc_id 
@@ -283,4 +281,8 @@ resource "aws_route_table" "secvpc-rt-vpn-az2-subnets" {
     Name  = "Secvpc-vpn-az2-subnet-RT"
   }  
 }
-  ##dje
+  # Need to associate these two RTs to the two vpn subnets on the Palo Alto firewalls
+#   This is done via bash script due to terraform bug with RT association changes 
+#     RT name is Secvpc-vpn-az1-subnet-RT <-> subnet name is sec-az1-vpn
+#     RT name is Secvpc-vpn-az2-subnet-RT <-> subnet name is sec-az2-vpn
+
