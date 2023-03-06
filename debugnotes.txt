@@ -4,7 +4,12 @@ File to track EC2 resources for validation of end-to-end routing within environm
 Debug instructions/notes: 
 ssh ec2-user@34.208.9.49 -i terraform-key-pair.55b0.pem
 
+ssh to public IP with keypair used for instance
+ssh admin@54.190.115.247 -i terraform-key-pair.da11.pem
 
+configure
+set mgt-config users admin password 
+commit
 ##################
 
 git ls-files | xargs wc -l
