@@ -17,6 +17,9 @@ show vpn ike-sa gateway <gateway_name>
 test vpn ipsec-sa tunnel <tunnel_name>
 show vpn ipsec-sa tunnel <tunnel_name>
 
+tail follow yes mp-log ikemgr.log 
+tail follow yes mp-log cryptod.log 
+
 
 ##################
 
