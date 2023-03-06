@@ -251,3 +251,36 @@ resource "aws_route_table" "webaz1and2-inst-rt" {
 #   This is done via bash script due to terraform bug with RT association changes 
 #     subnet_id = module.vpc["websrvvpc"].intra_subnets[0] to TGW (subnet name is websrv-az1-inst)
 #     subnet_id = module.vpc["websrvvpc"].intra_subnets[3] to TGW (subnet name is websrv-az2-inst)  
+  
+  
+  ##dje
+# Create RT for vpn subnet of Palo Alto firewall PA-VM1
+resource "aws_route_table" "secvpc-rt-vpn-az1-subnets" {
+  vpc_id                = module.vpc["secvpc"].vpc_id 
+  route {                                                      
+    cidr_block          = "0.0.0.0/0"                          # route to IGW - mgmt interface of PA-VMs 
+    gateway_id  = aws_internet_gateway.sec_vpc_igw.id
+  }
+  
+  }
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "Secvpc-vpn-az1-subnet-RT"
+  }  
+}
+
+  # Create RT for vpn subnet of Palo Alto firewall PA-VM2
+resource "aws_route_table" "secvpc-rt-vpn-az2-subnets" {
+  vpc_id                = module.vpc["secvpc"].vpc_id 
+  route {                                                      
+    cidr_block          = "0.0.0.0/0"                          # route to IGW - mgmt interface of PA-VMs 
+    gateway_id  = aws_internet_gateway.sec_vpc_igw.id
+  }
+  
+  }
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "Secvpc-vpn-az2-subnet-RT"
+  }  
+}
+  ##dje
