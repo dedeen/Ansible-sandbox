@@ -11,6 +11,14 @@ configure
 set mgt-config users admin password 
 commit
 ##################
+test vpn ike-sa gateway <gateway_name>
+show vpn ike-sa gateway <gateway_name>
+
+test vpn ipsec-sa tunnel <tunnel_name>
+show vpn ipsec-sa tunnel <tunnel_name>
+
+
+##################
 
 git ls-files | xargs wc -l
 aws ec2 describe-import-image-tasks --import-task-ids=import-ami-0797d04919bc40668
