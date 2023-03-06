@@ -120,6 +120,16 @@ originalrt[21]=Sec01-VPC-intra
 targetrt[21]=GWLB-az2-RT
 subnet[21]=sec-az2-GWLB
 #
+# Next two are subnets for vpn connections to Palo Alto firewalls
+originalrt[22]=Sec01-VPC-intra
+targetrt[22]=Secvpc-vpn-az1-subnet-RT
+subnet[22]=sec-az1-vpn
+#
+# Next two are subnets for vpn connections to Palo Alto firewalls
+originalrt[23]=Sec01-VPC-intra
+targetrt[23]=Secvpc-vpn-az2-subnet-RT
+subnet[23]=sec-az2-vpn
+
 
 #count is number of entries in static array above
 count="${#originalrt[@]}"   # number of elements in arrays
