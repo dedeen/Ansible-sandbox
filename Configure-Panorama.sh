@@ -21,5 +21,12 @@ echo "!     InstanceId : "${instid}
 echo "|     PublicIP   : "${publicip}
 echo "|     KeyPair    : "${ws_keypair}
 echo "|   ... Sending config commands  "
-echo " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+
+# ssh to server and configure it 
+login_string="ssh admin@"${publicip}" -i "${ws_keypair}".pem"
+echo ">>"${login_string}
+#ssh admin@${publicip} -i
+
+
+#echo " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
