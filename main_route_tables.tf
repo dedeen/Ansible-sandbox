@@ -260,7 +260,6 @@ resource "aws_route_table" "secvpc-rt-vpn-az1-subnets" {
     gateway_id  = aws_internet_gateway.sec_vpc_igw.id
   }
   
-  }
   tags = {
     Owner = "dan-via-terraform"
     Name  = "Secvpc-vpn-az1-subnet-RT"
@@ -275,7 +274,6 @@ resource "aws_route_table" "secvpc-rt-vpn-az2-subnets" {
     gateway_id  = aws_internet_gateway.sec_vpc_igw.id
   }
   
-  }
   tags = {
     Owner = "dan-via-terraform"
     Name  = "Secvpc-vpn-az2-subnet-RT"
