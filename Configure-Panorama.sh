@@ -25,7 +25,8 @@ echo "|     KeyPair    : "${ws_keypair}
 echo "|   ... Sending config commands  "
 
 # ssh to server and configure it 
-login_string="ssh admin@"${publicip}" -i "${ws_keypair}".pem -o StrictHostKeyChecking=accept-new"
+#login_string="ssh admin@"${publicip}" -i "${ws_keypair}".pem -o StrictHostKeyChecking=accept-new"
+login_string="ssh admin@"${publicip}" -i "${ws_keypair}".pem -o StrictHostKeyChecking=no"
 echo ">>"${login_string}
 
 result1=$(eval "$login_string")
