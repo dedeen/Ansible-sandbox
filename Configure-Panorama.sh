@@ -19,7 +19,7 @@ echo " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "|   Panorama: "${pano1_inst_name} 
 echo "!     InstanceId : "${instid}
 echo "|     PublicIP   : "${publicip}
-echo "|     KeyPair    : "{ws_keypair}
+echo "|     KeyPair    : "${ws_keypair}
 echo "|   ... Sending config commands  "
 echo " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
