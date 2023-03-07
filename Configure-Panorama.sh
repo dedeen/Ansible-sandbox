@@ -1,3 +1,4 @@
+ #!/bin/bash
 ###########################
 # Simple script to ssh to each Panorama server and perform some basic configuration
 pano1_inst_name=Panorama-1
