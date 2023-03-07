@@ -19,16 +19,27 @@ show vpn ipsec-sa tunnel <tunnel_name>
 
 tail follow yes mp-log ikemgr.log 
 tail follow yes mp-log cryptod.log 
+##################
+Panorama: 
 
+>> get public_ip for instance 
+>> get keypair name 
+>> ssh admin@public_ip -i keypair.pem 
+
+configure 
+set mgmt-config users admin password 
+ <> send password <>
+ 
+set deviceconfig system hostname Panorama-1
+set deviceconfig system motd-and-banner motd-title "Pano1_within_AWS"
+set deviceconfig system motd-and-banner banner-header-color color2
+commit 
+exit
 
 ##################
 
 git ls-files | xargs wc -l
 aws ec2 describe-import-image-tasks --import-task-ids=import-ami-0797d04919bc40668
-
-aws ec2 describe-images --filters "Name=product-code,Values=6njl1pau431dv1qxipg63mvah" Name=name,Values=PA-VM-AWS*10*  --region us-west-2 --output json
-6njl1pau431dv1qxipg63mvah
-
 
 SDF Username:  danedeen
 SDF Password:  Leln35shbwscGA
