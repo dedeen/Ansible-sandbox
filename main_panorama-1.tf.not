@@ -1,8 +1,20 @@
-#  Terraform to create first Palo Alto Panorama system.
+#  Terraform to create Palo Alto Networks Panorama system in AWS
+
+locals {
+  panorama_ami       = "ami-0f5970a9ddece7cc4"    # Panorama 10.1.9 from AWS marketplace
+  awslinux_ami       = "ami-094125af156557ca2"    # AMI for testing build, routes etc. 
+  panorama_inst_type = "c5.4xlarge"               # PAN min recommendation
+  awslinux_inst_type = "t2.small"                 # max 4 NICs
+  }
+
+
+
 
 resource "aws_instance" "Panorama-1" {
-  ami                                 = "ami-094125af156557ca2"
-  instance_type                       = "t2.micro"               
+  ami                                 = local.panorama_ami
+  #ami                                = local.awslinux_ami
+  instance_type                       = local.panorama_inst_type
+  #instance_type                      = local.awslinux_inst_type
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = false
   private_ip                          = "10.255.1.10"
