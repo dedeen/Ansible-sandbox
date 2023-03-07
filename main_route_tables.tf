@@ -54,7 +54,7 @@ resource "aws_route_table_association" "app2-az2-assoc" {
   
 # Create RT for private interfaces on Panorama instances
 resource "aws_route_table" "mgmtvpc-rt-private-subnets" {
-  depends_on            = [aws_ec2_transit_gateway.TGW-PAN.id]
+  depends_on            = [aws_ec2_transit_gateway.TGW-PAN]
   vpc_id                = module.vpc["mgmtvpc"].vpc_id 
   route {                                                       # local route to the VPC is added to RT automatically 
     cidr_block          = "10.100.0.0/16"                       # route to PA-VM firewalls
@@ -73,7 +73,7 @@ resource "aws_route_table" "mgmtvpc-rt-private-subnets" {
   
 # Create RT for public interfaces on Panorama instances
 resource "aws_route_table" "mgmtvpc-rt-public-subnets" {
-  depends_on            = [aws_ec2_transit_gateway.TGW-PAN.id]
+  depends_on            = [aws_ec2_transit_gateway.TGW-PAN]
   vpc_id                = module.vpc["mgmtvpc"].vpc_id 
   route {                                                       # local route to the VPC is added to RT automatically 
     cidr_block          = "0.0.0.0/0"
