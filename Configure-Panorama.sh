@@ -16,7 +16,8 @@ echo "Instance KeyPair:"${ws_keypair}
 publicip=$(aws ec2 describe-instances --instance-ids ${instid} --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
 
 echo " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-echo "|   Panorama: "${pano1_inst_name} "Remapped to IGW for sw install"
+echo "|   Panorama: "${pano1_inst_name} 
 echo "|   PublicIP :"${publicip}
+echo "|   ... Sending config commands  "
 echo " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
