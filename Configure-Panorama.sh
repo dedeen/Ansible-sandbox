@@ -23,7 +23,7 @@ echo "|     KeyPair    : "${ws_keypair}
 echo "|   ... Sending config commands  "
 
 # ssh to server and configure it 
-login_string="ssh admin@"${publicip}" -i "${ws_keypair}".pem"
+login_string="ssh admin@"${publicip}" -i "${ws_keypair}".pem -o StrictHostKeyChecking=accept-new"
 echo ">>"${login_string}
 #ssh admin@${publicip} -i
 
