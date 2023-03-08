@@ -32,9 +32,10 @@ echo "|     PublicIP   : "${publicip2}
 echo "|     KeyPair    : "${ws_keypair2}
 echo "|  "
 
-# ssh to server and configure it 
-#login_string="ssh admin@"${publicip}" -i "${ws_keypair}".pem -o StrictHostKeyChecking=accept-new"
-login_string="ssh admin@"${publicip}" -i "${ws_keypair}".pem -o StrictHostKeyChecking=no"
+# ssh to server command
+login_string1="ssh admin@"${publicip1}" -i "${ws_keypair1}".pem -o StrictHostKeyChecking=no"
+echo ">>"${login_string}
+login_string2="ssh admin@"${publicip1}" -i "${ws_keypair1}".pem -o StrictHostKeyChecking=no"
 echo ">>"${login_string}
 
 #echo " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
