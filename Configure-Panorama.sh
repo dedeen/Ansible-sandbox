@@ -34,9 +34,9 @@ echo "|  "
 
 # ssh to server command
 login_string1="ssh admin@"${publicip1}" -i "${ws_keypair1}".pem -o StrictHostKeyChecking=no"
-echo ">>"${login_string}
 login_string2="ssh admin@"${publicip1}" -i "${ws_keypair1}".pem -o StrictHostKeyChecking=no"
-echo ">>"${login_string}
+echo ">>"${login_string1}
+echo ">>"${login_string2}
 
 #echo " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
