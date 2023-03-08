@@ -1,9 +1,0 @@
-[ 
-  { 
-    "Description": "PA Firewall OVA", 
-    "Format": "ova", 
-    "UserBucket": { 
-        "S3Bucket": "ova-filestore", 
-        "S3Key": "PAVMBaseline3Z.ova" 
-    } 
-}]
