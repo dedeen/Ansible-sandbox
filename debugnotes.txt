@@ -1,5 +1,8 @@
 File to track EC2 resources for validation of end-to-end routing within environment. 
 
+ssh ec2-user@52.40.21.110 -i ./terraform-key-pair.1364.pem -o StrictHostKeyChecking=no "pwd; pwd"
+ssh admin@44.236.244.48 -i ./terraform-key-pair.1364.pem -o IPQoS=0 -E log1 -v -x "exit"
+#ssh admin@44.236.244.48 -i ./terraform-key-pair.1364.pem -o StrictHostKeyChecking=no -E log1 -v -x "exit"
 
 Debug instructions/notes: 
 ssh ec2-user@34.208.9.49 -i terraform-key-pair.55b0.pem
