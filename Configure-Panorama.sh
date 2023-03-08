@@ -39,4 +39,15 @@ echo ">>"${login_string1}
 echo ">>"${login_string2}
 
 #echo " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+# Send these to each Panorama System
 
+#configure 
+#set mgmt-config users admin password 
+# <> send password <>
+# 
+#set deviceconfig system hostname Panorama-1
+#set deviceconfig system motd-and-banner motd-title "Pano1_within_AWS"
+#set deviceconfig system motd-and-banner banner-header-color color2
+#commit 
+#exit
+###############
