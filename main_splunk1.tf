@@ -3,7 +3,7 @@
 locals {
   splunk_ami              = "ami-0b5cb59327b8d7e1f"    # Panorama 10.1.9 from AWS marketplace
   test_linux_ami          = "ami-094125af156557ca2"    # AMI for testing build, routes etc. 
-  panorama_inst_type      = "c5.large"                 # Splunk recommendation
+  splunk_inst_type        = "c5.large"                 # Splunk recommendation
   test_linux_inst_type    = "t2.small"                 # max 4 NICs
   }
 
