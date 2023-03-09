@@ -1,3 +1,23 @@
-openssl is already installed 
+First, install updates and apache on the EC2 AWS linux: 
 
-sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache.key -out /etc/ssl/certs/apache.crt
+sudo yum update -y
+sudo amazon-linux-extras install php8.0 mariadb10.5 -y
+sudo yum install -y httpd
+sudo systemctl start httpd
+sudo systemctl enable httpd
+
+AWS instructions for setting up https:
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/SSL-on-amazon-linux-2.html
+
+sudo systemctl is-enabled httpd
+sudo yum install -y mod_ssl
+cd /etc/pki/tls/certs
+sudo ./make-dummy-cert localhost.crt
+
+>> edit /etc/httpd/conf.d/ssl.conf 
+>> comment out this line: SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
+
+>> restart Apache: sudo systemctl restart httpd
+
+html files: /var/www/html
+
