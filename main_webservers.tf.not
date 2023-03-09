@@ -18,22 +18,7 @@ resource "aws_instance" "websrv1-p80-az1" {
     }
 }
 
-resource "aws_instance" "websrv2-p80-az2" {
-  ami                                 = "ami-094125af156557ca2"
-  instance_type                       = "t2.micro"
-  key_name                            = "${aws_key_pair.generated_key.key_name}"
-  associate_public_ip_address         = false
-  private_ip                          = "10.110.128.30"
-  subnet_id                           = module.vpc["websrvvpc"].intra_subnets[3]            # subnet=websrv-az2-inst
-  vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["websrvvpc"].id]  
-  source_dest_check                   = true
-  tags = {
-          Owner = "dan-via-terraform"
-          Name  = "websrv1-p80-az2"
-    }
-}
-
-resource "aws_instance" "websrv3-p443-az1" {
+resource "aws_instance" "websrv2-p443-az1" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
   key_name                            = "${aws_key_pair.generated_key.key_name}"
@@ -44,11 +29,28 @@ resource "aws_instance" "websrv3-p443-az1" {
   source_dest_check                   = true
   tags = {
           Owner = "dan-via-terraform"
-          Name  = "websrv3-p443-az1"
+          Name  = "websrv2-p443-az1"
     }
 }
 
-resource "aws_instance" "websrv3-p443-az2" {
+resource "aws_instance" "websrv3-p80-az2" {
+  ami                                 = "ami-094125af156557ca2"
+  instance_type                       = "t2.micro"
+  key_name                            = "${aws_key_pair.generated_key.key_name}"
+  associate_public_ip_address         = false
+  private_ip                          = "10.110.128.30"
+  subnet_id                           = module.vpc["websrvvpc"].intra_subnets[3]            # subnet=websrv-az2-inst
+  vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["websrvvpc"].id]  
+  source_dest_check                   = true
+  tags = {
+          Owner = "dan-via-terraform"
+          Name  = "websrv3-p80-az2"
+    }
+}
+
+
+
+resource "aws_instance" "websrv4-p443-az2" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
   key_name                            = "${aws_key_pair.generated_key.key_name}"
