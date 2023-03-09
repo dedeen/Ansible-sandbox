@@ -33,14 +33,6 @@ variable "app_vpcs" {
 			#subnet_names		= 	["mgmt-az1-inst","mgmt-az1-TGW","mgmt-az2-inst","mgmt-az2-TGW"]
 			subnet_names		= 	["mgmt-az1-int","mgmt-az1-pub","mgmt-az1-TGW","mgmt-az2-int","mgmt-az2-pub","mgmt-az2-TGW"]
 		}  
-		onpremvpc = {
-			map_key			= 	"onpremvpc"
-			region_dc		= 	"On-Prem-DC"
-			cidr			= 	"10.5.0.0/16"
-			az_list			= 	["us-west-2a"]
-			vpc_subnets		= 	["10.5.0.0/18"]
-			subnet_names		= 	["On-Prem-subnet"]
-		}  
 		secvpc = {		
 			map_key			= 	"secvpc"
 			region_dc		= 	"Sec01-VPC"
