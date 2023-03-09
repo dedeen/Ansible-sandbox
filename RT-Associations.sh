@@ -74,15 +74,6 @@ subnet[12]=mgmt-az1-pub
 originalrt[13]=Mgmt-VPC-intra
 targetrt[13]=Mgmt-public-subnets-RT
 subnet[13]=mgmt-az2-pub
-
-#Next two are temporary for interim non-GWLB arch
-#originalrt[14]=Sec01-VPC-intra
-#targetrt[14]=devonly_secvpc_tgwatt-az1-subnet
-#subnet[14]=sec-az1-TGW_Att
-#
-#originalrt[15]=Sec01-VPC-intra
-#targetrt[15]=devonly_secvpc_tgwatt-az2-subnet
-#subnet[15]=sec-az2-TGW_Att
 #
 # Next two are for the web servers for inbound traffic through the firewall
 originalrt[14]=WebSrv-VPC-intra
