@@ -4,18 +4,25 @@
 #   will not show the correct destination IP address. 
 #      dan@dsbluenet, 2023 
 #
-touch /usr/tmp/instancemetadata
-chmod 777 /usr/tmp/instancemetadata
-echo "Instance Meta-Data" >> /usr/tmp/instancemetadata
-echo -n "Private IP:" >> /usr/tmp/instancemetadata
-curl http://169.254.169.254/latest/meta-data/local-ipv4 >>/usr/tmp/instancemetadata
-echo "" >> /usr/tmp/instancemetadata
-echo -n "Public IP:" >> /usr/tmp/instancemetadata
-curl http://169.254.169.254/latest/meta-data/public-ipv4 >>/usr/tmp/instancemetadata
-echo "" >> /usr/tmp/instancemetadata
-echo -n "Instance ID:" >> /usr/tmp/instancemetadata
-curl http://169.254.169.254/latest/meta-data/instance-id >>/usr/tmp/instancemetadata
-echo "" >> /usr/tmp/instancemetadata
-echo -n "Instance Type:" >> /usr/tmp/instancemetadata
-curl http://169.254.169.254/latest/meta-data/instance-type >>/usr/tmp/instancemetadata
-echo "" >> /usr/tmp/instancemetadata
+meta_data_file=/var/www/html/instance_meta_data.txt
+sudo touch "${meta_data_file}"
+sudo chmod 777 "${meta_data_file}"
+
+echo ". . . . . . . . . . . . " >> "${meta_data_file}"
+echo "Instance Meta-Data" >> "${meta_data_file}"
+echo -n "Private IP:" >> "${meta_data_file}"
+sudo curl http://169.254.169.254/latest/meta-data/local-ipv4 >> "${meta_data_file}"
+echo "" >> "${meta_data_file}"
+
+echo -n "Public IP:" >> "${meta_data_file}"
+sudo curl http://169.254.169.254/latest/meta-data/public-ipv4 >> "${meta_data_file}"
+echo "" >> "${meta_data_file}"
+
+echo -n "Instance ID:" >> "${meta_data_file}"
+sudo curl http://169.254.169.254/latest/meta-data/instance-id >> "${meta_data_file}"
+echo "" >> "${meta_data_file}"
+
+echo -n "Instance Type:" >> "${meta_data_file}"
+sudo curl http://169.254.169.254/latest/meta-data/instance-type >> "${meta_data_file}"
+echo "" "${meta_data_file}"
+echo ". . . . . . . . . . . . " >> "${meta_data_file}"
