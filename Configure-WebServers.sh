@@ -31,7 +31,7 @@
 
 # Set up some variables (ws == webserver host)
 debug_flag=1                  #0: run straight through script, 1: pause and prompt during script run
-which_web_server=2            #set up for 1 or 2
+which_web_server=2            #set up for 1,2,3,4,etc
 
 #Common vars 
 bh_AMI=ami-094125af156557ca2
@@ -45,8 +45,8 @@ igw_name=temp-webserver-igw
 if [ $which_web_server -eq 1 ]
    then 
       echo "  --> Setting up to build Web Server #1"
-      #Webserver1 specific vars
-      ws_inst_name=WebSrv1-az1
+      # Webserver specific vars
+      ws_inst_name=websrv1-p80-az1
       ws_subnet=websrv-az1-inst
       ws_subnet_private_ip="10.110.0.30"
       ws_normal_rt=WebSrv-subnets-RT
@@ -56,15 +56,35 @@ if [ $which_web_server -eq 1 ]
 if [ $which_web_server -eq 2 ]
    then 
       echo "  --> Setting up to build Web Server #2"
-      #Webserver1 specific vars
-      ws_inst_name=WebSrv1-az2
+      # Webserver specific vars
+      ws_inst_name=websrv2-p443-az1
+      ws_subnet=websrv-az1-inst
+      ws_subnet_private_ip="10.110.0.40"
+      ws_normal_rt=WebSrv-subnets-RT
+      ws_temp_rt=Temp-RT-WebSrv-subnets
+ fi 
+
+if [ $which_web_server -eq 3 ]
+   then 
+      echo "  --> Setting up to build Web Server #3"
+      # Webserver specific vars
+      ws_inst_name=websrv3-p80-az2
       ws_subnet=websrv-az2-inst
       ws_subnet_private_ip="10.110.128.30"
       ws_normal_rt=WebSrv-subnets-RT
       ws_temp_rt=Temp-RT-WebSrv-subnets
  fi 
 
-
+if [ $which_web_server -eq 4 ]
+   then 
+      echo "  --> Setting up to build Web Server #4"
+      # Webserver specific vars
+      ws_inst_name=websrv4-p443-az2
+      ws_subnet=websrv-az2-inst
+      ws_subnet_private_ip="10.110.128.40"
+      ws_normal_rt=WebSrv-subnets-RT
+      ws_temp_rt=Temp-RT-WebSrv-subnets
+ fi 
 
 # Get some info from AWS for the target webserver
 subnetid=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=${ws_subnet}" --query "Subnets[*].SubnetId" --output text)
