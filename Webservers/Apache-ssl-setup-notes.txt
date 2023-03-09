@@ -19,5 +19,10 @@ sudo ./make-dummy-cert localhost.crt
 
 >> restart Apache: sudo systemctl restart httpd
 
+>> edit /etc/httpd/conf/httpd.conf 
+  - change 'Listen 80' to 'Listen 8999', save, restart httpd
+  - 'sudo systemctl restart httpd'
+
+
 html files: /var/www/html
 
