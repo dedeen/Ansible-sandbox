@@ -1,10 +1,20 @@
-First, install updates and apache on the EC2 AWS linux: 
+1. First, install updates and apache on the EC2 AWS linux: 
 
 sudo yum update -y
 sudo amazon-linux-extras install php8.0 mariadb10.5 -y
 sudo yum install -y httpd
 sudo systemctl start httpd
 sudo systemctl enable httpd
+
+2. Run meta-data collection script
+cd /var/www/html
+run getmetadata.sh
+
+3. HTTP (port 80)
+put in index80.html as index.html
+put in panlogo.png 
+
+port 80 system should be done 
 
 AWS instructions for setting up https:
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/SSL-on-amazon-linux-2.html
