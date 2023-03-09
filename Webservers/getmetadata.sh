@@ -27,3 +27,9 @@ sudo curl http://169.254.169.254/latest/meta-data/instance-type >> "${meta_data_
 echo " " >> "${meta_data_file}"
 echo ". . . . . . . . . . . . " >> "${meta_data_file}"
 #
+###
+Get PAN logo 
+sudo touch /var/www/html/panlogo.png
+sudo chmod 777 /var/www/html/panlogo.png
+sudo curl https://www.paloaltonetworks.com/content/dam/pan/en_US/images/logos/brand/primary-company-logo-color-white/PANW_Parent_Brand_Primary_Logo_RGB_Red_White.png?imbypass=on >
+panlogo.png
