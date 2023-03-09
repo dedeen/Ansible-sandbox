@@ -38,8 +38,7 @@ sudo ./make-dummy-cert localhost.crt
 
 >> restart Apache: sudo systemctl restart httpd
 
-- 'sudo systemctl restart httpd'
-
-
+SSL system should be done now
+#################
 html files: /var/www/html
 
