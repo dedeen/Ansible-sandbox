@@ -24,6 +24,6 @@ echo "" >> "${meta_data_file}"
 #
 echo -n "Instance Type:" >> "${meta_data_file}"
 sudo curl http://169.254.169.254/latest/meta-data/instance-type >> "${meta_data_file}"
-echo "" "${meta_data_file}"
+echo " " >> "${meta_data_file}"
 echo ". . . . . . . . . . . . " >> "${meta_data_file}"
 #
