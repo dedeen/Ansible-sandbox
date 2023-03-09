@@ -1,31 +1,65 @@
 #  Terraform to create a EC2s that will serve as webservers to the outside world
+#      The servers are split across AZs in the VPC (az1, az2), and further divided 
+#      by http (port 80) an https (port 443). Traffic will be steered to the appropriate 
+#      port group by the external ALB. 
 
-resource "aws_instance" "WebSrv1-az1" {
+resource "aws_instance" "websrv1-p80-az1" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = false
   private_ip                          = "10.110.0.30"
-  subnet_id                           = module.vpc["websrvvpc"].intra_subnets[0]
+  subnet_id                           = module.vpc["websrvvpc"].intra_subnets[0]            # subnet=websrv-az1-inst
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["websrvvpc"].id]  
   source_dest_check                   = true
   tags = {
           Owner = "dan-via-terraform"
-          Name  = "WebSrv1-az1"
+          Name  = "websrv1-p80-az1"
     }
 }
 
-resource "aws_instance" "WebSrv1-az2" {
+resource "aws_instance" "websrv2-p80-az2" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = false
   private_ip                          = "10.110.128.30"
-  subnet_id                           = module.vpc["websrvvpc"].intra_subnets[3]
+  subnet_id                           = module.vpc["websrvvpc"].intra_subnets[3]            # subnet=websrv-az2-inst
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["websrvvpc"].id]  
   source_dest_check                   = true
   tags = {
           Owner = "dan-via-terraform"
-          Name  = "WebSrv1-az2"
+          Name  = "websrv1-p80-az2"
     }
 }
+
+resource "aws_instance" "websrv3-p443-az1" {
+  ami                                 = "ami-094125af156557ca2"
+  instance_type                       = "t2.micro"
+  key_name                            = "${aws_key_pair.generated_key.key_name}"
+  associate_public_ip_address         = false
+  private_ip                          = "10.110.0.40"
+  subnet_id                           = module.vpc["websrvvpc"].intra_subnets[0]            # subnet=websrv-az1-inst
+  vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["websrvvpc"].id]  
+  source_dest_check                   = true
+  tags = {
+          Owner = "dan-via-terraform"
+          Name  = "websrv3-p443-az1"
+    }
+}
+
+resource "aws_instance" "websrv3-p443-az2" {
+  ami                                 = "ami-094125af156557ca2"
+  instance_type                       = "t2.micro"
+  key_name                            = "${aws_key_pair.generated_key.key_name}"
+  associate_public_ip_address         = false
+  private_ip                          = "10.110.128.40"
+  subnet_id                           = module.vpc["websrvvpc"].intra_subnets[3]            # subnet=websrv-az2-inst
+  vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["websrvvpc"].id]  
+  source_dest_check                   = true
+  tags = {
+          Owner = "dan-via-terraform"
+          Name  = "websrv4-p443-az2"
+    }
+}
+
