@@ -14,7 +14,7 @@ resource "aws_instance" "websrv1-p80-az1" {
   user_data = <<EOF
 		#!/bin/bash
 		sudo yum update -y
-    sudo amazon-linux-extras install php8.0 mariadb10.5 -y
+    		sudo amazon-linux-extras install php8.0 mariadb10.5 -y
 		sudo yum install -y httpd
 		sudo systemctl start httpd
 		sudo systemctl enable httpd
@@ -33,7 +33,15 @@ resource "aws_instance" "websrv2-p443-az1" {
   associate_public_ip_address         = false
   private_ip                          = "10.110.0.40"
   subnet_id                           = module.vpc["websrvvpc"].intra_subnets[0]            # subnet=websrv-az1-inst
-  vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["websrvvpc"].id]  
+  vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["websrvvpc"].id]
+   user_data = <<EOF
+		#!/bin/bash
+		sudo yum update -y
+    		sudo amazon-linux-extras install php8.0 mariadb10.5 -y
+		sudo yum install -y httpd
+		sudo systemctl start httpd
+		sudo systemctl enable httpd
+	EOF
   source_dest_check                   = true
   tags = {
           Owner = "dan-via-terraform"
@@ -49,6 +57,14 @@ resource "aws_instance" "websrv3-p80-az2" {
   private_ip                          = "10.110.128.30"
   subnet_id                           = module.vpc["websrvvpc"].intra_subnets[3]            # subnet=websrv-az2-inst
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["websrvvpc"].id]  
+   user_data = <<EOF
+		#!/bin/bash
+		sudo yum update -y
+    		sudo amazon-linux-extras install php8.0 mariadb10.5 -y
+		sudo yum install -y httpd
+		sudo systemctl start httpd
+		sudo systemctl enable httpd
+	EOF
   source_dest_check                   = true
   tags = {
           Owner = "dan-via-terraform"
@@ -66,6 +82,14 @@ resource "aws_instance" "websrv4-p443-az2" {
   private_ip                          = "10.110.128.40"
   subnet_id                           = module.vpc["websrvvpc"].intra_subnets[3]            # subnet=websrv-az2-inst
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["websrvvpc"].id]  
+   user_data = <<EOF
+		#!/bin/bash
+		sudo yum update -y
+    		sudo amazon-linux-extras install php8.0 mariadb10.5 -y
+		sudo yum install -y httpd
+		sudo systemctl start httpd
+		sudo systemctl enable httpd
+	EOF
   source_dest_check                   = true
   tags = {
           Owner = "dan-via-terraform"
