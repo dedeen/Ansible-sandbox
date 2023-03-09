@@ -11,6 +11,14 @@ resource "aws_instance" "websrv1-p80-az1" {
   private_ip                          = "10.110.0.30"
   subnet_id                           = module.vpc["websrvvpc"].intra_subnets[0]            # subnet=websrv-az1-inst
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["websrvvpc"].id]  
+  user_data = <<EOF
+		#!/bin/bash
+		sudo yum update -y
+    sudo amazon-linux-extras install php8.0 mariadb10.5 -y
+		sudo yum install -y httpd
+		sudo systemctl start httpd
+		sudo systemctl enable httpd
+	EOF
   source_dest_check                   = true
   tags = {
           Owner = "dan-via-terraform"
