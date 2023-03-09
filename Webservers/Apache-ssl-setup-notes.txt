@@ -10,12 +10,18 @@ sudo systemctl enable httpd
 cd /var/www/html
 run getmetadata.sh
 
-3. HTTP (port 80)
+3A. HTTP (port 80)
 put in index80.html as index.html
 put in panlogo.png 
 
 port 80 system should be done 
+##################
+3B. HTTPS (port 443)
+put in index443.html as index.html
+put in panlogo.png 
 
+##################
+port 443: ssl/https:
 AWS instructions for setting up https:
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/SSL-on-amazon-linux-2.html
 
@@ -24,14 +30,15 @@ sudo yum install -y mod_ssl
 cd /etc/pki/tls/certs
 sudo ./make-dummy-cert localhost.crt
 
->> edit /etc/httpd/conf.d/ssl.conf 
+>> sudo vi /etc/httpd/conf.d/ssl.conf 
 >> comment out this line: SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
+
+>> sudo vi /etc/httpd/conf/httpd.conf 
+  - change 'Listen 80' to 'Listen 8999', save, restart httpd
 
 >> restart Apache: sudo systemctl restart httpd
 
->> edit /etc/httpd/conf/httpd.conf 
-  - change 'Listen 80' to 'Listen 8999', save, restart httpd
-  - 'sudo systemctl restart httpd'
+- 'sudo systemctl restart httpd'
 
 
 html files: /var/www/html
