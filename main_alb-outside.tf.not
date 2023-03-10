@@ -62,21 +62,21 @@ resource "aws_lb_listener" "ALB-Outside-Listener-80" {
   }
 }  
 #
-resource "aws_lb_listener" "ALB-Outside-Listener-443" {
-  load_balancer_arn       = aws_lb.ALB-Outside.arn
-  port                    = 443
-  protocol                = "HTTPS"
-  
-  default_action {
-    type = "fixed-response"
-
-    fixed_response {
-      content_type = "text/plain"
-      message_body = "Service Unavailable Here, Move On"
-      status_code  = "503"
-    }
-  }
-}  
+#resource "aws_lb_listener" "ALB-Outside-Listener-443" {
+#  load_balancer_arn       = aws_lb.ALB-Outside.arn
+#  port                    = 443
+#  protocol                = "HTTPS"
+#  
+#  default_action {
+#    type = "fixed-response"
+#
+#    fixed_response {
+#      content_type = "text/plain"
+#      message_body = "Service Unavailable Here, Move On"
+#      status_code  = "503"
+#    }
+#  }
+#}  
 
 ###########
 
