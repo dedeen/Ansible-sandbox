@@ -11,11 +11,11 @@ resource "aws_lb" "ALB-Outside" {
   
   subnet_mapping  {                        
     subnet_id             = module.vpc["secvpc"].intra_subnets[2]           # subnet = sec-az1-pub
-    private_ipv4_address  = "10.100.2.15"
+    #private_ipv4_address  = "10.100.2.15"
   }
   subnet_mapping  {
     subnet_id            = module.vpc["secvpc"].intra_subnets[8]            # subnet = sec-az2-pub
-    private_ipv4_address  = "10.100.66.15"
+    i#private_ipv4_address  = "10.100.66.15"
   }
   tags = {
     Owner = "dan-via-terraform"
