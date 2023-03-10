@@ -64,8 +64,8 @@ resource "aws_lb_listener" "ALB-Outside-Listener-80" {
 #
 #resource "aws_lb_listener" "ALB-Outside-Listener-443" {
 #  load_balancer_arn       = aws_lb.ALB-Outside.arn
-#  port                    = 443
-#  protocol                = "HTTPS"
+#  port                    = 80
+#  protocol                = "HTTP"
 #  
 #  default_action {
 #    type = "fixed-response"
