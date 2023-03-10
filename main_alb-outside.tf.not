@@ -32,7 +32,7 @@ resource "aws_lb_target_group" "ALB-TG-Group80" {
   vpc_id                  = module.vpc["secvpc"].vpc_id
  
   health_check {
-    enabled               = 
+    enabled               = true
     port                  = 80
     protocol              = "HTTP"
     timeout               = 5
