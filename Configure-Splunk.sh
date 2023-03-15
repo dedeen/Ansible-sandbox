@@ -23,3 +23,12 @@ echo "     admin"
 echo "     SPLUNK-"${instid1}
 ###############
 # ssh to splunk as ec2-user@54.44.33.22 -i ter..pem
+#  in /opt/splunk/etc/system/local/inputs.conf 
+#  add: 
+   #index = pan_logs
+   #sourcetype = pan_log
+   #connection_host = ip
+   #no_appending_timestamp = true
+# then restart the splunk service 
+#
+
