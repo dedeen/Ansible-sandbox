@@ -1,61 +1,67 @@
-#  Terraform to create a EC2s in the AZ/subnets of the application vpcs
+#  Terraform to create a end user EC2s in the AZ/subnets of the user vpcs (Usr01-VPC, Usr02-VPC). There are two user subnets per 
+#    VPC, distributed across AZs for redundancy. 
 
-resource "aws_instance" "EC2-app1vpc-az1" {
+#  First end user EC2 in VPC=usr1vpc, subnet=usr1-az1-inst, vars.tf subnet index = 0
+resource "aws_instance" "usr1-az1-linux" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = false
   private_ip                          = "10.104.0.20"
-  subnet_id                           = module.vpc["app1vpc"].intra_subnets[0]
-  vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["app1vpc"].id]  
+  subnet_id                           = module.vpc["usr1vpc"].intra_subnets[0]
+  vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["usr1vpc"].id]  
   source_dest_check                   = true
   tags = {
           Owner = "dan-via-terraform"
-          Name  = "EC2-app1vpc-az1"
+          Name  = "usr1-az1-linux"
     }
 }
-  
-resource "aws_instance" "EC2-app1vpc-az2" {
+ 
+#  Second end user EC2 in VPC=usr1vpc, subnet=usr1-az2-inst, vars.tf subnet index = 2
+resource "aws_instance" "usr1-az2-linux" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = false
   private_ip                          = "10.104.128.20"
-  subnet_id                           = module.vpc["app1vpc"].intra_subnets[2]
-  vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["app1vpc"].id]  
+  subnet_id                           = module.vpc["usr1vpc"].intra_subnets[2]
+  vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["usr1vpc"].id]  
   source_dest_check                   = true
   tags = {
           Owner = "dan-via-terraform"
-          Name  = "EC2-app1vpc-az2"
+          Name  = "usr1-az2-linux"
     }
 }
 
-resource "aws_instance" "EC2-app2vpc-az1" {
+#  Third end user EC2 in VPC=usr2vpc, subnet=usr2-az1-inst, vars.tf subnet index = 0
+resource "aws_instance" "usr2-az1-linux" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = false
   private_ip                          = "10.105.0.20"
-  subnet_id                           = module.vpc["app2vpc"].intra_subnets[0]
-  vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["app2vpc"].id]  
+  subnet_id                           = module.vpc["usr2vpc"].intra_subnets[0]
+  vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["usr2vpc"].id]  
   source_dest_check                   = true
   tags = {
           Owner = "dan-via-terraform"
-          Name  = "EC2-app2vpc-az1"
+          Name  = "usr2-az1-linux"
     }
 }
-  
-resource "aws_instance" "EC2-app2vpc-az2" {
+
+#  Fourth end user EC2 in VPC=usr2vpc, subnet=usr2-az2-inst, vars.tf subnet index = 2
+resource "aws_instance" "usr2-az2-linux" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = false
   private_ip                          = "10.105.128.20"
-  subnet_id                           = module.vpc["app2vpc"].intra_subnets[2]
-  vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["app2vpc"].id]  
+  subnet_id                           = module.vpc["usr2vpc"].intra_subnets[2]
+  vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["usr2vpc"].id]  
   source_dest_check                   = true
   tags = {
           Owner = "dan-via-terraform"
-          Name  = "EC2-app2vpc-az2"
+          Name  = "usr2-az2-linux"
     }
 }
+##
