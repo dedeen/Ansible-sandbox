@@ -8,7 +8,7 @@ variable "app_vpcs" {
 	type		= map(any)
 
 	default = {
-		app1vpc = {
+		usr1vpc = {
 			map_key			= 	"usr1vpc"	# Easy way to dereference map elements, must match var name to work
 			region_dc		= 	"Usr01-VPC"
 			cidr			= 	"10.104.0.0/16"
@@ -16,7 +16,7 @@ variable "app_vpcs" {
 			vpc_subnets		= 	["10.104.0.0/24","10.104.1.0/24","10.104.128.0/24","10.104.129.0/24","10.104.3.0/24"]
 			subnet_names		= 	["usr1-az1-inst","usr1-az1-TGW", "usr1-az2-inst","usr1-az2-TGW","usr1-az1-bastion"]
 		},
-		app2vpc = {
+		usr2vpc = {
 			map_key			= 	"usr2vpc"
 			region_dc		= 	"Usr02-VPC"
 			cidr			= 	"10.105.0.0/16"
