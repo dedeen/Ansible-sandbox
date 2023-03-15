@@ -31,7 +31,7 @@ EOF
   
 # Add two more NICs to the PA-VM instance 
 resource "aws_network_interface" "eth1" {
-  subnet_id             = module.vpc["secvpc"].intra_subnets[1]                   #internal (app-vpc side) subnet
+  subnet_id             = module.vpc["secvpc"].intra_subnets[1]                   #internal-facing subnet
   security_groups       = [aws_security_group.SG-allow_ipv4["secvpc"].id]
   private_ips           = ["10.100.1.10"]   
   source_dest_check     = false                                                 #need this for firewall interfaces
@@ -54,7 +54,7 @@ resource "aws_network_interface" "eth2" {
   }
 }
   
-# Create two EIPs for each PA-VM, one for the mgmt interface, and one for the public-side interface for outbound traffic flows from app-vpcs. 
+# Create two EIPs for each PA-VM, one for the mgmt interface, and one for the public-side interface for outbound traffic flows from internal vpcs. 
 resource "aws_eip" "PA1-eip-mgmt-int" {
   vpc                   = true
 }
