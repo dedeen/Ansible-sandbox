@@ -1,5 +1,5 @@
 /*  Terraform variables defined here. 
-      Dan Edeen, dan@dsblue.net, 2022 
+      Dan Edeen, dan@dsblue.net, 2023 
 */
 
 # VPC parms, can build mutiple by passing in via this map 
@@ -9,20 +9,20 @@ variable "app_vpcs" {
 
 	default = {
 		app1vpc = {
-			map_key			= 	"app1vpc"	# Easy way to dereference map elements, must match var name to work
-			region_dc		= 	"App01-VPC"
+			map_key			= 	"usr1vpc"	# Easy way to dereference map elements, must match var name to work
+			region_dc		= 	"Usr01-VPC"
 			cidr			= 	"10.104.0.0/16"
 			az_list			= 	["us-west-2a","us-west-2a","us-west-2b","us-west-2b","us-west-2a"]
 			vpc_subnets		= 	["10.104.0.0/24","10.104.1.0/24","10.104.128.0/24","10.104.129.0/24","10.104.3.0/24"]
-			subnet_names		= 	["app1-az1-inst","app1-az1-TGW", "app1-az2-inst","app1-az2-TGW","app1-az1-bastion"]
+			subnet_names		= 	["usr1-az1-inst","usr1-az1-TGW", "usr1-az2-inst","usr1-az2-TGW","usr1-az1-bastion"]
 		},
 		app2vpc = {
-			map_key			= 	"app2vpc"
-			region_dc		= 	"App02-VPC"
+			map_key			= 	"usr2vpc"
+			region_dc		= 	"Usr02-VPC"
 			cidr			= 	"10.105.0.0/16"
 			az_list			= 	["us-west-2a","us-west-2a","us-west-2b","us-west-2b","us-west-2a"]
 			vpc_subnets		= 	["10.105.0.0/24","10.105.1.0/24","10.105.128.0/24","10.105.129.0/24","10.105.3.0/24"]
-			subnet_names		= 	["app2-az1-inst","app2-az1-TGW", "app2-az2-inst","app2-az2-TGW","app2-az1-bastion"]
+			subnet_names		= 	["usr2-az1-inst","usr2-az1-TGW", "usr2-az2-inst","usr2-az2-TGW","usr2-az1-bastion"]
 		},  
 		mgmtvpc = {
 			map_key			= 	"mgmtvpc"
@@ -30,7 +30,6 @@ variable "app_vpcs" {
 			cidr			= 	"10.255.0.0/16"
 			az_list			= 	["us-west-2a","us-west-2a","us-west-2a","us-west-2b","us-west-2b","us-west-2b"]
 			vpc_subnets		= 	["10.255.0.0/24","10.255.1.0/24","10.255.2.0/24","10.255.128.0/24","10.255.129.0/24","10.255.130.0/24"]
-			#subnet_names		= 	["mgmt-az1-inst","mgmt-az1-TGW","mgmt-az2-inst","mgmt-az2-TGW"]
 			subnet_names		= 	["mgmt-az1-int","mgmt-az1-pub","mgmt-az1-TGW","mgmt-az2-int","mgmt-az2-pub","mgmt-az2-TGW"]
 		}  
 		secvpc = {		
