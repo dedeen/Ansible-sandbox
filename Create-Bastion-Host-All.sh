@@ -4,7 +4,7 @@
 #        same directory. 
 
 # Set up some variables (bh == bastion host)
-debug_flag=1                  #0: run straight through script, 1: pause and prompt during script run
+debug_flag=0                  #0: run straight through script, 1: pause and prompt during script run
 which_bastion_host=1          # 1: build bastion 1 with the local vars listed just below
 #which_bastion_host=2         # 2: build bastion 2 with the local vars listed just below
 
