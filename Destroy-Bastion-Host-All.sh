@@ -14,25 +14,25 @@ open_sec_group=SG-allow_ipv4
 if [ $which_bastion_host -eq 1 ]
    then 
       echo "  --> Tearing Down Bastion host 1"
-      # Var for bastion 1 (App01-VPC)
-      bastion_subnet=app1-az1-bastion
+      # Var for bastion 1 (Usr01-VPC)
+      bastion_subnet=usr1-az1-bastion
       bh_igw_name=Bastion1-IGW
       bh_rt_name=Bastion-Host1-RT
       bh_ec2_name=Bastion-Host1
-      bh_vpc_name=App01-VPC-intra         # Actually name of default RT built by terraform
-      bh_vpc=App01-VPC                    # Name of the VPC that the bastion host will be created in
+      bh_vpc_name=Usr01-VPC-intra         # Actually name of default RT built by terraform
+      bh_vpc=Usr01-VPC                    # Name of the VPC that the bastion host will be created in
   fi
 
 if [ $which_bastion_host -eq 2 ]
    then 
       echo "  --> Tearing Down Bastion host 2"
-      # Var for bastion 2 (App02-VPC)
-      bastion_subnet=app2-az1-bastion
+      # Var for bastion 2 (Usr02-VPC)
+      bastion_subnet=usr2-az1-bastion
       bh_igw_name=Bastion2-IGW
       bh_rt_name=Bastion-Host2-RT
       bh_ec2_name=Bastion-Host2
-      bh_vpc_name=App02-VPC-intra        # Actually name of default RT built by terraform
-      bh_vpc=App02-VPC                   # Name of the VPC that the bastion host will be created in
+      bh_vpc_name=Usr02-VPC-intra        # Actually name of default RT built by terraform
+      bh_vpc=Usr02-VPC                   # Name of the VPC that the bastion host will be created in
   fi 
 
 # Terminate the EC2 bastion host
