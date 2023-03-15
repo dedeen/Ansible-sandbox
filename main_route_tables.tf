@@ -31,8 +31,6 @@ resource "aws_route_table" "usr2vpc-rt" {
 
 # Need to associate RT with both instance subnets in usr2vpc (one per AZ)
 #    Done in external shell script (RT-Associations.sh) 
-dje
-    
   
 # Create RT for private interfaces on Panorama instances
 resource "aws_route_table" "mgmtvpc-rt-private-subnets" {
