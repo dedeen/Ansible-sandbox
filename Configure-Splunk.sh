@@ -22,3 +22,4 @@ echo "   install credentials:"
 echo "     admin"
 echo "     SPLUNK-"${instid1}
 ###############
+# ssh to splunk as ec2-user@54.44.33.22 -i ter..pem
