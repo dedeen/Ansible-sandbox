@@ -23,7 +23,17 @@ echo "     admin"
 echo "     SPLUNK-"${instid1}
 ###############
 # ssh to splunk as ec2-user@54.44.33.22 -i ter..pem
-#  in /opt/splunk/etc/system/local/inputs.conf 
+#
+#  sudo mv /opt/splunk/etc/passwd /opt/splunk/etc/passwd.bk 
+#  create /opt/splunk/etc/system/local/user-seed.conf 
+#    with this content: 
+     #[user_info]
+     #PASSWORD=Temp1234!
+#
+# save it and restart splunk: 
+#    sudo /opt/splunk/bin/splunk restart 
+
+#  create the file /opt/splunk/etc/system/local/inputs.conf 
 #  add: 
    #index = pan_logs
    #sourcetype = pan_log
