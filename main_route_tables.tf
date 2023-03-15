@@ -16,7 +16,7 @@ resource "aws_route_table" "usr1vpc-rt" {
 # Associate RT with both instance subnets in usr1vpc (one per AZ)
 #    Done in external shell script (RT-Associations.sh) 
 
-# Create RT for app2vpc instances
+# Create RT for usr2vpc instances
 resource "aws_route_table" "usr2vpc-rt" {
   vpc_id                = module.vpc["usr2vpc"].vpc_id 
   route {                                                       # local route to the VPC is added to RT automatically 
@@ -100,11 +100,11 @@ resource "aws_route_table" "secvpc-rt-mgmt-subnets" {
     gateway_id  = aws_internet_gateway.sec_vpc_igw.id
   }
   route {                                                      
-    cidr_block          = "10.104.0.0/16"                      # route via TGW to App1 VPC
+    cidr_block          = "10.104.0.0/16"                      # route via TGW to Usr1 VPC
     transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
   }
   route {                                                      
-    cidr_block          = "10.105.0.0/16"                      # route via TGW to App2 VPC 
+    cidr_block          = "10.105.0.0/16"                      # route via TGW to Usr2 VPC 
     transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
   }
   route {                                                      
