@@ -21,7 +21,7 @@ resource "aws_lb" "ALB-Outside" {
   }
 } 
 
-# create the ALB target group
+# create the ALB target group for http
 resource "aws_lb_target_group" "ALB-TG-Group80" {
   name                    = "ALB-TG-Group80"
   port                    = 80
@@ -46,6 +46,33 @@ resource "aws_lb_target_group" "ALB-TG-Group80" {
     Name  = "ALB-TG-80"
   }
 }
+#
+# create the ALB target group for https
+resource "aws_lb_target_group" "ALB-TG-Group443" {
+  name                    = "ALB-TG-Group443"
+  port                    = 443
+  protocol                = "HTTP"
+  target_type             = "ip"
+  vpc_id                  = module.vpc["secvpc"].vpc_id
+ 
+  health_check {
+    enabled               = true
+    matcher               = 200
+    path                  = "/"
+    port                  = 443
+    protocol              = "HTTPS"
+    timeout               = 5
+    healthy_threshold     = 5
+    unhealthy_threshold   = 2
+    interval              = 10 
+  }
+    
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "ALB-TG-443"
+  }
+}
+#
 
 # create two listeners for the outside ALB
 resource "aws_lb_listener" "ALB-Outside-Listener-80" {
