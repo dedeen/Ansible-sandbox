@@ -178,3 +178,27 @@ resource "aws_security_group" "SG-Inbound-Web" {
     }
 }
   
+#  This secgrp is for web traffic from the security VPC to the interior ALB, then through to the web servers
+resource "aws_security_group" "SG-Interior-Web" {
+  name                  = "SG-Interior-Web"
+  description           = "SG-Interior-Web"
+  vpc_id                = module.vpc["websrvvpc"].vpc_id
+  ingress {
+    description         = "inbound http"
+    cidr_blocks         = ["0.0.0.0/0"]
+    from_port           = 80
+    to_port             = 80
+    protocol            = "tcp"
+  }
+  ingress {
+    description         = "inbound https"
+    cidr_blocks         = ["0.0.0.0/0"]
+    from_port           = 443
+    to_port             = 443
+    protocol            = "tcp"
+  }
+    tags = {
+    Name = "SG-Interior-Web"
+    Owner = "dan-via-terraform"
+    }
+}
