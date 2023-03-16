@@ -11,13 +11,7 @@ resource "aws_lb" "ALB-Outside" {
   ip_address_type                     = "ipv4"
   security_groups                     = [aws_security_group.SG-Inbound-Web.id]
   subnets                             = [module.vpc["secvpc"].intra_subnets[2],module.vpc["secvpc"].intra_subnets[8]]
-  
-  #subnet_mapping  {                        
-  #  subnet_id             = module.vpc["secvpc"].intra_subnets[2]           # subnet = sec-az1-pub
-  #}
-  #subnet_mapping  {
-  #  subnet_id            = module.vpc["secvpc"].intra_subnets[8]            # subnet = sec-az2-pub
-  #}
+                                                                          # subnets: 2:sec-az1-pub, 8:sec-az2-pub
   tags = {
     Owner = "dan-via-terraform"
     Name  = "ALB-Outside"
