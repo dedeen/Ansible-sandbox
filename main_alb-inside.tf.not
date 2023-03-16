@@ -20,8 +20,8 @@ resource "aws_lb" "ALB-Inside" {
 } 
 
 # create the ALB target group for http
-resource "aws_lb_target_group" "ALB_inside-TG-Group80" {
-  name                    = "ALB_inside-TG-Group80"
+resource "aws_lb_target_group" "ALB-inside-TG-Group80" {
+  name                    = "ALB-inside-TG-Group80"
   port                    = 80
   protocol                = "HTTP"
   target_type             = "ip"
@@ -41,13 +41,13 @@ resource "aws_lb_target_group" "ALB_inside-TG-Group80" {
     
   tags = {
     Owner = "dan-via-terraform"
-    Name  = "ALB_inside-TG-80"
+    Name  = "ALB-inside-TG-80"
   }
 }
 #
 # create the ALB target group for https
-resource "aws_lb_target_group" "ALB_Inside-TG-Group443" {
-  name                    = "ALB_Inside-TG-Group443"
+resource "aws_lb_target_group" "ALB-Inside-TG-Group443" {
+  name                    = "ALB-Inside-TG-Group443"
   port                    = 443
   protocol                = "HTTPS"
   target_type             = "ip"
@@ -67,7 +67,7 @@ resource "aws_lb_target_group" "ALB_Inside-TG-Group443" {
     
   tags = {
     Owner = "dan-via-terraform"
-    Name  = "ALB_Inside-TG-443"
+    Name  = "ALB-Inside-TG-443"
   }
 }
 #
@@ -80,7 +80,7 @@ resource "aws_lb_listener" "ALB-Inside-Listener-80" {
   
   default_action {
     type                  = "forward"
-    target_group_arn      = aws_lb_target_group.ALB_inside-TG-Group80.arn 
+    target_group_arn      = aws_lb_target_group.ALB-inside-TG-Group80.arn 
   }
 }  
 
@@ -94,32 +94,32 @@ resource "aws_lb_listener" "ALB-Inside-Listener-443" {
   
   default_action {
     type                  = "forward"
-    target_group_arn      = aws_lb_target_group.ALB_Inside-TG-Group443.arn 
+    target_group_arn      = aws_lb_target_group.ALB-Inside-TG-Group443.arn 
   }
 }  
 
 # register internal web servers with target groups for ALB-Inside
 #
 resource "aws_lb_target_group_attachment" "websrv1-target-p80" {
-  target_group_arn = aws_lb_target_group.ALB_inside-TG-Group80.arn
+  target_group_arn = aws_lb_target_group.ALB-inside-TG-Group80.arn
   target_id        = "10.110.0.30"
   port             = 80
 }
 
 resource "aws_lb_target_group_attachment" "websrv3-target-p80" {
-  target_group_arn = aws_lb_target_group.ALB_inside-TG-Group80.arn
+  target_group_arn = aws_lb_target_group.ALB-inside-TG-Group80.arn
   target_id        = "10.110.128.30"
   port             = 80
 }
 
 resource "aws_lb_target_group_attachment" "websrv2-target-p443" {
-  target_group_arn = aws_lb_target_group.ALB_Inside-TG-Group443.arn
+  target_group_arn = aws_lb_target_group.ALB-Inside-TG-Group443.arn
   target_id        = "10.110.0.40"
   port             = 443
 }
 
 resource "aws_lb_target_group_attachment" "websrv4-target-p443" {
-  target_group_arn = aws_lb_target_group.ALB_Inside-TG-Group443.arn
+  target_group_arn = aws_lb_target_group.ALB-Inside-TG-Group443.arn
   target_id        = "10.110.128.40"
   port             = 443
 }
