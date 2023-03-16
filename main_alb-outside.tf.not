@@ -31,6 +31,8 @@ resource "aws_lb_target_group" "ALB-TG-Group80" {
  
   health_check {
     enabled               = true
+    matcher               = 200
+    path                  = "/"
     port                  = 80
     protocol              = "HTTP"
     timeout               = 5
