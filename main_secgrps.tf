@@ -152,7 +152,7 @@ resource "aws_security_group" "SG-Panorama-Private" {
     Owner = "dan-via-terraform"
     }
 }
-dje
+
 #  This secgrp is for the internet facing ALB for inbound web traffic
 resource "aws_security_group" "SG-Inbound-Web" {
   name                  = "SG-Inbound-Web"
