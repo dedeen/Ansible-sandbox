@@ -1,0 +1,134 @@
+#  Terraform to create interior ALB in front of web servers. Traffic is routed from the Internet, to 
+#      the exterior ALB, through PAN firewalls, through TGW to this ALB. From here, the traffic goes to teh 
+#      web servers.  
+#           dan edeen, dan@dsblue.net, 2023 
+#
+# create the ALB
+resource "aws_lb" "ALB-Outside" {
+  name                                = "ALB-Outside"
+  internal                            = false
+  load_balancer_type                  = "application"
+  enable_cross_zone_load_balancing    = true
+  ip_address_type                     = "ipv4"
+  security_groups                     = [aws_security_group.SG-Inbound-Web.id]
+  subnets                             = [module.vpc["secvpc"].intra_subnets[2],module.vpc["secvpc"].intra_subnets[8]]
+  
+  #subnet_mapping  {                        
+  #  subnet_id             = module.vpc["secvpc"].intra_subnets[2]           # subnet = sec-az1-pub
+  #}
+  #subnet_mapping  {
+  #  subnet_id            = module.vpc["secvpc"].intra_subnets[8]            # subnet = sec-az2-pub
+  #}
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "ALB-Outside"
+  }
+} 
+
+# create the ALB target group for http
+resource "aws_lb_target_group" "ALB-TG-Group80" {
+  name                    = "ALB-TG-Group80"
+  port                    = 80
+  protocol                = "HTTP"
+  target_type             = "ip"
+  vpc_id                  = module.vpc["secvpc"].vpc_id
+ 
+  health_check {
+    enabled               = true
+    matcher               = 200
+    path                  = "/"
+    port                  = "traffic-port" 
+    protocol              = "HTTP"
+    timeout               = 5
+    healthy_threshold     = 5
+    unhealthy_threshold   = 2
+    interval              = 10 
+  }
+    
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "ALB-TG-80"
+  }
+}
+#
+# create the ALB target group for https
+resource "aws_lb_target_group" "ALB-TG-Group443" {
+  name                    = "ALB-TG-Group443"
+  port                    = 443
+  protocol                = "HTTPS"
+  target_type             = "ip"
+  vpc_id                  = module.vpc["secvpc"].vpc_id
+ 
+  health_check {
+    enabled               = true
+    matcher               = 200
+    path                  = "/"
+    port                  = "traffic-port"
+    protocol              = "HTTPS"
+    timeout               = 5
+    healthy_threshold     = 5
+    unhealthy_threshold   = 2
+    interval              = 10 
+  }
+    
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "ALB-TG-443"
+  }
+}
+#
+
+# create http/80 listener for the outside ALB
+resource "aws_lb_listener" "ALB-Outside-Listener-80" {
+  load_balancer_arn       = aws_lb.ALB-Outside.arn
+  port                    = 80
+  protocol                = "HTTP"
+  
+  default_action {
+    type                  = "forward"
+    target_group_arn      = aws_lb_target_group.ALB-TG-Group80.arn 
+  }
+}  
+
+# create https/443 listener for the outside ALB
+resource "aws_lb_listener" "ALB-Outside-Listener-443" {
+  load_balancer_arn       = aws_lb.ALB-Outside.arn
+  port                    = 443
+  protocol                = "HTTPS"
+  ssl_policy              = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+  certificate_arn         = "arn:aws:acm:us-west-2:500112433998:certificate/184ed2a9-df40-40c0-90c0-b5974c00f409"
+  
+  default_action {
+    type                  = "forward"
+    target_group_arn      = aws_lb_target_group.ALB-TG-Group443.arn 
+  }
+}  
+
+# register Palo Alto Firewalls with target groups for ALB-Outside
+#
+resource "aws_lb_target_group_attachment" "target-80-PAVM1" {
+  target_group_arn = aws_lb_target_group.ALB-TG-Group80.arn
+  target_id        = "10.100.2.10"                 # PA-VM-1
+  port             = 80
+}
+
+resource "aws_lb_target_group_attachment" "target-80-PAVM2" {
+  target_group_arn = aws_lb_target_group.ALB-TG-Group80.arn
+  target_id        = "10.100.66.10"                # PA-VM-2
+  port             = 80
+}
+
+resource "aws_lb_target_group_attachment" "target-443-PAVM1" {
+  target_group_arn = aws_lb_target_group.ALB-TG-Group443.arn
+  target_id        = "10.100.2.10"                 # PA-VM-1
+  port             = 443
+}
+
+resource "aws_lb_target_group_attachment" "target-443-PAVM2" {
+  target_group_arn = aws_lb_target_group.ALB-TG-Group443.arn
+  target_id        = "10.100.66.10"                # PA-VM-2
+  port             = 443
+}
+
+####
+  
