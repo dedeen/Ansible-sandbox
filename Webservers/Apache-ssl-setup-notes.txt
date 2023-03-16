@@ -1,3 +1,9 @@
+## Debugging health checks 
+- Apache will return 403 if you don't put in an index.html, even though it will serve up the apache test page, this will cause health checks to fail. 
+- great test command, can run on self (http server) once you get ssh'ed over to it: 
+    'curl -IvKL http://10.110.0.30:80'    -> check for 200 OK response (this is what health checks are looking for). 
+
+
 1. First, install updates and apache on the EC2 AWS linux: 
 
 sudo yum update -y
