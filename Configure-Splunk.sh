@@ -34,11 +34,14 @@ echo "     SPLUNK-"${instid1}
 #    sudo /opt/splunk/bin/splunk restart 
 
 #  create the file /opt/splunk/etc/system/local/inputs.conf 
+#    sudo vi /opt/splunk/etc/system/local/inputs.conf
 #  add: 
+   #[udp://5514]
    #index = pan_logs
    #sourcetype = pan_log
    #connection_host = ip
    #no_appending_timestamp = true
+   
 # then restart the splunk service 
 #
 
