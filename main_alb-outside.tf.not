@@ -35,7 +35,7 @@ resource "aws_lb_target_group" "ALB-TG-Group80" {
     enabled               = true
     matcher               = 200
     path                  = "/"
-    port                  = 80
+    port                  = "traffic-port" 
     protocol              = "HTTP"
     timeout               = 5
     healthy_threshold     = 5
@@ -53,7 +53,7 @@ resource "aws_lb_target_group" "ALB-TG-Group80" {
 resource "aws_lb_target_group" "ALB-TG-Group443" {
   name                    = "ALB-TG-Group443"
   port                    = 443
-  protocol                = "HTTP"
+  protocol                = "HTTPS"
   target_type             = "ip"
   vpc_id                  = module.vpc["secvpc"].vpc_id
  
@@ -61,7 +61,7 @@ resource "aws_lb_target_group" "ALB-TG-Group443" {
     enabled               = true
     matcher               = 200
     path                  = "/"
-    port                  = 443
+    port                  = "traffic-port"
     protocol              = "HTTPS"
     timeout               = 5
     healthy_threshold     = 5
