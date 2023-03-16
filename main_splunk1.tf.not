@@ -28,7 +28,7 @@ resource "aws_instance" "Splunk-1" {
 		echo "[udp://5514]" | sudo tee -a /opt/splunk/etc/system/local/inputs.conf
 		echo "sourcetype = pan:firewall" | sudo tee -a /opt/splunk/etc/system/local/inputs.conf
 		echo "no_appending_timestamp = true" | sudo tee -a /opt/splunk/etc/system/local/inputs.conf
-EOF
+  EOF
   tags = {
           Owner = "dan-via-terraform"
           Name  = "Splunk-1"
