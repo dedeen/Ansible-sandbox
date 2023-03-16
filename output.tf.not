@@ -1,9 +1,9 @@
-# Placeholder for output from terraform. 
-#   Not being used currently. 
-output  "vpc_ID" { 
-  value = module.vpc["usr1vpc"].vpc_id
+# Output values from terraform execution
+#
+output  "VPCe_az1" { 
+  value = aws_vpc_endpoint.PAVM_VPCe_az1.id 
 }
-output  "subnet-0" { 
-  value = module.vpc["usr1vpc"].intra_subnets[0]
+output  "VPCe_az2" { 
+  value = aws_vpc_endpoint.PAVM_VPCe_az2.id 
 }
 
