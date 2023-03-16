@@ -1,5 +1,6 @@
 #  Terraform to create an ALB on the internet side of everything. Targets will be the public interfaces 
-#      of the Palo Alto Firewalls
+#      of the Palo Alto Firewalls. Within the firewalls, NAT and Routing will forward traffic to an interior
+#      ALB in the WebServer VPC. From there, traffic will be routed to the web server instances in that VPC. 
 #
 # create the ALB
 resource "aws_lb" "ALB-Outside" {
