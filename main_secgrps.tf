@@ -152,3 +152,29 @@ resource "aws_security_group" "SG-Panorama-Private" {
     Owner = "dan-via-terraform"
     }
 }
+dje
+#  This secgrp is for the internet facing ALB for inbound web traffic
+resource "aws_security_group" "SG-Inbound-Web" {
+  name                  = "SG-Inbound-Web"
+  description           = "SG-Inbound-Web"
+  vpc_id                = module.vpc["secvpc"].vpc_id
+  ingress {
+    description         = "inbound http"
+    cidr_blocks         = ["0.0.0.0/0"]
+    from_port           = 80
+    to_port             = 80
+    protocol            = "tcp"
+  }
+  ingress {
+    description         = "inbound https"
+    cidr_blocks         = ["0.0.0.0/0"]
+    from_port           = 443
+    to_port             = 443
+    protocol            = "tcp"
+  }
+    tags = {
+    Name = "SG-Inbound-Web"
+    Owner = "dan-via-terraform"
+    }
+}
+  
