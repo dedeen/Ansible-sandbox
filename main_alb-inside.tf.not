@@ -94,7 +94,7 @@ resource "aws_lb_listener" "ALB-Inside-Listener-443" {
   
   default_action {
     type                  = "forward"
-    target_group_arn      = aws_lb_target_group.ALB_inside-Group443.arn 
+    target_group_arn      = aws_lb_target_group.ALB_Inside-TG-Group443.arn 
   }
 }  
 
