@@ -8,3 +8,6 @@ mv main_pa-vm2.tf.not main_pa-vm2.tf
 #mv main_webservers.tf.not main_webservers.tf
 mv main_tgw_attachments.tf.not main_tgw_attachments.tf
 mv main_webservers.tf.not main_webservers.tf
+mv main_alb-inside.tf.not main_alb-inside.tf
+mv main_alb-outside.tf.not main_alb-outside.tf
+
