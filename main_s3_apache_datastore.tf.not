@@ -45,26 +45,16 @@ resource "aws_s3_object" "slash_reserved" {
   content                   = "application/x-directory"
 }
 
-dje - start here 
-
-# Copy the (2) bootstrap files to the S3 bucket, and firewalls will use to bootstrap their configs
-resource "aws_s3_object" "init_cfg_txt" {
-  bucket                    = aws_s3_bucket.pavm-s3-ds.id
-    for_each                = var.pavm_firewalls 
-      key                   = "/${each.value.fw_name}/${each.value.config_dir}${each.value.init_file_key}"
-      source                = "${each.value.init_file}"
-      force_destroy         = true     
+# Copy the files from local (pulled down when repo cloned), to the s3 bucket and directories created above
+resource "aws_s3_object" "index80_html" {
+  bucket                   = aws_s3_bucket.pavm-s3-ds.id
+  key                      = "index.html"
+  source                   = "./Webservers/HTML-80/index80.html"
+  force_destroy            = true
 }
+  
 
-resource "aws_s3_object" "bootstrap_xml" {
-  bucket                  = aws_s3_bucket.pavm-s3-ds.id
-    for_each                = var.pavm_firewalls 
-      key                   = "/${each.value.fw_name}/${each.value.config_dir}${each.value.bootstrap_file_key}"
-      source                = "${each.value.bootstrap_file}"
-      force_destroy         = true     
-}
-
-# Now that the bootstrap directories and files are in the s3 bucket, we need to allow the Palo Alto firewalls to access the bucket to bootstrap.
+# Now that the directories and files are in the s3 bucket, we need to allow the EC2 webservers access the bucket to copy files over. 
 #  IAM policy & role for the EC2 instances to access files on the datastore 
 data "aws_iam_policy_document" "ec2_assume_role" { 
   statement {
