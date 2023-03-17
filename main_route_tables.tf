@@ -110,6 +110,10 @@ resource "aws_route_table" "secvpc-rt-mgmt-subnets" {
     cidr_block          = "10.255.0.0/16"                      # route via TGW to mgmt VPC (Panoramas) from mgmt int of PA-VMs 
     transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
   }
+ route {                                                      
+    cidr_block          = "10.110.0.0/16"                      # route via TGW to web server VPC
+    transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
+  }
   tags = {
     Owner = "dan-via-terraform"
     Name  = "Secvpc-mgmt-subnets-RT"
@@ -136,6 +140,10 @@ resource "aws_route_table" "secvpc-rt-private-subnets" {
   }
   route {                                                      
     cidr_block          = "10.105.128.0/24"                       
+    transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
+  }
+ route {                                                      
+    cidr_block          = "10.110.0.0/16"                       
     transit_gateway_id  = aws_ec2_transit_gateway.TGW-PAN.id
   }
   tags = {
