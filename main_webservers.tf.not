@@ -44,6 +44,7 @@ resource "aws_instance" "websrv2-p443-az1" {
 		sudo yum install -y httpd
 		sudo systemctl start httpd
 		sudo systemctl enable httpd
+		aws s3 cp s3://webserver-s3-ds/scripts/getmetadata.sh /home/ec2-user/getmetadata.sh
 	EOF
   source_dest_check                   = true
   tags = {
