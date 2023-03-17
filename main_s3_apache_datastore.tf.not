@@ -47,10 +47,16 @@ resource "aws_s3_object" "slash_reserved" {
 
 # Copy the files from local (pulled down when repo cloned), to the s3 bucket and directories created above
 resource "aws_s3_object" "index80_html" {
-  bucket                   = aws_s3_bucket.pavm-s3-ds.id
-  key                      = "index.html"
+  bucket                   = aws_s3_bucket.webserver-s3-ds.id
+  key                      = "/HTML-80/index.html"
   source                   = "./Webservers/HTML-80/index80.html"
   force_destroy            = true
 }
-  
+ 
+resource "aws_s3_object" "index443_html" {
+  bucket                   = aws_s3_bucket.webserver-s3-ds.id
+  key                      = "/HTML-443/index.html"
+  source                   = "./Webservers/HTML-443/index443.html"
+  force_destroy            = true
+}
 
