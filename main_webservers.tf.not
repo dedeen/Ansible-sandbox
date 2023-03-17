@@ -9,7 +9,8 @@ resource "aws_instance" "websrv1-p80-az1" {
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = false
   private_ip                          = "10.110.0.30"
-  subnet_id                           = module.vpc["websrvvpc"].intra_subnets[0]            # subnet=websrv-az1-inst
+  subnet_id                           = module.vpc["websrvvpc"].intra_subnets[0]           	# subnet=websrv-az1-inst
+  iam_instance_profile                = aws_iam_instance_profile.ec2_profile.id   		# Allow instance access to S3
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["websrvvpc"].id]  
   user_data = <<EOF
 		#!/bin/bash
@@ -35,7 +36,8 @@ resource "aws_instance" "websrv2-p443-az1" {
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = false
   private_ip                          = "10.110.0.40"
-  subnet_id                           = module.vpc["websrvvpc"].intra_subnets[0]            # subnet=websrv-az1-inst
+  subnet_id                           = module.vpc["websrvvpc"].intra_subnets[0]           	# subnet=websrv-az1-inst
+  iam_instance_profile                = aws_iam_instance_profile.ec2_profile.id   		# Allow instance access to S3
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["websrvvpc"].id]
    user_data = <<EOF
 		#!/bin/bash
@@ -60,7 +62,8 @@ resource "aws_instance" "websrv3-p80-az2" {
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = false
   private_ip                          = "10.110.128.30"
-  subnet_id                           = module.vpc["websrvvpc"].intra_subnets[3]            # subnet=websrv-az2-inst
+  subnet_id                           = module.vpc["websrvvpc"].intra_subnets[3]           	# subnet=websrv-az2-inst
+  iam_instance_profile                = aws_iam_instance_profile.ec2_profile.id   		# Allow instance access to S3
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["websrvvpc"].id]  
    user_data = <<EOF
 		#!/bin/bash
@@ -85,7 +88,8 @@ resource "aws_instance" "websrv4-p443-az2" {
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = false
   private_ip                          = "10.110.128.40"
-  subnet_id                           = module.vpc["websrvvpc"].intra_subnets[3]            # subnet=websrv-az2-inst
+  subnet_id                           = module.vpc["websrvvpc"].intra_subnets[3]           	# subnet=websrv-az2-inst
+  iam_instance_profile                = aws_iam_instance_profile.ec2_profile.id   		# Allow instance access to S3
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["websrvvpc"].id]  
    user_data = <<EOF
 		#!/bin/bash
