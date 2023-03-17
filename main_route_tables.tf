@@ -53,7 +53,7 @@ resource "aws_route_table" "mgmtvpc-rt-private-subnets" {
   
 # Create RT for public interfaces on Panorama instances
 resource "aws_route_table" "mgmtvpc-rt-public-subnets" {
-  depends_on            = [aws_ec2_transit_gateway.TGW-PAN]
+  #depends_on            = [aws_ec2_transit_gateway.TGW-PAN]
   depends_on            = [aws_ec2_transit_gateway_vpc_attachment.mgmtvpc-att]
   vpc_id                = module.vpc["mgmtvpc"].vpc_id 
   route {                                                       # local route to the VPC is added to RT automatically 
