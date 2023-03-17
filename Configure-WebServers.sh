@@ -30,8 +30,8 @@
 #################
 
 # Set up some variables (ws == webserver host)
-debug_flag=1                  #0: run straight through script, 1: pause and prompt during script run
-which_web_server=2            #set up for 1,2,3,4,etc
+debug_flag=0                  #0: run straight through script, 1: pause and prompt during script run
+which_web_server=1            #set up for 1,2,3,4,etc
 
 #Common vars 
 bh_AMI=ami-094125af156557ca2
