@@ -48,3 +48,7 @@ SSL system should be done now
 #################
 html files: /var/www/html
 
+
+ "curl -IvKL http://<IP address of target instance>:<port number>/<path>"
+ 
+
