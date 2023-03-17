@@ -71,10 +71,19 @@ resource "aws_s3_object" "panlogo1" {
   force_destroy            = true
 }
 
+# " " " 
 resource "aws_s3_object" "panlogo2" {
   bucket                   = aws_s3_bucket.webserver-s3-ds.id
   key                      = "/HTML-80/panlogo.png"
   source                   = "./Webservers/HTML-80/panlogo.png"
+  force_destroy            = true
+}
+
+# script to pull ec2 metadata and put into www directory to be displayed on web pages 
+resource "aws_s3_object" "metascript" {
+  bucket                   = aws_s3_bucket.webserver-s3-ds.id
+  key                      = "/scripts/getmetadata.sh"
+  source                   = "./Webservers/HTML-80/getmetadata.sh"
   force_destroy            = true
 }
 
