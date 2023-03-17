@@ -1,48 +1,51 @@
-# Terraform script to build an S3 bucket and store configuration files for the Palo Alto firewalls. 
+# Terraform script to build an S3 bucket and store configuration files for the Apache webservers in this environment. 
 
 #  Creating an S3 bucket for files to be retrieved by instances
-resource "aws_s3_bucket" "pavm-s3-ds" {
-  bucket = "pavm-s3-ds"
+resource "aws_s3_bucket" "webserver-s3-ds" {
+  bucket = "webserver-s3-ds"
   
     tags = {
-    Name = "pavm-s3-ds"
+    Name = "webserver-s3-ds"
     Owner = "dan-via-terraform"
   }
 }
 
-resource "aws_s3_bucket_acl" "acl-pavm-s3-ds" {
-  bucket = aws_s3_bucket.pavm-s3-ds.id
+resource "aws_s3_bucket_acl" "acl-websrv-s3-ds" {
+  bucket = aws_s3_bucket.webserver-s3-ds.id
   acl    = "private"
  }
 
-# Set up required bootstrap directory structure: /config, /content, /license, /software are mandatory dirs for PAN bootstrap to function 
-resource "aws_s3_object" "init_config" {
-  bucket                    = aws_s3_bucket.pavm-s3-ds.id
-    for_each                = var.pavm_firewalls 
-      key                   = "${each.value.fw_name}/${each.value.config_dir}"
-      content               = "application/x-directory"
+# Set up directories for webserver configuration files:
+#    /HTML-80   -> html files for the HTTP servers serving on port 80
+#    /HTML-443  -> html files for the HTTPS servers serving on port 443
+#    /scripts   -> script repo for multiple purposes 
+#    /reserved  -> spare subdirectory for future use without making big changes in scripts 
+
+resource "aws_s3_object" "slash_80" {
+  bucket                    = aws_s3_bucket.webserver-s3-ds.id
+  key                       = "/HTML-80/"
+  content                   = "application/x-directory"
 }
 
-resource "aws_s3_object" "init_content" {
-  bucket                    = aws_s3_bucket.pavm-s3-ds.id
-    for_each                = var.pavm_firewalls 
-      key                   = "${each.value.fw_name}/${each.value.content_dir}"
-      content               = "application/x-directory"
+resource "aws_s3_object" "slash_443" {
+  bucket                    = aws_s3_bucket.webserver-s3-ds.id
+  key                       = "/HTML-443/"
+  content                   = "application/x-directory"
 }
 
-resource "aws_s3_object" "init_license" {
-  bucket                    = aws_s3_bucket.pavm-s3-ds.id
-    for_each                = var.pavm_firewalls 
-      key                   = "${each.value.fw_name}/${each.value.license_dir}"
-      content               = "application/x-directory"
+resource "aws_s3_object" "slash_scripts" {
+  bucket                    = aws_s3_bucket.webserver-s3-ds.id
+  key                       = "/scripts/"
+  content                   = "application/x-directory"
 }
 
-resource "aws_s3_object" "init_software" {
-  bucket                    = aws_s3_bucket.pavm-s3-ds.id
-    for_each                = var.pavm_firewalls 
-      key                   = "${each.value.fw_name}/${each.value.software_dir}"
-      content               = "application/x-directory"
+resource "aws_s3_object" "slash_reserved" {
+  bucket                    = aws_s3_bucket.webserver-s3-ds.id
+  key                       = "/reserved/"
+  content                   = "application/x-directory"
 }
+
+dje - start here 
 
 # Copy the (2) bootstrap files to the S3 bucket, and firewalls will use to bootstrap their configs
 resource "aws_s3_object" "init_cfg_txt" {
