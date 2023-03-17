@@ -14,9 +14,9 @@ echo -n "Private IP:" >> "${meta_data_file}"
 sudo curl http://169.254.169.254/latest/meta-data/local-ipv4 >> "${meta_data_file}"
 echo "" >> "${meta_data_file}"
 #
-echo -n "Public IP:" >> "${meta_data_file}"
-sudo curl http://169.254.169.254/latest/meta-data/public-ipv4 >> "${meta_data_file}"
-echo "" >> "${meta_data_file}"
+##->no##echo -n "Public IP:" >> "${meta_data_file}"
+##->no##sudo curl http://169.254.169.254/latest/meta-data/public-ipv4 >> "${meta_data_file}"
+##->no##echo "" >> "${meta_data_file}"
 #
 echo -n "Instance ID:" >> "${meta_data_file}"
 sudo curl http://169.254.169.254/latest/meta-data/instance-id >> "${meta_data_file}"
