@@ -83,7 +83,7 @@ resource "aws_s3_object" "panlogo2" {
 resource "aws_s3_object" "metascript" {
   bucket                   = aws_s3_bucket.webserver-s3-ds.id
   key                      = "/scripts/getmetadata.sh"
-  source                   = "./Webservers/HTML-80/getmetadata.sh"
+  source                   = "./Webservers/scripts/getmetadata.sh"
   force_destroy            = true
 }
 
