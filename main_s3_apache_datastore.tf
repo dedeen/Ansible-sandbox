@@ -79,7 +79,7 @@ resource "aws_s3_object" "panlogo2" {
   force_destroy            = true
 }
 
-# script to pull ec2 metadata and put into www directory to be displayed on web pages 
+# scripts to pull ec2 metadata and put into www directory to be displayed on web pages 
 resource "aws_s3_object" "metascript" {
   bucket                   = aws_s3_bucket.webserver-s3-ds.id
   key                      = "/scripts/getmetadata.sh"
@@ -87,3 +87,9 @@ resource "aws_s3_object" "metascript" {
   force_destroy            = true
 }
 
+resource "aws_s3_object" "metascript" {
+  bucket                   = aws_s3_bucket.webserver-s3-ds.id
+  key                      = "/scripts/get_ec2_inst_metadata.sh"
+  source                   = "./Webservers/scripts/get_ec2_inst_metadata.sh"
+  force_destroy            = true
+}
