@@ -80,14 +80,14 @@ resource "aws_s3_object" "panlogo2" {
 }
 
 # scripts to pull ec2 metadata and put into www directory to be displayed on web pages 
-resource "aws_s3_object" "metascript" {
+resource "aws_s3_object" "metascript1" {
   bucket                   = aws_s3_bucket.webserver-s3-ds.id
   key                      = "/scripts/getmetadata.sh"
   source                   = "./Webservers/scripts/getmetadata.sh"
   force_destroy            = true
 }
 
-resource "aws_s3_object" "metascript" {
+resource "aws_s3_object" "metascript2" {
   bucket                   = aws_s3_bucket.webserver-s3-ds.id
   key                      = "/scripts/get_ec2_inst_metadata.sh"
   source                   = "./Webservers/scripts/get_ec2_inst_metadata.sh"
