@@ -20,6 +20,7 @@ resource "aws_instance" "websrv1-p80-az1" {
 		sudo systemctl start httpd
 		sudo systemctl enable httpd
 		aws s3 cp s3://webserver-s3-ds/scripts/getmetadata.sh /var/www/html/
+		aws s3 cp s3://webserver-s3-ds/scripts/get_ec2_inst_metadata.sh /var/www/html/
 		aws s3 cp s3://webserver-s3-ds/HTML-80/index.html /var/www/html/
 		aws s3 cp s3://webserver-s3-ds/HTML-80/panlogo.png /var/www/html/
 	EOF
