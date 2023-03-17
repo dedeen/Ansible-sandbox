@@ -4,7 +4,7 @@
 #   will not show the correct destination IP address. 
 #      dan@dsbluenet, 2023 
 #
-meta_data_file="/var/www.html/instance_meta_data.txt"
+meta_data_file="/var/www/html/instance_meta_data.txt"
 sudo touch ${meta_data_file}
 sudo chmod 755 ${meta_data_file}
 echo "test file" >> ${meta_data_file}
