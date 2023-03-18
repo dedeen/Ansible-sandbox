@@ -87,9 +87,3 @@ resource "aws_s3_object" "metascript1" {
   force_destroy            = true
 }
 
-resource "aws_s3_object" "metascript2" {
-  bucket                   = aws_s3_bucket.webserver-s3-ds.id
-  key                      = "/scripts/get_ec2_inst_metadata.sh"
-  source                   = "./Webservers/scripts/get_ec2_inst_metadata.sh"
-  force_destroy            = true
-}
