@@ -20,7 +20,6 @@ resource "aws_instance" "websrv1-p80-az1" {
 		sudo systemctl start httpd
 		sudo systemctl enable httpd
 		aws s3 cp s3://webserver-s3-ds/scripts/getmetadata.sh /var/www/html/
-		aws s3 cp s3://webserver-s3-ds/scripts/get_ec2_inst_metadata.sh /var/www/html/
 		aws s3 cp s3://webserver-s3-ds/HTML-80/index.html /var/www/html/
 		aws s3 cp s3://webserver-s3-ds/HTML-80/panlogo.png /var/www/html/
 	EOF
@@ -47,8 +46,9 @@ resource "aws_instance" "websrv2-p443-az1" {
 		sudo yum install -y httpd
 		sudo systemctl start httpd
 		sudo systemctl enable httpd
-		aws s3 cp s3://webserver-s3-ds/scripts/getmetadata.sh /home/ec2-user/getmetadata.sh
-		aws s3 cp s3://webserver-s3-ds/HTML-80/index.html /var/www/html/index.html
+		aws s3 cp s3://webserver-s3-ds/scripts/getmetadata.sh /var/www/html/
+		aws s3 cp s3://webserver-s3-ds/HTML-443/index.html /var/www/html/
+		aws s3 cp s3://webserver-s3-ds/HTML-443/panlogo.png /var/www/html/
 	EOF
   source_dest_check                   = true
   tags = {
@@ -73,6 +73,9 @@ resource "aws_instance" "websrv3-p80-az2" {
 		sudo yum install -y httpd
 		sudo systemctl start httpd
 		sudo systemctl enable httpd
+		aws s3 cp s3://webserver-s3-ds/scripts/getmetadata.sh /var/www/html/
+		aws s3 cp s3://webserver-s3-ds/HTML-80/index.html /var/www/html/
+		aws s3 cp s3://webserver-s3-ds/HTML-80/panlogo.png /var/www/html/
 	EOF
   source_dest_check                   = true
   tags = {
@@ -99,6 +102,9 @@ resource "aws_instance" "websrv4-p443-az2" {
 		sudo yum install -y httpd
 		sudo systemctl start httpd
 		sudo systemctl enable httpd
+		aws s3 cp s3://webserver-s3-ds/scripts/getmetadata.sh /var/www/html/
+		aws s3 cp s3://webserver-s3-ds/HTML-443/index.html /var/www/html/
+		aws s3 cp s3://webserver-s3-ds/HTML-443/panlogo.png /var/www/html/
 	EOF
   source_dest_check                   = true
   tags = {
