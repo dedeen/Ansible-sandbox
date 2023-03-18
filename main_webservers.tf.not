@@ -48,7 +48,7 @@ resource "aws_instance" "websrv2-p443-az1" {
 		sudo yum install -y httpd
 		sudo systemctl start httpd
 		sudo systemctl enable httpd
-		aws s3 cp s3://webserver-s3-ds/scripts/getmetadata.sh /var/www/html/
+		aws s3 cp s3://webserver-s3-ds/scripts/getmetadata_black.sh /var/www/html/getmetadata.sh
 		aws s3 cp s3://webserver-s3-ds/HTML-443/index.html /var/www/html/
 		aws s3 cp s3://webserver-s3-ds/HTML-443/panlogo.png /var/www/html/
 		sudo chmod 755 /var/www/html/getmetadata.sh
@@ -114,7 +114,7 @@ resource "aws_instance" "websrv4-p443-az2" {
 		sudo yum install -y httpd
 		sudo systemctl start httpd
 		sudo systemctl enable httpd
-		aws s3 cp s3://webserver-s3-ds/scripts/getmetadata.sh /var/www/html/
+		aws s3 cp s3://webserver-s3-ds/scripts/getmetadata_black.sh /var/www/html/getmetadata.sh
 		aws s3 cp s3://webserver-s3-ds/HTML-443/index.html /var/www/html/
 		aws s3 cp s3://webserver-s3-ds/HTML-443/panlogo.png /var/www/html/
 		sudo chmod 755 /var/www/html/getmetadata.sh
