@@ -119,6 +119,12 @@ resource "aws_instance" "websrv4-p443-az2" {
 		aws s3 cp s3://webserver-s3-ds/HTML-443/panlogo.png /var/www/html/
 		sudo chmod 755 /var/www/html/getmetadata.sh
 		sudo /var/www/html/getmetadata.sh
+		sudo yum install -y mod_ssl
+		cd /etc/pki/tls/certs
+		sudo ./make-dummy-cert localhost.crt
+		aws s3 cp s3://webserver-s3-ds/HTML-443/ssl.conf /etc/httpd/conf.d/ssl.conf
+		aws s3 cp s3://webserver-s3-ds/HTML-443/httpd.conf /etc/httpd/conf/httpd.conf
+		sudo systemctl restart httpd
 	EOF
   source_dest_check                   = true
   tags = {
