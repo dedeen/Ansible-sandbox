@@ -79,13 +79,28 @@ resource "aws_s3_object" "panlogo2" {
   force_destroy            = true
 }
 
-# script to pull ec2 metadata and put into www directory to be displayed on web pages 
+# Script(s) to pull ec2 metadata and put into www directory to be displayed on web pages 
 resource "aws_s3_object" "metascript1" {
   bucket                   = aws_s3_bucket.webserver-s3-ds.id
   key                      = "/scripts/getmetadata.sh"
   source                   = "./Webservers/scripts/getmetadata.sh"
   force_destroy            = true
 }
+# 
+resource "aws_s3_object" "metascriptwhite" {
+  bucket                   = aws_s3_bucket.webserver-s3-ds.id
+  key                      = "/scripts/getmetadata_white.sh"
+  source                   = "./Webservers/scripts/getmetadata_white.sh"
+  force_destroy            = true
+}
+# 
+resource "aws_s3_object" "metascriptblack" {
+  bucket                   = aws_s3_bucket.webserver-s3-ds.id
+  key                      = "/scripts/getmetadata_black.sh"
+  source                   = "./Webservers/scripts/getmetadata_black.sh"
+  force_destroy            = true
+}
+
 # Two config files for apache/httpd to set up ssl/443
 resource "aws_s3_object" "sslconf" {
   bucket                   = aws_s3_bucket.webserver-s3-ds.id
