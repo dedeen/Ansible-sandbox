@@ -22,6 +22,8 @@ resource "aws_instance" "websrv1-p80-az1" {
 		aws s3 cp s3://webserver-s3-ds/scripts/getmetadata.sh /var/www/html/
 		aws s3 cp s3://webserver-s3-ds/HTML-80/index.html /var/www/html/
 		aws s3 cp s3://webserver-s3-ds/HTML-80/panlogo.png /var/www/html/
+		sudo chmod 755 /var/www/html/getmetadata.sh
+		sudo /var/www/html/getmetadata.sh
 	EOF
   source_dest_check                   = true
   tags = {
@@ -76,6 +78,8 @@ resource "aws_instance" "websrv3-p80-az2" {
 		aws s3 cp s3://webserver-s3-ds/scripts/getmetadata.sh /var/www/html/
 		aws s3 cp s3://webserver-s3-ds/HTML-80/index.html /var/www/html/
 		aws s3 cp s3://webserver-s3-ds/HTML-80/panlogo.png /var/www/html/
+		sudo chmod 755 /var/www/html/getmetadata.sh
+		sudo /var/www/html/getmetadata.sh
 	EOF
   source_dest_check                   = true
   tags = {
