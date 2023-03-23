@@ -19,17 +19,17 @@ resource "aws_instance" "Splunk-1" {
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["mgmtvpc"].id]  
   source_dest_check                   = false
   user_data = <<EOF
-		            #!/bin/bash
-	              sudo yum update -y
-		#sudo mv /opt/splunk/etc/passwd /opt/splunk/etc/passwd.bk
-		#sudo touch /opt/splunk/etc/system/local/user-seed.conf
-		#echo "[user_info]" | sudo tee -a /opt/splunk/etc/system/local/user-seed.conf
-		#echo "PASSWORD=Temp1234" | sudo tee -a /opt/splunk/etc/system/local/user-seed.conf
-		#sudo touch /opt/splunk/etc/system/local/inputs.conf
-		#echo " " | sudo tee -a /opt/splunk/etc/system/local/inputs.conf
-		#echo "[udp://5514]" | sudo tee -a /opt/splunk/etc/system/local/inputs.conf
-		#echo "sourcetype = pan:firewall" | sudo tee -a /opt/splunk/etc/system/local/inputs.conf
-		#echo "no_appending_timestamp = true" | sudo tee -a /opt/splunk/etc/system/local/inputs.conf
+		#!/bin/bash
+		sudo yum update -y
+		sudo mv /opt/splunk/etc/passwd /opt/splunk/etc/passwd.bk
+		sudo touch /opt/splunk/etc/system/local/user-seed.conf
+		echo "[user_info]" | sudo tee -a /opt/splunk/etc/system/local/user-seed.conf
+		echo "PASSWORD=Temp1234" | sudo tee -a /opt/splunk/etc/system/local/user-seed.conf
+		sudo touch /opt/splunk/etc/system/local/inputs.conf
+		echo " " | sudo tee -a /opt/splunk/etc/system/local/inputs.conf
+		echo "[udp://5514]" | sudo tee -a /opt/splunk/etc/system/local/inputs.conf
+		echo "sourcetype = pan:firewall" | sudo tee -a /opt/splunk/etc/system/local/inputs.conf
+		echo "no_appending_timestamp = true" | sudo tee -a /opt/splunk/etc/system/local/inputs.conf
   EOF
   tags = {
           Owner = "dan-via-terraform"
