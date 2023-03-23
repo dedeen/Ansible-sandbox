@@ -3,20 +3,23 @@
 #   This script is run by cloud init, and as on the fly we need to wait until the files and directories exist before modifying them.
 #        useful tip to debug: cloud init logs are at /var/log/cloud-init.log, /var/log/cloud-init-output.log
 #
-#origpwdfilename=/opt/splunk/etc/passwd 
-#bypasspwdfilename=/opt/splunk/etc/passwd.bk
+#        #origpwdfilename=/opt/splunk/etc/passwd 
+#        #bypasspwdfilename=/opt/splunk/etc/passwd.bk
 
-# Trying a big sleep here for Splunk install as this will recreate the default passwd file. After this, we will 
-#   change its name and build a seed file for replacing it. . . 
+# Big sleep here for Splunk install, driven by cloud init, as the install will create 
+#   a default password file: /opt/splunk/etc/passwd and we want to get rid of it (-> .bak)
+#   and create a seed file with our desired admin password in it. 
+#   Then when we restart Splunk at the end of this script our admin password 
+#   will be configured as we wish. This is tested and works well. 
+
 sleep 200 
 
-# Need to wait until this file exists on the EC2 instance 
+# Checking that this file exists on the EC2 instance 
 until [ -f /opt/splunk/etc/passwd ]
 do 
     sleep 15
     echo "."
 done
-echo "Default password file found"
 sudo mv /opt/splunk/etc/passwd /opt/splunk/etc/passwd.bk
 
 # Need to wait until this path exists on the EC2 instance 
@@ -37,25 +40,7 @@ echo "[udp://5514]" >> /opt/splunk/etc/system/local/inputs.conf
 echo "sourcetype = pan:firewall" >> /opt/splunk/etc/system/local/inputs.conf
 echo "no_appending_timestamp = true" >> /opt/splunk/etc/system/local/inputs.conf
 
+# all config is complete, restart Splunk and we should be all set
+sudo /opt/splunk/bin/splunk restart
 
-#sudo chmod 777 "${origpwdfilename}"
-#sudo touch "${bypasspwdfilename}"
-#sudo chmod 777 "${bypasspwdfilename}"
-#sudo mv /opt/splunk/etc/passwd /opt/splunk/etc/passwd.bk
-
-#seedfilename=/opt/splunk/etc/system/local/user-seed.conf
-#inputsfilename=/opt/splunk/etc/system/local/inputs.conf
-#
-#sudo mv /opt/splunk/etc/passwd /opt/splunk/etc/passwd.bk
-#
-#sudo touch "${seedfilename}"
-#sudo chmod 755 "${seedfilename}"
-#echo "[user_info]" >> "${seedfilename}"
-#echo "PASSWORD=Temp1234" >> "${seedfilename}"
-#
-#sudo touch "${inputsfilename}"
-#sudo chmod 755 "${inputsfilename}"
-#echo " " >> "${inputsfilename}"
-#echo "[udp://5514]" >> "${inputsfilename}"
-#echo "sourcetype = pan:firewall" >> "${inputsfilename}"
-#echo "no_appending_timestamp = true" >> "${inputsfilename}"
+# that's it
