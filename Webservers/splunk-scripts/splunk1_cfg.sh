@@ -11,6 +11,10 @@
 #   and create a seed file with our desired admin password in it. 
 #   Then when we restart Splunk at the end of this script our admin password 
 #   will be configured as we wish. This is tested and works well. 
+#
+#   Important note - this script is called via user data on creation of the instances. This call needs to 
+#     be run in background '&' or else the sleeps here will hold up the splunk install and deadlock waiting 
+#     on the splunk files to exist. 
 
 sleep 200 
 
