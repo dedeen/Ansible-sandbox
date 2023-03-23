@@ -21,16 +21,10 @@ resource "aws_instance" "Splunk-1" {
   user_data = <<EOF
 		#!/bin/bash
 		sudo yum update -y
-		sudo mv /opt/splunk/etc/passwd /opt/splunk/etc/passwd.bk
-		sudo touch /opt/splunk/etc/system/local/user-seed.conf
-		echo "[user_info]" | sudo tee -a /opt/splunk/etc/system/local/user-seed.conf
-		echo "PASSWORD=Temp1234" | sudo tee -a /opt/splunk/etc/system/local/user-seed.conf
-		sudo touch /opt/splunk/etc/system/local/inputs.conf
-		echo " " | sudo tee -a /opt/splunk/etc/system/local/inputs.conf
-		echo "[udp://5514]" | sudo tee -a /opt/splunk/etc/system/local/inputs.conf
-		echo "sourcetype = pan:firewall" | sudo tee -a /opt/splunk/etc/system/local/inputs.conf
-		echo "no_appending_timestamp = true" | sudo tee -a /opt/splunk/etc/system/local/inputs.conf
-  EOF
+		aws s3 cp s3://webserver-s3-ds/scripts/splunk1_cfg.sh /home/ec2-user/
+		sudo chmod 755 /home/ec2-user/splunk1_cfg.sh
+		sudo /home/ec2-user/splunk1_cfg.sh
+	EOF
   tags = {
           Owner = "dan-via-terraform"
           Name  = "Splunk-1"
