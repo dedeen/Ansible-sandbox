@@ -3,8 +3,13 @@
 #   This script is run by cloud init, and as on the fly we need to wait until the files and directories exist before modifying them.
 #        useful tip to debug: cloud init logs are at /var/log/cloud-init.log, /var/log/cloud-init-output.log
 #
-origpwdfilename=/opt/splunk/etc/passwd 
-bypasspwdfilename=/opt/splunk/etc/passwd.bk
+#origpwdfilename=/opt/splunk/etc/passwd 
+#bypasspwdfilename=/opt/splunk/etc/passwd.bk
+
+# Trying a big sleep here for Splunk install as this will recreate the default passwd file. After this, we will 
+#   change its name and build a seed file for replacing it. . . 
+sleep 200 
+
 # Need to wait until this file exists on the EC2 instance 
 until [ -f /opt/splunk/etc/passwd ]
 do 
