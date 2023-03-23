@@ -1,23 +1,19 @@
-filename=/var/www/html/instance_meta_data.html
-sudo touch "${filename}"
-sudo chmod 755 "${filename}"
-echo "<body>" >> "${filename}"
-echo "<font color=white>" >> "${filename}"
-echo "===============================" >> "${filename}"
-echo "    Instance MetaData<br>" >> "${filename}"
-echo -n "Private IP:    " >> "${filename}"
-sudo curl http://169.254.169.254/latest/meta-data/local-ipv4 >> "${filename}"
-echo "<br>" >> "${filename}"
+# initial configuration for Splunk server(s)
+# copied from S3 to the splunk instances and executed upon launch
 #
-echo -n "Instance Id:   " >> "${filename}"
-sudo curl http://169.254.169.254/latest/meta-data/instance-id >> "${filename}"
-echo "<br>" >> "${filename}"
+seedfilename=/opt/splunk/etc/system/local/user-seed.conf
+inputsfilename=/opt/splunk/etc/system/local/inputs.conf
 #
-echo -n "Instance Type: " >> "${filename}"
-sudo curl http://169.254.169.254/latest/meta-data/instance-type >> "${filename}"
-echo "<br>" >> "${filename}"
+sudo mv /opt/splunk/etc/passwd /opt/splunk/etc/passwd.bk
 #
-echo -n "Avail Zone:    " >> "${filename}"
-sudo curl http://169.254.169.254/latest/meta-data/placement/availability-zone >> "${filename}"
-echo "<br>" >> "${filename}"
-echo "===============================" >> "${filename}"
+sudo touch "${seedfilename}"
+sudo chmod 755 "${seedfilename}"
+echo "[user_info]" >> "${seedfilename}"
+echo "PASSWORD=Temp1234" >> "${seedfilename}"
+#
+sudo touch "${inputsfilename}"
+sudo chmod 755 "${inputsfilename}"
+echo " " >> "${inputsfilename}"
+echo "[udp://5514]" >> "${inputsfilename}"
+echo "sourcetype = pan:firewall" >> "${inputsfilename}"
+echo "no_appending_timestamp = true" >> "${inputsfilename}"
