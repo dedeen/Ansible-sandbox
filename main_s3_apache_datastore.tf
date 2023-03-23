@@ -114,3 +114,10 @@ resource "aws_s3_object" "httpdconf" {
   source                   = "./Webservers/HTML-443/httpd.conf"
   force_destroy            = true
 }
+# startup config file for Splunk SIEM server
+resource "aws_s3_object" "splunk1script" {
+  bucket                   = aws_s3_bucket.webserver-s3-ds.id
+  key                      = "/scripts/splunk1_cfg.sh"
+  source                   = "./Webservers/splunk-scripts/splunk1_cfg.sh"
+  force_destroy            = true
+}
