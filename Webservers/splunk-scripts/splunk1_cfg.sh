@@ -44,6 +44,14 @@ echo "[udp://5514]" >> /opt/splunk/etc/system/local/inputs.conf
 echo "sourcetype = pan:firewall" >> /opt/splunk/etc/system/local/inputs.conf
 echo "no_appending_timestamp = true" >> /opt/splunk/etc/system/local/inputs.conf
 
+sudo touch /opt/splunk/etc/system/local/global-banner.conf
+sudo chmod 755 /opt/splunk/etc/system/local/global-banner.conf
+echo " " >> /opt/splunk/etc/system/local/global-banner.conf
+echo "[BANNER_MESSAGE_SINGLETON]" >> /opt/splunk/etc/system/local/global-banner.conf
+echo "global_banner.message = Splunk-1" >> /opt/splunk/etc/system/local/global-banner.conf
+echo "global_banner.visible = 1" >> /opt/splunk/etc/system/local/global-banner.conf
+echo "global_banner.background_color = red" >> /opt/splunk/etc/system/local/global-banner.conf
+
 # all config is complete, restart Splunk and we should be all set
 sudo /opt/splunk/bin/splunk restart
 
