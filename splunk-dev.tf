@@ -16,6 +16,7 @@ resource "aws_instance" "Splunk-1" {
   associate_public_ip_address         = false
   private_ip                          = "10.255.1.30"
   subnet_id                           = module.vpc["mgmtvpc"].intra_subnets[1]           #Mgmt VPC AZ1 public subnet
+  iam_instance_profile                = aws_iam_instance_profile.ec2_profile.id   		# Allow instance access to S3
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["mgmtvpc"].id]  
   source_dest_check                   = false
   user_data = <<EOF
