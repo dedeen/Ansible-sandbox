@@ -1,6 +1,7 @@
 # initial configuration for Splunk server(s)
 #   This script is copied from S3 to the splunk instances and executed upon launch.
-#   This script is run by cloud init, and as on the fly we need to wait until the files and directories exist before modifying them.  
+#   This script is run by cloud init, and as on the fly we need to wait until the files and directories exist before modifying them.
+#        useful tip to debug: cloud init logs are at /var/log/cloud-init.log, /var/log/cloud-init-output.log
 #
 origpwdfilename=/opt/splunk/etc/passwd 
 bypasspwdfilename=/opt/splunk/etc/passwd.bk
