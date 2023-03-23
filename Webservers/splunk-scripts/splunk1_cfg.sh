@@ -9,6 +9,7 @@ bypasspwdfilename=/opt/splunk/etc/passwd.bk
 until [ -f /opt/splunk/etc/passwd ]
 do 
     sleep 15
+    echo "."
 done
 echo "Default password file found"
 sudo mv /opt/splunk/etc/passwd /opt/splunk/etc/passwd.bk
