@@ -24,7 +24,7 @@ resource "aws_instance" "Splunk-1" {
 		sudo yum update -y
 		aws s3 cp s3://webserver-s3-ds/scripts/splunk1_cfg.sh /home/ec2-user/
 		sudo chmod 755 /home/ec2-user/splunk1_cfg.sh
-		sudo /home/ec2-user/splunk1_cfg.sh & > /home/ec2-user/log1.txt
+		sudo /home/ec2-user/splunk1_cfg.sh & 
 	EOF
   tags = {
           Owner = "dan-via-terraform"
