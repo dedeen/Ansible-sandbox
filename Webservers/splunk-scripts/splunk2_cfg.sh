@@ -50,7 +50,7 @@ echo " " >> /opt/splunk/etc/system/local/global-banner.conf
 echo "[BANNER_MESSAGE_SINGLETON]" >> /opt/splunk/etc/system/local/global-banner.conf
 echo "global_banner.message = Splunk-2" >> /opt/splunk/etc/system/local/global-banner.conf
 echo "global_banner.visible = 1" >> /opt/splunk/etc/system/local/global-banner.conf
-echo "global_banner.background_color = blue" >> /opt/splunk/etc/system/local/global-banner.conf
+echo "global_banner.background_color = orange" >> /opt/splunk/etc/system/local/global-banner.conf
 
 
 # all config is complete, restart Splunk and we should be all set
