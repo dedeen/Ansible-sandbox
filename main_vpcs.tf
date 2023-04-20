@@ -30,5 +30,14 @@ resource "aws_internet_gateway" "sec_vpc_igw" {
 	  Name = "sec_vpc_igw"
 	}
 }
+
+#
+# Create a route table for the mgmt subnets of the security VPC
+resource "aws_route_table" "secvpc-rt-mgmt-subnets" {
+  vpc_id                = module.vpc["secvpc"].vpc_id 
+  route {                                                      
+    cidr_block          = "0.0.0.0/0"                          # route to IGW - mgmt interface of PA-VMs 
+    gateway_id  = aws_internet_gateway.sec_vpc_igw.id
+  }	
 	
 
