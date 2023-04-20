@@ -67,3 +67,24 @@ resource "aws_network_interface" "eth3" {
     device_index        = 3
   }
 } 
+
+  
+# Create two EIPs for each ASAv one for the mgmt interface, and one for the public-side interface for outbound traffic flows. 
+resource "aws_eip" "ASAv-eip-mgmt-int" {
+  vpc                   = true
+}
+resource "aws_eip" "ASAv-eip-public-int" {
+  vpc                   = true
+}
+
+# Associate these EIPs with the specific firewall NICs 
+resource "aws_eip_association" "asav1-mgt-assoc" {
+  allocation_id         = aws_eip.ASAv-eip-mgmt-int.id
+  network_interface_id  = aws_instance.ASAv-1.primary_network_interface_id
+}
+resource "aws_eip_association" "asav1-pub-assoc" {
+  allocation_id         = aws_eip.ASAv-eip-public-int.id
+  network_interface_id  = aws_network_interface.eth1.id
+}
+  
+
