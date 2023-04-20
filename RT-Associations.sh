@@ -24,7 +24,15 @@ subnet[0]=sec-az1-mgmt
 #
 originalrt[1]=Sec01-VPC-intra
 targetrt[1]=secvpc-mgmt-snets-RT
-subnet[1]=sec-az2-mgmt
+subnet[1]=sec-az1-dmz
+#
+originalrt[2]=Sec01-VPC-intra
+targetrt[2]=secvpc-mgmt-snets-RT
+subnet[2]=sec-az1-pub
+#
+originalrt[3]=Sec01-VPC-intra
+targetrt[3]=secvpc-mgmt-snets-RT
+subnet[3]=sec-az1-priv
 #
 
 
