@@ -85,7 +85,7 @@ resource "aws_network_interface" "eth2" {
     
   attachment  {
     instance            = aws_instance.ASAv-1.id
-    device_index        = 1
+    device_index        = 2
   }
 } 
   
@@ -99,6 +99,6 @@ resource "aws_network_interface" "eth3" {
     
   attachment  {
     instance            = aws_instance.ASAv-1.id
-    device_index        = 1
+    device_index        = 3
   }
 } 
