@@ -1,7 +1,4 @@
-#  Terraform to create a vpcs, as part of a larger Palo Alto Firewall PoC. 
-#         https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest
-#         https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl_rule
-#         -- Dan Edeen, dan@dsblue.net, 2022  --   
+#  Terraform to create vpcs, simple set up for ASAv firewalls. 
 #
 # Build VPCs for Project
 module "vpc" {
