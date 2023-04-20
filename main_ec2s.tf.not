@@ -1,67 +1,34 @@
-#  Terraform to create a end user EC2s in the AZ/subnets of the user vpcs (Usr01-VPC, Usr02-VPC). There are two user subnets per 
-#    VPC, distributed across AZs for redundancy. 
+#  Terraform to create end user EC2s 
 
-#  First end user EC2 in VPC=usr1vpc, subnet=usr1-az1-inst, vars.tf subnet index = 0
-resource "aws_instance" "usr1-az1-linux" {
+#  First EC2 in VPC=secvpc, subnet=sec-az1-mgmt, vars.tf subnet index = 3
+resource "aws_instance" "secvpc-az1-linux" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
   key_name                            = "${aws_key_pair.generated_key.key_name}"
-  associate_public_ip_address         = false
-  private_ip                          = "10.104.0.20"
-  subnet_id                           = module.vpc["usr1vpc"].intra_subnets[0]
-  vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["usr1vpc"].id]  
+  associate_public_ip_address         = true
+  private_ip                          = "10.100.3.10"
+  subnet_id                           = module.vpc["secvpc"].intra_subnets[3]
+  vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["secvpc"].id]  
   source_dest_check                   = true
   tags = {
           Owner = "dan-via-terraform"
-          Name  = "usr1-az1-linux"
+          Name  = "secvpc-az1-linux"
     }
 }
  
-#  Second end user EC2 in VPC=usr1vpc, subnet=usr1-az2-inst, vars.tf subnet index = 2
+#  Second end user EC2 in VPC=usr1vpc, subnet=usr1-az2-inst, vars.tf subnet index = 7
 resource "aws_instance" "usr1-az2-linux" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
   key_name                            = "${aws_key_pair.generated_key.key_name}"
-  associate_public_ip_address         = false
-  private_ip                          = "10.104.128.20"
-  subnet_id                           = module.vpc["usr1vpc"].intra_subnets[2]
-  vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["usr1vpc"].id]  
+  associate_public_ip_address         = true
+  private_ip                          = "10.104.67.10"
+  subnet_id                           = module.vpc["secvpc"].intra_subnets[7]
+  vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["secvpc"].id]  
   source_dest_check                   = true
   tags = {
           Owner = "dan-via-terraform"
           Name  = "usr1-az2-linux"
-    }
-}
-
-#  Third end user EC2 in VPC=usr2vpc, subnet=usr2-az1-inst, vars.tf subnet index = 0
-resource "aws_instance" "usr2-az1-linux" {
-  ami                                 = "ami-094125af156557ca2"
-  instance_type                       = "t2.micro"
-  key_name                            = "${aws_key_pair.generated_key.key_name}"
-  associate_public_ip_address         = false
-  private_ip                          = "10.105.0.20"
-  subnet_id                           = module.vpc["usr2vpc"].intra_subnets[0]
-  vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["usr2vpc"].id]  
-  source_dest_check                   = true
-  tags = {
-          Owner = "dan-via-terraform"
-          Name  = "usr2-az1-linux"
-    }
-}
-
-#  Fourth end user EC2 in VPC=usr2vpc, subnet=usr2-az2-inst, vars.tf subnet index = 2
-resource "aws_instance" "usr2-az2-linux" {
-  ami                                 = "ami-094125af156557ca2"
-  instance_type                       = "t2.micro"
-  key_name                            = "${aws_key_pair.generated_key.key_name}"
-  associate_public_ip_address         = false
-  private_ip                          = "10.105.128.20"
-  subnet_id                           = module.vpc["usr2vpc"].intra_subnets[2]
-  vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["usr2vpc"].id]  
-  source_dest_check                   = true
-  tags = {
-          Owner = "dan-via-terraform"
-          Name  = "usr2-az2-linux"
     }
 }
 ##
