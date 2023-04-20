@@ -39,6 +39,10 @@ resource "aws_route_table" "secvpc-rt-mgmt-subnets" {
     cidr_block          = "0.0.0.0/0"                          # route to IGW - mgmt interface of PA-VMs 
     gateway_id  = aws_internet_gateway.sec_vpc_igw.id
   }
+  tags = {
+    Owner = "dan-via-terraform"
+    Name  = "secvpc-mgmt-snets-RT"
+  }
 }
 	
 
