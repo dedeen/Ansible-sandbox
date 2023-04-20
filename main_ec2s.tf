@@ -4,7 +4,8 @@
 resource "aws_instance" "secvpc-az1-linux" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
-  key_name                            = "${aws_key_pair.generated_key.key_name}"
+  key_name                            = "bastion-keypair"
+  #key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = true
   private_ip                          = "10.100.3.10"
   subnet_id                           = module.vpc["secvpc"].intra_subnets[3]
