@@ -52,9 +52,9 @@ resource "aws_instance" "ASAv-1" {
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["secvpc"].id]  
   source_dest_check                   = false
   #iam_instance_profile                = aws_iam_instance_profile.ec2_profile.id   # Allow this instance to get bootstrap config from S3 bucket
-  user_data = <<EOF
-vmseries-bootstrap-aws-s3bucket=pavm-s3-ds/PA-VM-1
-EOF
+  #user_data = <<EOF
+#vmseries-bootstrap-aws-s3bucket=pavm-s3-ds/PA-VM-1
+#EOF
 
   tags = {
           Owner = "dan-via-terraform"
