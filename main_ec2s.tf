@@ -36,6 +36,9 @@ resource "aws_instance" "secvpc-az2-linux" {
 ##
 
 # First Cisco ASAv firewall 
+#     Building these firewalls with 4 interfaces: mgmt, public, private, and dmz
+#       in that order. Creating 2nd eth interfaces for mgmt and public and hang an EIP on them for outside access
+  
 locals {
   asav_ami           = "ami-0e59c968be56bcc4d"  # BYOL AMI, ASAv version 9.19.1 
   asav_inst_type     = "c5.xlarge"               # Cisco min recommendation
@@ -51,15 +54,51 @@ resource "aws_instance" "ASAv-1" {
   subnet_id                           = module.vpc["secvpc"].intra_subnets[3]           #PA-VM mgmt submet
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["secvpc"].id]  
   source_dest_check                   = false
-  #iam_instance_profile                = aws_iam_instance_profile.ec2_profile.id   # Allow this instance to get bootstrap config from S3 bucket
-  #user_data = <<EOF
-#vmseries-bootstrap-aws-s3bucket=pavm-s3-ds/PA-VM-1
-#EOF
-
+  
   tags = {
           Owner = "dan-via-terraform"
           Name  = "ASAv-1"
     }
 }
+
+#  Add three additional NICs to the ASAv
+#    2nd = eth1
+resource "aws_network_interface" "eth1" {
+  subnet_id             = module.vpc["secvpc"].intra_subnets[0]                   # public subnet
+  security_groups       = [aws_security_group.SG-allow_ipv4["secvpc"].id]
+  private_ips           = ["10.100.0.10"]   
+  source_dest_check     = false                                                 # promisc mode -> this is a firewall
+    
+  attachment  {
+    instance            = aws_instance.ASAv-1.id
+    device_index        = 1
+  }
+} 
+ 
+  
+#    3rd = eth2
+resource "aws_network_interface" "eth2" {
+  subnet_id             = module.vpc["secvpc"].intra_subnets[1]                   # private subnet
+  security_groups       = [aws_security_group.SG-allow_ipv4["secvpc"].id]
+  private_ips           = ["10.100.1.10"]   
+  source_dest_check     = false                                                 # promisc mode -> this is a firewall
+    
+  attachment  {
+    instance            = aws_instance.ASAv-1.id
+    device_index        = 1
+  }
+} 
   
   
+#    4th = eth3
+resource "aws_network_interface" "eth3" {
+  subnet_id             = module.vpc["secvpc"].intra_subnets[2]                   # dmz subnet
+  security_groups       = [aws_security_group.SG-allow_ipv4["secvpc"].id]
+  private_ips           = ["10.100.2.10"]   
+  source_dest_check     = false                                                 # promisc mode -> this is a firewall
+    
+  attachment  {
+    instance            = aws_instance.ASAv-1.id
+    device_index        = 1
+  }
+} 
