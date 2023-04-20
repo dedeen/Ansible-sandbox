@@ -22,7 +22,7 @@ module "vpc" {
   
 }
 	
-# Build IGW on the Security VPC to allow outside access to/from PA-VMs 
+# Build IGW on the Security VPC to allow outside access 
 resource "aws_internet_gateway" "sec_vpc_igw" {
 	vpc_id = module.vpc["secvpc"].vpc_id
 		
@@ -31,11 +31,4 @@ resource "aws_internet_gateway" "sec_vpc_igw" {
 	}
 }
 	
-# Build IGW on the Mgmt VPC to allow outside access for Panorama 
-resource "aws_internet_gateway" "mgmt_vpc_igw" {
-	vpc_id = module.vpc["mgmtvpc"].vpc_id
-		
-	tags = {
-	  Name = "mgmt_vpc_igw"
-	}
-}
+
