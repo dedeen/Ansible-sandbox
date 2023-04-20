@@ -19,106 +19,13 @@ declare -a awssubnet
 declare -a awsrtnew
 
 originalrt[0]=Sec01-VPC-intra
-targetrt[0]=Secvpc-public-subnets-RT
-subnet[0]=sec-az1-pub
+targetrt[0]=secvpc-mgmt-snets-RT
+subnet[0]=sec-az1-mgmt
 #
 originalrt[1]=Sec01-VPC-intra
-targetrt[1]=Secvpc-public-subnets-RT
-subnet[1]=sec-az2-pub
+targetrt[1]=secvpc-mgmt-snets-RT
+subnet[1]=sec-az2-mgmt
 #
-originalrt[2]=Sec01-VPC-intra
-targetrt[2]=Secvpc-mgmt-subnets-RT
-subnet[2]=sec-az1-mgt
-#
-originalrt[3]=Sec01-VPC-intra
-targetrt[3]=Secvpc-mgmt-subnets-RT
-subnet[3]=sec-az2-mgt
-#
-originalrt[4]=Sec01-VPC-intra
-targetrt[4]=Secvpc-private-subnets-RT
-subnet[4]=sec-az1-int
-#
-originalrt[5]=Sec01-VPC-intra
-targetrt[5]=Secvpc-private-subnets-RT
-subnet[5]=sec-az2-int
-#
-originalrt[6]=Usr01-VPC-intra
-targetrt[6]=Usr1-instances-RT
-subnet[6]=usr1-az1-inst
-#
-originalrt[7]=Usr01-VPC-intra
-targetrt[7]=Usr1-instances-RT
-subnet[7]=usr1-az2-inst
-#
-originalrt[8]=Usr02-VPC-intra
-targetrt[8]=Usr2-instances-RT
-subnet[8]=usr2-az1-inst
-#
-originalrt[9]=Usr02-VPC-intra
-targetrt[9]=Usr2-instances-RT
-subnet[9]=usr2-az2-inst
-#
-originalrt[10]=Mgmt-VPC-intra
-targetrt[10]=Mgmt-private-subnets-RT
-subnet[10]=mgmt-az1-int
-#
-originalrt[11]=Mgmt-VPC-intra
-targetrt[11]=Mgmt-private-subnets-RT
-subnet[11]=mgmt-az2-int
-#
-originalrt[12]=Mgmt-VPC-intra
-targetrt[12]=Mgmt-public-subnets-RT
-subnet[12]=mgmt-az1-pub
-#
-originalrt[13]=Mgmt-VPC-intra
-targetrt[13]=Mgmt-public-subnets-RT
-subnet[13]=mgmt-az2-pub
-#
-# Next two are for the web servers for inbound traffic through the firewall
-originalrt[14]=WebSrv-VPC-intra
-targetrt[14]=WebSrv-subnets-RT
-subnet[14]=websrv-az1-inst
-#
-originalrt[15]=WebSrv-VPC-intra
-targetrt[15]=WebSrv-subnets-RT
-subnet[15]=websrv-az2-inst
-#
-# Next two are subnets hosting TGW attachments in security VPC
-originalrt[16]=Sec01-VPC-intra
-targetrt[16]=TGW-Att-GWLBe-az1-RT
-subnet[16]=sec-az1-TGW_Att
-#
-originalrt[17]=Sec01-VPC-intra
-targetrt[17]=TGW-Att-GWLBe-az2-RT
-subnet[17]=sec-az2-TGW_Att
-#
-# Next two are subnets hosting GWLB Endpoints in the security VPC
-originalrt[18]=Sec01-VPC-intra
-targetrt[18]=GWLBe-TGW-Att-az1-RT
-subnet[18]=sec-az1-GWLB_EndPt
-#
-originalrt[19]=Sec01-VPC-intra
-targetrt[19]=GWLBe-TGW-Att-az2-RT
-subnet[19]=sec-az2-GWLB_EndPt
-#
-# Next two are subnets where the GWLB attaches to the VPC+AZ
-originalrt[20]=Sec01-VPC-intra
-targetrt[20]=GWLB-az1-RT
-subnet[20]=sec-az1-GWLB
-#
-originalrt[21]=Sec01-VPC-intra
-targetrt[21]=GWLB-az2-RT
-subnet[21]=sec-az2-GWLB
-#
-# Next two are subnets for vpn connections to Palo Alto firewalls
-originalrt[22]=Sec01-VPC-intra
-targetrt[22]=Secvpc-vpn-az1-subnet-RT
-subnet[22]=sec-az1-vpn
-#
-# Next two are subnets for vpn connections to Palo Alto firewalls
-originalrt[23]=Sec01-VPC-intra
-targetrt[23]=Secvpc-vpn-az2-subnet-RT
-subnet[23]=sec-az2-vpn
 
 
 #count is number of entries in static array above
