@@ -22,7 +22,7 @@ resource "aws_instance" "usr1-az2-linux" {
   instance_type                       = "t2.micro"
   key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = true
-  private_ip                          = "10.104.67.10"
+  private_ip                          = "10.100.67.10"
   subnet_id                           = module.vpc["secvpc"].intra_subnets[7]
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["secvpc"].id]  
   source_dest_check                   = true
