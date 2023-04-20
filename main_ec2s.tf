@@ -1,7 +1,7 @@
 #  Terraform to create end user EC2s 
 
 #  private subnet ec2
-resource "aws_instance" "lnx1-priv-snet" {
+resource "aws_instance" "linux1-priv-snet" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
   key_name                            = "bastion-keypair"
@@ -13,12 +13,12 @@ resource "aws_instance" "lnx1-priv-snet" {
   source_dest_check                   = true
   tags = {
           Owner = "dan-via-terraform"
-          Name  = "lbx1-priv-snet"
+          Name  = "linux1-priv-snet"
     }
 }
  
 #  dmz subnet ec2
-resource "aws_instance" "lnx2-dmz-snet" {
+resource "aws_instance" "linux2-dmz-snet" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
   key_name                            = "bastion-keypair"
@@ -30,7 +30,7 @@ resource "aws_instance" "lnx2-dmz-snet" {
   source_dest_check                   = true
   tags = {
           Owner = "dan-via-terraform"
-          Name  = "lnx2-dmz-snet"
+          Name  = "linux2-dmz-snet"
     }
 }
 ##
