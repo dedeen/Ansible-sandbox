@@ -1,36 +1,36 @@
 #  Terraform to create end user EC2s 
 
-#  First EC2 in VPC=secvpc, subnet=sec-az1-mgmt, vars.tf subnet index = 3
-resource "aws_instance" "secvpc-az1-linux" {
+#  private subnet ec2
+resource "aws_instance" "lnx1-priv-snet" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
   key_name                            = "bastion-keypair"
   #key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = true
-  private_ip                          = "10.100.3.20"
-  subnet_id                           = module.vpc["secvpc"].intra_subnets[3]
+  private_ip                          = "10.100.1.20"
+  subnet_id                           = module.vpc["secvpc"].intra_subnets[1]
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["secvpc"].id]  
   source_dest_check                   = true
   tags = {
           Owner = "dan-via-terraform"
-          Name  = "secvpc-az1-linux"
+          Name  = "lbx1-priv-snet"
     }
 }
  
-#  Second end user EC2 in VPC, subnet index = 7
-resource "aws_instance" "secvpc-az2-linux" {
+#  dmz subnet ec2
+resource "aws_instance" "lnx2-dmz-snet" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
   key_name                            = "bastion-keypair"
   #key_name                            = "${aws_key_pair.generated_key.key_name}"
   associate_public_ip_address         = true
-  private_ip                          = "10.100.67.20"
-  subnet_id                           = module.vpc["secvpc"].intra_subnets[7]
+  private_ip                          = "10.100.2.20"
+  subnet_id                           = module.vpc["secvpc"].intra_subnets[2]
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["secvpc"].id]  
   source_dest_check                   = true
   tags = {
           Owner = "dan-via-terraform"
-          Name  = "secvpc-az2-linux"
+          Name  = "lnx2-dmz-snet"
     }
 }
 ##
