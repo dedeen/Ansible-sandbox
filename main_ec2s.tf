@@ -17,7 +17,7 @@ resource "aws_instance" "secvpc-az1-linux" {
 }
  
 #  Second end user EC2 in VPC=usr1vpc, subnet=usr1-az2-inst, vars.tf subnet index = 7
-resource "aws_instance" "usr1-az2-linux" {
+resource "aws_instance" "secvpc-az2-linux" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
   key_name                            = "${aws_key_pair.generated_key.key_name}"
@@ -28,7 +28,7 @@ resource "aws_instance" "usr1-az2-linux" {
   source_dest_check                   = true
   tags = {
           Owner = "dan-via-terraform"
-          Name  = "usr1-az2-linux"
+          Name  = "secvpc-az2-linux"
     }
 }
 ##
