@@ -20,24 +20,31 @@ resource "aws_instance" "ASAv-1" {
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["secvpc"].id]  
   source_dest_check                   = false
   user_data = <<EOF
-    hostname ASAv-1
-    enable password password
-    password password
-    interface Management0/0
-    nameif management 
-    security-level 100 
-    ip address dhcp setroute 
+    ! ASA Version 9.x.1.200
+    !
+    interface management0/0
+    management-only
+    nameif management
+    security-level 100
+    ip address dhcp setroute
+    !
     no shutdown
-    interface TenGigabitEthernet0/0
-    nameif TG00
-    security-level 0
-    ip address 10.100.1.10 255.255.255.0
-    no shutdown
-    interface TenGigabitEthernet0/1
-    nameif TG01
-    security-level 0
-    ip address 10.100.2.10 255.255.255.0
-    no shutdown
+    !
+    crypto key generate rsa modulus 2048
+    ssh 0 0 management
+    ssh ::/0 management
+    ssh timeout 60
+    ssh version 2
+    username admin password Q1w2e3r4 privilege 15
+    username admin attributes
+    service-type admin
+    aaa authentication ssh console LOCAL
+    !
+    same-security-traffic permit inter-interface
+    same-security-traffic permit intra-interface
+    access-list allow-all extended permit ip any any
+    access-list allow-all extended permit ip any6 any6
+    access-group allow-all global
     EOF
   tags = {
           Owner = "dan-via-terraform"
