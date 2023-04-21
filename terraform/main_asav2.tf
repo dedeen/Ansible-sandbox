@@ -82,7 +82,7 @@ resource "aws_eip_association" "asav2-mgt-assoc" {
   allocation_id         = aws_eip.ASAv2-eip-mgmt-int.id
   network_interface_id  = aws_instance.ASAv-2.primary_network_interface_id
 }
-resource "aws_eip_association" "asav1-pub-assoc" {
+resource "aws_eip_association" "asav2-pub-assoc" {
   allocation_id         = aws_eip.ASAv2-eip-public-int.id
   network_interface_id  = aws_network_interface.eth2_1.id
 }
