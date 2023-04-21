@@ -27,7 +27,16 @@ resource "aws_instance" "ASAv-1" {
     nameif management
     security-level 100
     ip address dhcp setroute
+    no shutdown
     !
+    interface TenGigabitEthernet0/0
+    nameif ten00
+    ip address dhcp 
+    no shutdown
+    !
+    interface TenGigabitEthernet0/1
+    nameif ten01
+    ip address dhcp 
     no shutdown
     !
     crypto key generate rsa modulus 2048
