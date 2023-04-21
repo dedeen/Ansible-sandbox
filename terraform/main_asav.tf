@@ -19,7 +19,25 @@ resource "aws_instance" "ASAv-1" {
   subnet_id                           = module.vpc["secvpc"].intra_subnets[3]           #PA-VM mgmt submet
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["secvpc"].id]  
   source_dest_check                   = false
-  
+  user_data = <<EOF
+    hostname ASAv-1
+    enable password password
+    interface Management0/0
+    nameif management 
+    security-level 100 
+    ip address dhcp setroute 
+    no shutdown
+    interface TenGigabitEthernet0/0
+    nameif TG00
+    security-level 0
+    ip address 10.100.1.10 255.255.255.0
+    no shutdown
+    interface TenGigabitEthernet0/1
+    nameif TG01
+    security-level 0
+    ip address 10.100.2.10 255.255.255.0
+    no shutdown
+    EOF
   tags = {
           Owner = "dan-via-terraform"
           Name  = "ASAv-1"
