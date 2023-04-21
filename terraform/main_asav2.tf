@@ -22,7 +22,7 @@ resource "aws_instance" "ASAv-2" {
   
   tags = {
           Owner = "dan-via-terraform"
-          Name  = "ASAv-1"
+          Name  = "ASAv-2"
     }
 }
 
