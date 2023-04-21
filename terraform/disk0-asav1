@@ -1,5 +1,8 @@
 ! ASA Version 9.x.1.200
 !
+hostname ASAv-1
+enable password password
+!
 interface management0/0
 management-only
 nameif management
