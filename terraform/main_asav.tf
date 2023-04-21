@@ -22,6 +22,7 @@ resource "aws_instance" "ASAv-1" {
   user_data = <<EOF
     hostname ASAv-1
     enable password password
+    password password
     interface Management0/0
     nameif management 
     security-level 100 
