@@ -29,7 +29,7 @@ resource "aws_instance" "ASAv-1" {
 
 #  Add three additional NICs to the ASAv
 #    2nd = eth1
-resource "aws_network_interface" "eth1" {
+resource "aws_network_interface" "eth1_1" {
   subnet_id             = module.vpc["secvpc"].intra_subnets[0]                   # public subnet
   security_groups       = [aws_security_group.SG-allow_ipv4["secvpc"].id]
   private_ips           = ["10.100.0.10"]   
@@ -43,7 +43,7 @@ resource "aws_network_interface" "eth1" {
  
   
 #    3rd = eth2
-resource "aws_network_interface" "eth2" {
+resource "aws_network_interface" "eth1_2" {
   subnet_id             = module.vpc["secvpc"].intra_subnets[1]                   # private subnet
   security_groups       = [aws_security_group.SG-allow_ipv4["secvpc"].id]
   private_ips           = ["10.100.1.10"]   
@@ -57,7 +57,7 @@ resource "aws_network_interface" "eth2" {
   
   
 #    4th = eth3
-resource "aws_network_interface" "eth3" {
+resource "aws_network_interface" "eth1_3" {
   subnet_id             = module.vpc["secvpc"].intra_subnets[2]                   # dmz subnet
   security_groups       = [aws_security_group.SG-allow_ipv4["secvpc"].id]
   private_ips           = ["10.100.2.10"]   
@@ -85,7 +85,7 @@ resource "aws_eip_association" "asav1-mgt-assoc" {
 }
 resource "aws_eip_association" "asav1-pub-assoc" {
   allocation_id         = aws_eip.ASAv-eip-public-int.id
-  network_interface_id  = aws_network_interface.eth1.id
+  network_interface_id  = aws_network_interface.eth1_1.id
 }
   
 
