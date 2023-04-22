@@ -1,0 +1,25 @@
+#  Terraform to create a EC2s that will serve as webserver(s) to the outside world
+
+resource "aws_instance" "webserver-dmz" {
+  ami                                 = "ami-094125af156557ca2"
+  instance_type                       = "t2.micro"
+  key_name                            = "bastion-keypair"
+  #key_name                            = "${aws_key_pair.generated_key.key_name}"
+  associate_public_ip_address         = true
+  private_ip                          = "10.100.2.20"
+  subnet_id                           = module.vpc["secvpc"].intra_subnets[2]
+  vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["secvpc"].id]  
+  user_data = <<EOF
+		#!/bin/bash
+		sudo yum update -y
+    		sudo amazon-linux-extras install php8.0 mariadb10.5 -y
+		sudo yum install -y httpd
+		sudo systemctl start httpd
+		sudo systemctl enable httpd
+	EOF
+  source_dest_check                   = true
+  tags = {
+          Owner = "dan-via-terraform"
+          Name  = "webserver-dmz"
+    }
+}
