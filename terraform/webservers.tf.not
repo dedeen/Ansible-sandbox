@@ -4,8 +4,8 @@ resource "aws_instance" "webserver-dmz" {
   ami                                 = "ami-094125af156557ca2"
   instance_type                       = "t2.micro"
   key_name                            = "bastion-keypair"
-  #key_name                            = "${aws_key_pair.generated_key.key_name}"
-  associate_public_ip_address         = true
+  #key_name                           = "${aws_key_pair.generated_key.key_name}"
+  associate_public_ip_address         = false
   private_ip                          = "10.100.2.20"
   subnet_id                           = module.vpc["secvpc"].intra_subnets[2]
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["secvpc"].id]  
