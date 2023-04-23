@@ -5,18 +5,26 @@ enable password password
 !
 interface management0/0
 management-only
-nameif management
-security-level 100
+nameif mgmt
+security-level 0
 ip address dhcp setroute
 no shutdown
 !
 interface TenGigabitEthernet0/0
-nameif ten00
+nameif public
+security-level 0
 ip address dhcp 
 no shutdown
 !
 interface TenGigabitEthernet0/1
-nameif ten01
+nameif private
+security-level 90
+ip address dhcp 
+no shutdown
+!
+interface TenGigabitEthernet0/2
+nameif dmz
+security-level 50
 ip address dhcp 
 no shutdown
 !
