@@ -5,7 +5,8 @@
 #       in that order. Creating 2nd eth interfaces for mgmt and public and hang an EIP on them for outside access
   
 locals {
-  asav_ami           = "ami-0e59c968be56bcc4d"  # BYOL AMI, ASAv version 9.19.1 
+  #asav_ami           = "ami-0e59c968be56bcc4d"  # BYOL AMI, ASAv version 9.19.1 
+  asav_ami           = "ami-094125af156557ca2"  # base aws linux for testing
   asav_inst_type     = "c5.xlarge"               # Cisco min recommendation
   }  
 
