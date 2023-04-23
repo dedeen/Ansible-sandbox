@@ -9,7 +9,7 @@ locals {
   }  
 
 resource "aws_instance" "ASAv-2" {
-  ami                                 = local.asav_ami
+  ami                                 = local.asav2_ami
   instance_type                       = local.asav_inst_type           
   #key_name                            = "${aws_key_pair.generated_key.key_name}"
   key_name                            = "bastion-keypair"
