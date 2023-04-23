@@ -18,7 +18,7 @@ resource "aws_instance" "ASAv-2" {
   subnet_id                           = module.vpc["secvpc"].intra_subnets[3]           #PA-VM mgmt submet
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["secvpc"].id]  
   source_dest_check                   = false
-  user_data = "${file("disk0-asav2")}"
+  #user_data = "${file("disk0-asav2")}"
   
   tags = {
           Owner = "dan-via-terraform"
