@@ -19,19 +19,19 @@ declare -a awssubnet
 declare -a awsrtnew
 
 originalrt[0]=Sec01-VPC-intra
-targetrt[0]=secvpc-mgmt-snets-RT
+targetrt[0]=RT-mgmt-subnet
 subnet[0]=sec-az1-mgmt
 #
 originalrt[1]=Sec01-VPC-intra
-targetrt[1]=secvpc-mgmt-snets-RT
+targetrt[1]=RT-dmz-subnet
 subnet[1]=sec-az1-dmz
 #
 originalrt[2]=Sec01-VPC-intra
-targetrt[2]=secvpc-mgmt-snets-RT
+targetrt[2]=RT-mgmt-subnet
 subnet[2]=sec-az1-pub
 #
 originalrt[3]=Sec01-VPC-intra
-targetrt[3]=secvpc-mgmt-snets-RT
+targetrt[3]=RT-private-subnet
 subnet[3]=sec-az1-priv
 #
 
