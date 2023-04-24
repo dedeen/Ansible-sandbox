@@ -5,8 +5,8 @@ enable password password
 !
 interface management0/0
 management-only
-nameif mgmt
-security-level 0
+nameif management
+security-level 100
 ip address dhcp setroute
 no shutdown
 !
