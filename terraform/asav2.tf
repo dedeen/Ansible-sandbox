@@ -5,12 +5,13 @@
   
 locals {
    asav2_ami           = "ami-0e59c968be56bcc4d"  # BYOL AMI, ASAv version 9.19.1 
-#  asav_inst_type     = "c5.xlarge"               # Cisco min recommendation
+   #asav2_ami          = "ami-094125af156557ca2"  # base aws linux for testing
+   asav2_inst_type     = "c5.xlarge"               # Cisco min recommendation
   }  
 
 resource "aws_instance" "ASAv-2" {
   ami                                 = local.asav2_ami
-  instance_type                       = local.asav_inst_type           
+  instance_type                       = local.asav2_inst_type           
   #key_name                            = "${aws_key_pair.generated_key.key_name}"
   key_name                            = "bastion-keypair"
   associate_public_ip_address         = false
@@ -18,7 +19,7 @@ resource "aws_instance" "ASAv-2" {
   subnet_id                           = module.vpc["secvpc"].intra_subnets[3]           #PA-VM mgmt submet
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["secvpc"].id]  
   source_dest_check                   = false
-  user_data = "${file("disk0-asav2")}"
+  user_data = "${file("day0-asav2")}"
   
   tags = {
           Owner = "dan-via-terraform"
