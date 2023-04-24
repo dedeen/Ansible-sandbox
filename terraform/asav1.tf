@@ -5,14 +5,14 @@
 #       in that order. Creating 2nd eth interfaces for mgmt and public and hang an EIP on them for outside access
   
 locals {
-  #asav_ami           = "ami-0e59c968be56bcc4d"  # BYOL AMI, ASAv version 9.19.1 
-  asav_ami           = "ami-094125af156557ca2"  # base aws linux for testing
-  asav_inst_type     = "c5.xlarge"               # Cisco min recommendation
+  asav1_ami           = "ami-0e59c968be56bcc4d"  # BYOL AMI, ASAv version 9.19.1 
+  #asav1_ami           = "ami-094125af156557ca2"  # base aws linux for testing
+  asav1_inst_type     = "c5.xlarge"               # Cisco min recommendation
   }  
 
 resource "aws_instance" "ASAv-1" {
-  ami                                 = local.asav_ami
-  instance_type                       = local.asav_inst_type           
+  ami                                 = local.asav1_ami
+  instance_type                       = local.asav1_inst_type           
   #key_name                            = "${aws_key_pair.generated_key.key_name}"
   key_name                            = "bastion-keypair"
   associate_public_ip_address         = false
@@ -20,7 +20,7 @@ resource "aws_instance" "ASAv-1" {
   subnet_id                           = module.vpc["secvpc"].intra_subnets[3]           #PA-VM mgmt submet
   vpc_security_group_ids              = [aws_security_group.SG-allow_ipv4["secvpc"].id]  
   source_dest_check                   = false
-  user_data = "${file("disk0-asav1")}"
+  user_data = "${file("day0-asav1")}"
   
   tags = {
           Owner = "dan-via-terraform"
