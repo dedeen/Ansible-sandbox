@@ -13,29 +13,3 @@ resource "aws_route_table" "RT-mgmt-subnet" {
   }
 }
 
-#  RT for private subnet/zone 
-resource "aws_route_table" "RT-private-subnet" {
-  vpc_id                = module.vpc["secvpc"].vpc_id 
-  route {                                                      
-    cidr_block          = "0.0.0.0/0"                          
-    network_interface_id  = aws_network_interface.eth1_2.id
-  }
-  tags = {
-    Owner = "dan-via-terraform"
-    Name  = "RT-private-subnet"
-  }
-}
-
-#  RT for dmz subnet/zone 
-resource "aws_route_table" "RT-dmz-subnet" {
-  vpc_id                = module.vpc["secvpc"].vpc_id 
-  route {                                                      
-    cidr_block          = "0.0.0.0/0"                          
-    network_interface_id  = aws_network_interface.eth1_3.id
-  }
-  tags = {
-    Owner = "dan-via-terraform"
-    Name  = "RT-dmz-subnet"
-  }
-}
-
