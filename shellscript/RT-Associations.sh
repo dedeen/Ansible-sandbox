@@ -22,17 +22,17 @@ originalrt[0]=Sec01-VPC-intra
 targetrt[0]=RT-mgmt-subnet
 subnet[0]=sec-az1-mgmt
 #
-originalrt[1]=Sec01-VPC-intra
-targetrt[1]=RT-dmz-subnet
-subnet[1]=sec-az1-dmz
+#originalrt[1]=Sec01-VPC-intra
+#targetrt[1]=RT-dmz-subnet
+#subnet[1]=sec-az1-dmz
 #
-originalrt[2]=Sec01-VPC-intra
-targetrt[2]=RT-mgmt-subnet
-subnet[2]=sec-az1-pub
+#originalrt[2]=Sec01-VPC-intra
+#targetrt[2]=RT-mgmt-subnet
+#subnet[2]=sec-az1-pub
 #
-originalrt[3]=Sec01-VPC-intra
-targetrt[3]=RT-private-subnet
-subnet[3]=sec-az1-priv
+#originalrt[3]=Sec01-VPC-intra
+#targetrt[3]=RT-private-subnet
+#subnet[3]=sec-az1-priv
 #
 
 
